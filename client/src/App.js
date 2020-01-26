@@ -1,19 +1,44 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import NavBar from './components/header/navbar/Navbar';
+import Footer from "./components/footer/Footer";
+import UserProfile from './pages/Profile';
+import Main from './pages/Main';
+import UserRanking from './pages/Ranking';
+import UserLogin from './pages/Login';
+import UserLogout from './pages/Logout';
+import UserSettings from './pages/Settings';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route exact path="/profile">
+            <UserProfile />
+          </Route>
+          <Route exact path="/ranking">
+            <UserRanking />
+          </Route>
+          <Route exact path="/login">
+            <UserLogin />
+          </Route>
+          <Route exact path="/logout">
+            <UserLogout />
+          </Route>
+          <Route exact path="/settings">
+            <UserSettings />
+          </Route>
+          <Route exact path="/">
+            <Main />
+          </Route>
+        </Switch>
+        <Footer />
+      </Router>
+
     );
   }
 }
