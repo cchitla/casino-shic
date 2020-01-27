@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import history from "./utils/history";
 import NavBar from './components/header/navbar/Navbar';
 import Footer from "./components/footer/Footer";
 import UserProfile from './pages/Profile';
@@ -14,7 +15,7 @@ import UserSettings from './pages/Settings';
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <NavBar />
         <Switch>
           <Route exact path="/profile">
