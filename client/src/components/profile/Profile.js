@@ -3,7 +3,11 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useAuth0 } from '../auth/auth0/Auth0';
 
 const Profile = (props) => {
-  const { loading, user } = useAuth0();
+  const { loading, user, isAuthenticated, loginWithRedirect, } = useAuth0();
+
+  if (!isAuthenticated) {
+    loginWithRedirect({})
+  };
 
   if (loading || !user) {
     return <div>Loading...</div>;
