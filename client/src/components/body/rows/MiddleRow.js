@@ -7,8 +7,8 @@ const MiddleRow = () => {
     <Row className="text-center">
       <Col className="m-2"><Image src="http://placekitten.com/600/300" fluid rounded ></Image></Col>
       <Col className="m-2 p-3">
-        <div class="neon">Casino</div>
-        <div class="shic">S.H.I.C</div>
+        <div className="neon">Casino</div>
+        <div className="shic">S.H.I.C</div>
       </Col>
       <Col className="m-2"><Image src="http://placekitten.com/600/300" fluid rounded ></Image></Col>
     </Row>

@@ -20,16 +20,16 @@ const NavBar = (props) => {
             </Nav>
             <Nav>
               {!isAuthenticated ? 
-                <Link className="nav-link" onClick={() => loginWithRedirect({})}> Login </Link> 
-                : <Link className="nav-link" onClick={() => logout()}> Logout </Link>}
+                <Link to="" className="nav-link" onClick={() => loginWithRedirect({})}> Login </Link> 
+                : <Link to="" className="nav-link" onClick={() => logout()}> Logout </Link>}
               
 
               <NavDropdown title="Profile" id="collasible-nav-dropdown">
-                <NavDropdown.Item><NavLink to="/settings" className="dropdown-item">Settings</NavLink></NavDropdown.Item>
-                <NavDropdown.Item><NavLink to="/profile" className="dropdown-item">Profile</NavLink></NavDropdown.Item>
-                <NavDropdown.Item><NavLink to="/friends" className="dropdown-item">Friends Online</NavLink></NavDropdown.Item>
+                <NavDropdown.Item href="/settings" className="dropdown-item">Settings</NavDropdown.Item>
+                <NavDropdown.Item href="/profile" className="dropdown-item">Profile</NavDropdown.Item>
+                <NavDropdown.Item href="/friends" className="dropdown-item">Friends Online</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item><NavLink to="/logout" className="dropdown-item">Log Out</NavLink></NavDropdown.Item>
+                <NavDropdown.Item href="/logout" className="dropdown-item">Log Out</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

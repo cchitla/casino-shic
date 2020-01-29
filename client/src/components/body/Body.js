@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import TopRow from './rows/TopRow';
 import MiddleRow from './rows/MiddleRow';
 import BottomRow from './rows/BottomRow';
