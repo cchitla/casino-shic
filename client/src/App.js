@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import history from "./utils/history";
 import NavBar from './components/header/navbar/Navbar';
 import Footer from "./components/footer/Footer";
