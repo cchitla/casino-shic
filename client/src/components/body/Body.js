@@ -17,7 +17,7 @@ const Body = () => {
 
   return (
     <Container className="pt-3">
-        {isAuthenticated ? <p>Welcome, {user.name} </p> : ""}
+       {/*  {isAuthenticated ? <p>Welcome, {user.name} </p> : ""} */}
         <TopRow />
         <MiddleRow />
         <BottomRow />
