@@ -1,3 +1,7 @@
 .navbar-brand {
   font-family: "Kaushan Script", "corsive";
 }
+
+.navbar-text p {
+  margin: 0!important;
+}

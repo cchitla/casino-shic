@@ -5,8 +5,10 @@ import { NavLink, Link } from "react-router-dom";
 import { useAuth0 } from "../../auth/auth0/Auth0";
 
 const NavBar = (props) => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-
+  const { isAuthenticated, loginWithRedirect, logout, loading, user } = useAuth0();
+  if (loading) {
+    return <div></div>;
+  }
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
@@ -18,12 +20,16 @@ const NavBar = (props) => {
               <NavLink to="/" className="nav-link">Games</NavLink>
               <NavLink to="/ranking" className="nav-link">Ranking</NavLink>
             </Nav>
+            
+            
+            
             <Nav>
+            <Navbar.Text className="mr-4">{isAuthenticated ? <p>Welcome, {user.name} </p> : ""}</Navbar.Text>
               {!isAuthenticated ?
                 <Link to="" className="nav-link" onClick={() => loginWithRedirect({})}> Login </Link>
                 :
                 // render dropwdown menu if user is logged in
-                <NavDropdown title="Profile" id="collasible-nav-dropdown">
+                <NavDropdown title="Profile" id="collasible-nav-dropdown" >
                   <NavLink to="/settings" className="dropdown-item">Settings</NavLink>
                   <NavLink to="/profile" className="dropdown-item">Profile</NavLink>
                   <NavLink to="/friends" className="dropdown-item">Friends Online</NavLink>
