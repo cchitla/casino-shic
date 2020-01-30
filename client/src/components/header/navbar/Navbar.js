@@ -19,18 +19,18 @@ const NavBar = (props) => {
               <NavLink to="/ranking" className="nav-link">Ranking</NavLink>
             </Nav>
             <Nav>
-              {!isAuthenticated ? 
-                <Link to="" className="nav-link" onClick={() => loginWithRedirect({})}> Login </Link> 
-                : <Link to="" className="nav-link" onClick={() => logout()}> Logout </Link>}
-              
-
-              <NavDropdown title="Profile" id="collasible-nav-dropdown">
-                <NavLink to="/settings" className="dropdown-item">Settings</NavLink>
-                <NavLink to="/profile" className="dropdown-item">Profile</NavLink>
-                <NavLink to="/friends" className="dropdown-item">Friends Online</NavLink>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="/logout" className="dropdown-item">Log Out</NavDropdown.Item>
-              </NavDropdown>
+              {!isAuthenticated ?
+                <Link to="" className="nav-link" onClick={() => loginWithRedirect({})}> Login </Link>
+                :
+                // render dropwdown menu if user is logged in
+                <NavDropdown title="Profile" id="collasible-nav-dropdown">
+                  <NavLink to="/settings" className="dropdown-item">Settings</NavLink>
+                  <NavLink to="/profile" className="dropdown-item">Profile</NavLink>
+                  <NavLink to="/friends" className="dropdown-item">Friends Online</NavLink>
+                  <NavDropdown.Divider />
+                  <Link to="" className="dropdown-item" onClick={() => logout()}> Logout </Link>
+                </NavDropdown>
+              }
             </Nav>
           </Navbar.Collapse>
         </Container>
