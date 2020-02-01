@@ -13,18 +13,19 @@ const NavBar = (props) => {
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top" className="shic-nav blink">
         <Container>
-          <NavLink to="/" className="navbar-brand"><Image src="/resources/shic_logo.png" alt="Casino S.H.I.C." ></Image></NavLink>
+          <NavLink to="/" className="navbar-brand">
+            <Image src="/resources/shic_logo2.png" alt="Casino S.H.I.C." ></Image></NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
               <NavLink to="/" className="nav-link">Games</NavLink>
               <NavLink to="/ranking" className="nav-link">Ranking</NavLink>
             </Nav>
-            
-            
-            
+
+
+
             <Nav>
-            <Navbar.Text className="mr-4">{isAuthenticated ? <p>Welcome, {user.name} </p> : ""}</Navbar.Text>
+              <Navbar.Text className="mr-4">{isAuthenticated ? <p>Welcome, {user.name} </p> : ""}</Navbar.Text>
               {!isAuthenticated ?
                 <Link to="" className="nav-link" onClick={() => loginWithRedirect({})}> Login </Link>
                 :
