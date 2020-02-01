@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const blackJackChatSchema = new Schema({
+const chatSchema = new Schema({
+    roomName: {
+        type: String,
+        required: true
+    },
     user: {
         type: String,
         required: true
@@ -18,6 +22,6 @@ const blackJackChatSchema = new Schema({
     }
 });
 
-const BlackJackChat = mongoose.model("BlackJackChat", blackJackChatSchema);
+const Chat = mongoose.model("Chat", chatSchema);
 
-module.exports = BlackJackChat;
+module.exports = Chat;
