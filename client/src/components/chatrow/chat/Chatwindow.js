@@ -8,7 +8,7 @@ const ChatWindow = () => {
     <div className="chat-wrapper">
       <div className="chat-messages"></div>
       <div className="justify-content-between">
-        <input type="text" className="chat-inpunt"/>
+        <input type="text" className="chat-input"/>
         <button className="chat-submit">Send</button>
       </div>
       
