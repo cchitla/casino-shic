@@ -1,9 +1,7 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import TopRow from './rows/TopRow';
-import MiddleRow from './rows/MiddleRow';
 import BottomRow from './rows/BottomRow';
-
 import { useAuth0 } from "../auth/auth0/Auth0";
 
 const Body = () => {
@@ -16,11 +14,13 @@ const Body = () => {
   }
 
   return (
-    <Container className="pt-3">
-       {/*  {isAuthenticated ? <p>Welcome, {user.name} </p> : ""} */}
-        <TopRow />
-        <MiddleRow />
-        <BottomRow />
+    <Container>
+      <Row className="py-2 my-2">
+        <Col>
+          <TopRow />
+          <BottomRow />
+        </Col>
+      </Row>
     </Container>
   );
 };

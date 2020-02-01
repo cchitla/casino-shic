@@ -1,16 +1,21 @@
 import React from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
+import ChatWindow from '../../chatrow/chat/Chatwindow';
+import ChatRoom from '../../chatrow/chatrooms/Chatrooms';
+import Friends from '../../chatrow/friends/Friends';
 
 const BottomRow = () => {
   return (
-    <Row className="text-center">
-      <Col className="p-2 bg-light text-primary" style={{ minHeight: "200px" }} sm={8}>
-        Huge chat window
+    <Row className="text-center pt-5">
+      <Col className="p-2" sm={6}>
+        <ChatWindow />
       </Col>
-      <Col className="p-2 bg-secondary text-light" style={{ minHeight: "200px" }} sm={4}>
-        Friends List
+      <Col className="p-2" sm={3}>
+        <ChatRoom />
       </Col>
-
+      <Col className="p-2" sm={3}>
+        <Friends />
+      </Col>
     </Row>
   );
 };

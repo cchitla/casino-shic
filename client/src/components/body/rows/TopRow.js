@@ -1,13 +1,14 @@
 import React from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
+import './RowStyles.css';
 
 const TopRow = () => {
   return (
-    <Row className="text-center my-2">
-      <Col>
-        <div className="neon">Casino</div>
-        <div className="shic">S.H.I.C</div>
-      </Col>
+    <Row className="text-center m-0 justify-content-center pt-5">
+      <Col sm={3}><Image src="/resources/craps_logo.png" fluid  ></Image></Col>
+      <Col sm={3}><Image src="/resources/roulette_logo.png" fluid  ></Image></Col>
+      <Col sm={3}><Image src="/resources/slots_logo.png" fluid  ></Image></Col>
+      <Col sm={3}><Image src="/resources/blackjack_logo.png" fluid  ></Image></Col>
     </Row>
   );
 };
