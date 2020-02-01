@@ -1,11 +1,11 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import TopRow from './rows/TopRow';
-// import MiddleRow from './rows/MiddleRow';
 import LobbyChat from '../chat/LobbyChat';
 
 
 import { useAuth0 } from "../auth/auth0/Auth0";
+import BottomRow from './rows/BottomRow';
 
 const Body = () => {
   const { isAuthenticated, loading, user } = useAuth0();
@@ -18,8 +18,7 @@ const Body = () => {
 
     <Container className="pt-3">
         <TopRow />
-        {/* <MiddleRow /> */}
-        {isAuthenticated ? <LobbyChat /> : null}
+        {isAuthenticated ? /*<LobbyChat />*/  <BottomRow /> : null}
     </Container>
   );
 };
