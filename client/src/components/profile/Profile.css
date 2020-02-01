@@ -1,3 +1,83 @@
 .list-group-item {
   color: black!important;
 }
+
+.title {
+  font-family: 'Coda', cursive;
+  font-weight: bold;
+  color: #f1c876;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.divider {
+  position: relative;
+  border-top-width: 1px;
+  margin: 0 0 20px 0;
+  text-align: center;
+  left: auto;
+  right: auto;
+  height: 1px;
+  background-image: linear-gradient(to right, transparent, #b0762b, #dcb44a, transparent); 
+}
+
+.diamond-icon {
+  position: absolute;
+  top: -11px;
+  width: 34px;
+  height: 24px;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: left;
+  font-style: normal; 
+  color: #db1f27;
+  background-color: #280102;
+}
+
+.img-thumbnail {
+  padding: .25rem;
+  background-color: #dcb44a;
+  border: 1px solid #b0762b;
+  border-radius: .25rem;
+  max-width: 100%;
+  height: auto;
+}
+
+.profile-cols {
+  color: #f1c876!important;
+}
+
+.profile-cols .card-footer {
+  padding: .75rem 1.25rem;
+  background-color: transparent!important;
+  border-top: 0!important;
+}
+
+.profile-cols {
+padding-top:2px;
+}
+
+
+.card-group .card {
+  background: transparent!important;
+  }
+
+.profile-cols .card-header {
+  padding:0!important;
+  margin:0!important;
+  background: transparent;
+}
+
+.profile-caths {
+  font-family: 'Coda', cursive;
+  font-weight: 400;
+  color: #f1c876;
+  padding: 2px;
+}
+
+.small-divider {
+  border-top-width: 1px;
+  margin: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, #b0762b, #dcb44a, transparent); 
+}

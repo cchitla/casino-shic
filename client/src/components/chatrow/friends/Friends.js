@@ -7,7 +7,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 const Friends = () => {
   return (
     <Card>
-      <Card.Header>Rooms</Card.Header>
+      <Card.Header>Friends</Card.Header>
       <Scrollbars style={{ height: 275, backgroundColor: "#f1c876" }}>
       <Card.Body>
         <ul className="list-unstyled chat-list">
