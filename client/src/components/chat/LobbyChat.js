@@ -16,12 +16,18 @@ const LobbyChat = () => {
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState("");
 
-  const ENDPOINT = "localhost:3001";
-
   const room = "Lobby"
 
   //this useEffect only handles new connections
   useEffect(() => {
+    const ENDPOINT = window.location.href;
+    const Url = window.location.hostname;
+    console.log(Url);
+
+    if (URL === "localhost") {
+      ENDPOINT = "localhost:3001";
+    };
+    console.log(ENDPOINT);
     socket = io(ENDPOINT);
 
     setName(user.name);
