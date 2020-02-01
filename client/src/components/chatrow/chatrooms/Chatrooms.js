@@ -1,6 +1,6 @@
 import React from 'react';
 import './Chatrooms.css';
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 //calling this from body/BottomRows.js

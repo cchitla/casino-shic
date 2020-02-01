@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useAuth0 } from "../auth/auth0/Auth0";
 import io from 'socket.io-client';
+import './Chat.css';
 
 import Messages from './Messages/Messages';
 import Input from './Input/Input';
+import OnlineUsers from './OnlineUsers/OnlineUsers';
 
 let socket;
 
@@ -62,19 +64,17 @@ const LobbyChat = () => {
 
   if (loading) {
     return <div></div>;
-  } 
-
+  };
 
   return (
-    <Row className="text-center">
-      <Col className="p-2 bg-light text-primary" style={{ minHeight: "200px" }} sm={8}>
+    <Row className="chat-wrapper pt-5">
+      <Col className="p-0 pr-1" style={{ minHeight: "200px" }} sm={8}>
         <Messages messages={messages} name={name} />
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </Col>
-      <Col className="p-2 bg-secondary text-light" style={{ minHeight: "200px" }} sm={4}>
-        Friends List
+      <Col className="p-0 pl-1" style={{ minHeight: "200px" }} sm={4}>
+        <OnlineUsers connectedUsers={connectedUsers} />
       </Col>
-
     </Row>
   );
 };
