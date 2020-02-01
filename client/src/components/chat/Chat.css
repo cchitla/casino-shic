@@ -5,9 +5,11 @@
   border-right: 3px solid;
   border-image-source: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
   border-image-slice: 1;
+  border-radius: 5px;
   min-height: 175px;
   height: 175px;
   max-height: 175px;
+  color: white;
 }
 .chat-input {
   padding: 4px;
@@ -15,6 +17,7 @@
   border-image-source: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
   border-image-slice: 1;
   width: 75%;
+  color: white;
 }
 .chat-submit {
   padding: 4px;
