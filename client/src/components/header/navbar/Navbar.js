@@ -1,6 +1,6 @@
 import React from 'react';
 import './Navbar.css';
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Container, Nav, Navbar, NavDropdown, Image } from 'react-bootstrap';
 import { NavLink, Link } from "react-router-dom";
 import { useAuth0 } from "../../auth/auth0/Auth0";
 
@@ -11,9 +11,9 @@ const NavBar = (props) => {
   }
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top" className="shic-nav blink">
         <Container>
-          <NavLink to="/" className="navbar-brand">Casino S.H.I.C</NavLink>
+          <NavLink to="/" className="navbar-brand"><Image src="/resources/shic_logo.png" alt="Casino S.H.I.C." ></Image></NavLink>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">

@@ -1,0 +1,32 @@
+.chat-messages {
+  background-color: #121212;
+  border-top: 3px solid;
+  border-left: 3px solid;
+  border-right: 3px solid;
+  border-image-source: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
+  border-image-slice: 1;
+  min-height: 175px;
+  height: 175px;
+  max-height: 175px;
+}
+.chat-inpunt {
+  padding: 4px;
+  background-color: #212121;
+  border-image-source: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
+  border-image-slice: 1;
+  width: 75%;
+}
+.chat-submit {
+  padding: 4px;
+  background: linear-gradient(to bottom , #b0762b, #dcb44a);
+  border-image-source: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
+  border-image-slice: 1;
+  width: 25%;
+}
+.chat-submit:hover {
+  padding: 4px;
+  background: linear-gradient(to bottom , #dcb44a, #b0762b);
+  border-image-source: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
+  border-image-slice: 1;
+  width: 25%;
+}
