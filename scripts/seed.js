@@ -86,144 +86,27 @@ const userSeed = [
     }
 ];
 
-const genChat = [
+const chatSeed = [
     {
+        roomName: "General Chat",
         user: "testUN",
         author: "testUN",
-        message: "hello",
-        date: new Date(Date.now())
+        message: "testing new db",
+        createdDate: new Date(Date.now())
     },
     {
+        roomName: "General Chat",
         user: "helloUN",
         author: "helloUN",
-        message: "what's up",
-        date: new Date(Date.now())
+        message: "will this work",
+        createdDate: new Date(Date.now())
     },
     {
+        roomName: "General Chat",
         user: "testUN",
         author: "testUN",
-        message: "not much",
-        date: new Date(Date.now())
-    }
-];
-
-const blackJackChat = [
-    {
-        user: "testUN",
-        author: "testUN",
-        message: "hello",
-        date: new Date(Date.now())
-    },
-    {
-        user: "helloUN",
-        author: "helloUN",
-        message: "what's up",
-        date: new Date(Date.now())
-    },
-    {
-        user: "testUN",
-        author: "testUN",
-        message: "not much",
-        date: new Date(Date.now())
-    },
-    {
-        user: "helloUN",
-        author: "helloUN",
-        message: "dude i keep losing",
-        date: new Date(Date.now())
-    },
-    {
-        user: "testUN",
-        author: "testUN",
-        message: "guess you're unlucky",
-        date: new Date(Date.now())
-    }
-];
-
-const crapsChat = [
-    {
-        user: "testUN",
-        author: "testUN",
-        message: "hello",
-        date: new Date(Date.now())
-    },
-    {
-        user: "helloUN",
-        author: "helloUN",
-        message: "what's up",
-        date: new Date(Date.now())
-    },
-    {
-        user: "testUN",
-        author: "testUN",
-        message: "not much how about you",
-        date: new Date(Date.now())
-    },
-    {
-        user: "helloUN",
-        author: "helloUN",
-        message: "wishing i was at a real casino",
-        date: new Date(Date.now())
-    },
-    {
-        user: "testUN",
-        author: "testUN",
-        message: "i'm going to vicksburg this weekend! this game is good practice",
-        date: new Date(Date.now())
-    },
-    {
-        user: "helloUN",
-        author: "helloUN",
-        message: "hmu i'll come with!",
-        date: new Date(Date.now())
-    },
-    {
-        user: "testUN",
-        author: "testUN",
-        message: "sure!",
-        date: new Date(Date.now())
-    }
-];
-
-const rouletteChat = [
-    {
-        user: "testUN",
-        author: "testUN",
-        message: "hello",
-        date: new Date(Date.now())
-    },
-    {
-        user: "helloUN",
-        author: "helloUN",
-        message: "what's up",
-        date: new Date(Date.now())
-    },
-    {
-        user: "testUN",
-        author: "testUN",
-        message: "bye",
-        date: new Date(Date.now())
-    }
-];
-
-const slotsChat = [
-    {
-        user: "testUN",
-        author: "testUN",
-        message: "hello",
-        date: new Date(Date.now())
-    },
-    {
-        user: "helloUN",
-        author: "helloUN",
-        message: "sdifsidf",
-        date: new Date(Date.now())
-    },
-    {
-        user: "testUN",
-        author: "testUN",
-        message: "ertyuiop",
-        date: new Date(Date.now())
+        message: "let's see",
+        createdDate: new Date(Date.now())
     }
 ];
 
@@ -239,59 +122,11 @@ db.User
         process.exit(1);
     });
 
-db.GenChat
+db.Chat
     .remove({})
-    .then(() => db.GenChat.collection.insertMany(genChat))
+    .then(() => db.Chat.collection.insertMany(chatSeed))
     .then(data => {
-        console.log(`${data.result.n} General Chat records inserted!`);
-        process.exit(0);
-    })
-    .catch(err => {
-        console.error(err);
-        process.exit(1);
-    });
-
-db.BlackJackChat
-    .remove({})
-    .then(() => db.BlackJackChat.collection.insertMany(blackJackChat))
-    .then(data => {
-        console.log(`${data.result.n} Black Jack Chat records inserted!`);
-        process.exit(0);
-    })
-    .catch(err => {
-        console.error(err);
-        process.exit(1);
-    });
-
-db.CrapsChat
-    .remove({})
-    .then(() => db.CrapsChat.collection.insertMany(crapsChat))
-    .then(data => {
-        console.log(`${data.result.n} Craps Chat records inserted!`);
-        process.exit(0);
-    })
-    .catch(err => {
-        console.error(err);
-        process.exit(1);
-    });
-
-db.RouletteChat
-    .remove({})
-    .then(() => db.RouletteChat.collection.insertMany(rouletteChat))
-    .then(data => {
-        console.log(`${data.result.n} Roulette Chat records inserted!`);
-        process.exit(0);
-    })
-    .catch(err => {
-        console.error(err);
-        process.exit(1);
-    });
-
-db.SlotsChat
-    .remove({})
-    .then(() => db.SlotsChat.collection.insertMany(slotsChat))
-    .then(data => {
-        console.log(`${data.result.n} Slots Chat records inserted!`);
+        console.log(`${data.result.n} Chat records inserted!`);
         process.exit(0);
     })
     .catch(err => {
