@@ -16,12 +16,18 @@ const LobbyChat = () => {
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState("");
 
-  const room = "Lobby";
+  let socketPath = window.location.pathname.slice(7);
+  let room = "Lobby";
+  if (socketPath !== ""){
+    room = socketPath;
+  };
+  console.log("room = ", room);
+  
 
   //this useEffect only handles new connections
   useEffect(() => {
-    const ENDPOINT = "https://casino-shic.herokuapp.com/";
-    const URL = window.location.hostname;
+    let ENDPOINT = "https://casino-shic.herokuapp.com/";
+    let URL = window.location.hostname;
 
     if (URL === "localhost") {
       ENDPOINT = "localhost:3001";
@@ -29,6 +35,7 @@ const LobbyChat = () => {
     socket = io(ENDPOINT);
 
     setName(user.name);
+    console.log(user);
 
     // return replaces component unmount
     return () => {
