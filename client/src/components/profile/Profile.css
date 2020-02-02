@@ -13,13 +13,23 @@
 .divider {
   position: relative;
   border-top-width: 1px;
+
   margin: 0 0 20px 0;
   text-align: center;
   left: auto;
   right: auto;
-  height: 1px;
-  background-image: linear-gradient(to right, transparent, #b0762b, #dcb44a, transparent); 
+  
 }
+
+.divider-center {
+  text-align: center; 
+}
+
+.divider-linear-gradient {
+  height: 1px;
+  border: none;
+  background-image: linear-gradient(to right, transparent, #b0762b, #dcb44a, transparent);
+ }
 
 .diamond-icon {
   position: absolute;
@@ -31,8 +41,13 @@
   text-align: left;
   font-style: normal; 
   color: #db1f27;
-  background-color: #280102;
+  background-color: #280102; 
 }
+
+.divider-center .diamond-icon {
+  left: auto;
+  right: auto;
+  margin-left: -1.42857rem; }
 
 .img-thumbnail {
   padding: .25rem;
@@ -57,9 +72,9 @@
 padding-top:2px;
 }
 
-
 .card-group .card {
   background: transparent!important;
+  height: auto!important;
   }
 
 .profile-cols .card-header {
@@ -73,11 +88,12 @@ padding-top:2px;
   font-weight: 400;
   color: #f1c876;
   padding: 2px;
+  text-align: center;
 }
 
 .small-divider {
   border-top-width: 1px;
   margin: 0;
   height: 1px;
-  background-image: linear-gradient(to right, #b0762b, #dcb44a, transparent); 
+  background-image: linear-gradient(to right, transparent, #b0762b, #dcb44a, transparent); 
 }
