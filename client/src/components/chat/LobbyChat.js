@@ -35,15 +35,24 @@ const LobbyChat = () => {
     socket = io(ENDPOINT);
 
     setName(user.name);
-    console.log(user);
 
-    // return replaces component unmount
-    return () => {
-      socket.emit("disconnect");
-      socket.off();
-    };
+    // return replaces component will unmount
+    return disconnectUser();
+    // return () => {
+    //   socket.emit("disconnect");
+    //   socket.off();
+    // };
 
   }, []);
+
+  const disconnectUser = () => {
+    if (name) {
+    socket.emit("disconnect");
+    console.log("emitted disconnect message");
+    socket.off();
+    console.log("turned socket off");
+    }
+  }
 
   useEffect(() => {
     if (name) {

@@ -20,6 +20,7 @@ const removeUser = (id) => {
   // find user in users array
   const index = users.findIndex((user) => user.id === id);
   // if user is found, remove from array at the index id was found at
+  console.log("removing user")
   if (index !== -1) return users.splice(index, 1)[0];
 };
 
