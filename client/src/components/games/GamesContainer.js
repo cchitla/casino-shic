@@ -6,9 +6,10 @@ import Blackjack from './blackjack/Blackjack';
 import Slots from './slots/Slots';
 import Roulette from './roulette/Roulette';
 
-const GamesContainer = () => {
+const GamesContainer = (props) => {
   let path = window.location.pathname.slice(7);
   console.log(path);
+  
 
   const renderGame = (path) => {
     switch (path) {
