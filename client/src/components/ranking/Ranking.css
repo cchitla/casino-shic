@@ -1,0 +1,101 @@
+.list-group-item {
+  color: black!important;
+}
+
+.title {
+  font-family: 'Coda', cursive;
+  font-weight: bold;
+  color: #f1c876;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.divider {
+  position: relative;
+  border-top-width: 1px;
+
+  margin: 0 0 20px 0;
+  text-align: center;
+  left: auto;
+  right: auto;
+  
+}
+
+.divider-center {
+  text-align: center; 
+}
+
+.divider-linear-gradient {
+  height: 1px;
+  border: none;
+  background-image: linear-gradient(to right, transparent, #b0762b, #dcb44a, transparent);
+ }
+
+.diamond-icon {
+  position: absolute;
+  top: -11px;
+  width: 34px;
+  height: 24px;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: left;
+  font-style: normal; 
+  color: #db1f27;
+  background-color: #280102; 
+}
+
+.divider-center .diamond-icon {
+  left: auto;
+  right: auto;
+  margin-left: -1.42857rem; }
+
+.img-thumbnail {
+  padding: .25rem;
+  background-color: #dcb44a;
+  border: 1px solid #b0762b;
+  border-radius: .25rem;
+  max-width: 100%;
+  height: auto;
+}
+
+.ranking-cols {
+  color: #f1c876!important;
+}
+
+.ranking-cols .card-footer {
+  padding: .75rem 1.25rem;
+  background-color: transparent!important;
+  border-top: 0!important;
+  color: #f1c876!important;
+  text-align: center;
+}
+
+.ranking-cols {
+padding-top:2px;
+}
+
+.card-group .card {
+  background: transparent!important;
+  height: auto!important;
+  }
+
+.ranking-cols .card-header {
+  padding:0!important;
+  margin:0!important;
+  background: transparent;
+}
+
+.ranking-caths {
+  font-family: 'Coda', cursive;
+  font-weight: 400;
+  color: #f1c876;
+  padding: 2px;
+  text-align: center;
+}
+
+.small-divider {
+  border-top-width: 1px;
+  margin: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, transparent, #b0762b, #dcb44a, transparent); 
+}

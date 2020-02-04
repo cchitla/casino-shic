@@ -31,7 +31,7 @@ const NavBar = (props) => {
                 :
                 // render dropwdown menu if user is logged in
                 <NavDropdown title="Profile" id="collasible-nav-dropdown" >
-                  <NavLink to="/settings" className="dropdown-item">Settings</NavLink>
+                  <NavLink to="/settings" className="dropdown-item">Ranking</NavLink>
                   <NavLink to="/profile" className="dropdown-item">Profile</NavLink>
                   <NavLink to="/friends" className="dropdown-item">Friends Online</NavLink>
                   <NavDropdown.Divider />

@@ -1,10 +1,9 @@
+require('dotenv').config();
 const express = require("express");
 const mongoose = require('mongoose');
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/casinoShickDB";
 const routes = require('./routes');
 const socketio = require('socket.io');
-
-
 
 const PORT = process.env.PORT || 3001;
 const app = express();

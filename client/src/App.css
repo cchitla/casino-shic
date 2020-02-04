@@ -48,8 +48,7 @@ body {
 
 .custom-btn {
   background: linear-gradient(to bottom , #b0762b, #dcb44a)!important;
-  border-image-source: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b)!important;
-  border-image-slice: 1!important;
+  
   border: 1px solid #f1c876!important;
   color: #121212!important;
   font-weight: 500!important;
@@ -72,4 +71,11 @@ body {
   color: cornsilk;
 }
 
+.bg-blackish {
+  background-color: #121212!important;
+}
+
+.border-gold {
+  border: 1px solid #dcb44a;
+}
 

@@ -20,6 +20,9 @@ const userSchema = new Schema({
     gender: {
         type: String
     },
+    avatar: {
+        type: String
+    },
     wins: {
         blackJack: {
             wins: { type: Number },

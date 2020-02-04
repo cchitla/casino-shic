@@ -1,11 +1,11 @@
 import React from 'react';
-import { Container, Row, Col, ListGroup, Card, CardGroup, Image, Table } from 'react-bootstrap';
+import { Container, Row, Col, Card, CardGroup, Table } from 'react-bootstrap';
 import './Profile.css';
 import { useAuth0 } from '../auth/auth0/Auth0';
 import { GiDiamonds } from 'react-icons/gi';
 
 const Settings = (props) => {
-  const { loading, user, isAuthenticated } = useAuth0();
+  const { loading, user } = useAuth0();
 
   if (loading || !user) {
     return <div>Loading...</div>;

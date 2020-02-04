@@ -2,13 +2,16 @@
   height: 90px;
   max-height: 90px;
 }
+
 .navbar-brand {
   padding-top: 0!important;
   padding-bottom: 0!important;
 }
+
 .navbar-brand img {
   max-height: 70px;
 }
+
 .navbar-dark .navbar-nav .nav-link {
   color: #f1c876!important;
   text-transform: uppercase!important;
@@ -16,9 +19,11 @@
   font-size: 1.4rem;
   line-height: 90px;
 }
+
 .active {
   font-weight: bold;
 }
+
 .navbar-text p {
   color: #f1c876;
   margin: 0!important;
@@ -26,6 +31,7 @@
   text-transform: uppercase!important;
   line-height: 90px;
 }
+
 .shic-nav {
 background: #000000!important;
 border-bottom: 6px solid;
@@ -53,12 +59,19 @@ box-shadow: 2px 2px 20px 10px #00000050;
   border: 2px solid #220100;
   border-radius: .25rem;
 }
+
 .dropdown-menu a {
   color: #f1c876!important;
 }
-.dropdown-item:focus, .dropdown-item:hover {
+
+.dropdown-item:focus, .dropdown-item:hover, .dropdown-item.active, .dropdown-item:active {
   background: #400102;
 }
+
 .dropdown-divider {
   border-top: 1px solid #f1c876;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
 }

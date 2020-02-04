@@ -1,8 +1,9 @@
 import React from 'react';
-import { Container, Row, Col, ListGroup, Card, CardGroup, Image } from 'react-bootstrap';
+import { Container, Row, Col, Card, CardGroup, Image } from 'react-bootstrap';
 import './Profile.css';
 import { useAuth0 } from '../auth/auth0/Auth0';
 import { GiDiamonds } from 'react-icons/gi';
+import AvatarUpload from '../imgupload/Imageupload';
 
 
 const Profile = (props) => {
@@ -43,9 +44,8 @@ const Profile = (props) => {
                     <Image thumbnail src={user.picture} alt={user.given_name} />
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer className="text-muted">
-                  <input type="file" id="file-input" className="form-control-file"/>
-                </Card.Footer>
+                <AvatarUpload />
+                
               </Card>
               <Card className="profile-cols">
                 <Card.Header><h5 className="profile-caths">Profile</h5></Card.Header>
@@ -60,7 +60,7 @@ const Profile = (props) => {
                     </ul>
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer className="text-muted"><button className="custom-btn  btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
+                <Card.Footer className="text-muted"><button className="custom-btn btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
               </Card>
               <Card className="profile-cols">
                 <Card.Header><h5 className="profile-caths">Interests</h5></Card.Header>
