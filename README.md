@@ -1,29 +1,36 @@
-# Create React Express App
+## Casino S.H.I.C. *"Chic"*
+##### Created by **S**aul, **H**annah, **I**rina, and **C**hris
+##### Hosted at [Heroku](https://casino-shic.herokuapp.com)
+![alt text][games_background]
 
-## About This Boilerplate
+### Chat
+Instant message chat is available on the lobby page and each game page to chat with other users present in the same room. 
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+### Blackjack
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+### Craps
 
-## Starting the app locally
+### Roulette
 
-Start by installing front and backend dependencies. While in this directory, run the following command:
+### Slots
 
+### Profile
+User information. Users can upload their own custom avatar. 
+
+### Ranking
+Stats to track users wins and losses and see how they compare against other players.
+
+
+
+# Install
+* Available at localhost:3000
+* Image upload functionality provided by Amazon AWS S3, Amazon AWS Access Key and Secret Keys along with a bucket titled "casino-chic" is required to use image upload locally.
+
+```sh
+$ git clone
+$ cd casino-chic
+$ npm install
+$ npm start
 ```
-npm install
-```
 
-This should install node modules within the server and the client folder.
-
-After both installations complete, run the following command in your terminal:
-
-```
-npm start
-```
-
-Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
-
-## Deployment (Heroku)
-
-To deploy, simply add and commit your changes, and push to Heroku. As is, the NPM scripts should take care of the rest.
+[games_background]:https://raw.githubusercontent.com/cchitla/casino-shic/master/client/public/resources/games_background.png
