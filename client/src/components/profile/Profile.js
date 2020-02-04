@@ -43,7 +43,9 @@ const Profile = (props) => {
                     <Image thumbnail src={user.picture} alt={user.given_name} />
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer className="text-muted"><button className="custom-btn  btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
+                <Card.Footer className="text-muted">
+                  <input type="file" id="file-input" className="form-control-file"/>
+                </Card.Footer>
               </Card>
               <Card className="profile-cols">
                 <Card.Header><h5 className="profile-caths">Profile</h5></Card.Header>

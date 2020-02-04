@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, ListGroup, Card, CardGroup, Image } from 'react-bootstrap';
+import { Container, Row, Col, ListGroup, Card, CardGroup, Image, Table } from 'react-bootstrap';
 import './Profile.css';
 import { useAuth0 } from '../auth/auth0/Auth0';
 import { GiDiamonds } from 'react-icons/gi';
@@ -34,57 +34,100 @@ const Settings = (props) => {
                 <div className="small-divider "></div>
                 <Card.Body>
                   <Card.Text>
-                    <ListGroup horizontal>
-                      <ListGroup.Item>Total</ListGroup.Item>
-                      <ListGroup.Item>Wins</ListGroup.Item>
-                      <ListGroup.Item>Losses</ListGroup.Item>
-                    </ListGroup>
+                    <Table className="bordered">
+                      <thead className="thead-gold">
+                        <tr>
+                          <th>Total</th>
+                          <th>Wins</th>
+                          <th>Losses</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>10</td>
+                          <td>8</td>
+                          <td>2</td>
+                        </tr>
+                      </tbody>
+                    </Table>
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer className="text-muted"><button className="custom-btn  btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
+                <Card.Footer className="text-muted">Footer! do we need any more info here?</Card.Footer>
               </Card>
               <Card className="profile-cols">
                 <Card.Header><h5 className="profile-caths">Slots</h5></Card.Header>
                 <div className="small-divider "></div>
                 <Card.Body>
                   <Card.Text>
-                    <ListGroup horizontal>
-                      <ListGroup.Item>Total</ListGroup.Item>
-                      <ListGroup.Item>Wins</ListGroup.Item>
-                      <ListGroup.Item>Losses</ListGroup.Item>
-                    </ListGroup>
-
+                    <Table className="bordered">
+                      <thead className="thead-gold">
+                        <tr>
+                          <th>Total</th>
+                          <th>Wins</th>
+                          <th>Losses</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>10</td>
+                          <td>8</td>
+                          <td>2</td>
+                        </tr>
+                      </tbody>
+                    </Table>
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer className="text-muted"><button className="custom-btn  btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
+                <Card.Footer className="text-muted">Footer! do we need any more info here?</Card.Footer>
               </Card>
               <Card className="profile-cols">
                 <Card.Header><h5 className="profile-caths">Black Jack</h5></Card.Header>
                 <div className="small-divider "></div>
                 <Card.Body>
                   <Card.Text>
-                    <ListGroup horizontal>
-                      <ListGroup.Item>Total</ListGroup.Item>
-                      <ListGroup.Item>Wins</ListGroup.Item>
-                      <ListGroup.Item>Losses</ListGroup.Item>
-                    </ListGroup>
+                    <Table className="bordered">
+                      <thead className="thead-gold">
+                        <tr>
+                          <th>Total</th>
+                          <th>Wins</th>
+                          <th>Losses</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>10</td>
+                          <td>8</td>
+                          <td>2</td>
+                        </tr>
+                      </tbody>
+                    </Table>
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer className="text-muted"><button className="custom-btn  btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
+                <Card.Footer className="text-muted">Footer! do we need any more info here?</Card.Footer>
               </Card>
               <Card className="profile-cols">
                 <Card.Header><h5 className="profile-caths">Craps</h5></Card.Header>
                 <div className="small-divider "></div>
                 <Card.Body>
                   <Card.Text>
-                    <ListGroup horizontal>
-                      <ListGroup.Item>Total</ListGroup.Item>
-                      <ListGroup.Item>Wins</ListGroup.Item>
-                      <ListGroup.Item>Losses</ListGroup.Item>
-                    </ListGroup>
+                    <Table className="bordered">
+                      <thead className="thead-gold">
+                        <tr>
+                          <th>Total</th>
+                          <th>Wins</th>
+                          <th>Losses</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>10</td>
+                          <td>8</td>
+                          <td>2</td>
+                        </tr>
+                      </tbody>
+                    </Table>
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer className="text-muted"><button className="custom-btn  btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
+                <Card.Footer className="text-muted">Footer! do we need any more info here?</Card.Footer>
               </Card>
             </CardGroup>
           </Col>
