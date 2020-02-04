@@ -11,6 +11,7 @@ import UserRanking from './pages/Ranking';
 import UserLogin from './pages/Login';
 import UserLogout from './pages/Logout';
 import UserSettings from './pages/Settings';
+import GamesContainer from './components/games/GamesContainer';
 
 
 class App extends Component {
@@ -37,6 +38,9 @@ state = {
             </Route>
             <Route exact path="/settings">
               <UserSettings />
+            </Route>
+            <Route path="/games">
+              <GamesContainer />
             </Route>
             <Route exact path="/">
               <Main />

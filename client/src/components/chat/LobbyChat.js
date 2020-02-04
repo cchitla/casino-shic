@@ -15,28 +15,44 @@ const LobbyChat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState("");
-
-  const room = "Lobby";
-
+  
+  let socketPath = window.location.pathname.slice(7);
+  let room = "Lobby";
+  if (socketPath !== ""){
+    room = socketPath;
+  };
+  console.log("room = ", room);
+  
   //this useEffect only handles new connections
   useEffect(() => {
+<<<<<<< HEAD
     let ENDPOINT = "https://casino-shic.herokuapp.com/";
     let URL = window.location.hostname;
+=======
+    let ENDPOINT = "localhost:3001";
+>>>>>>> master
 
-    if (URL === "localhost") {
-      ENDPOINT = "localhost:3001";
-    };
     socket = io(ENDPOINT);
 
     setName(user.name);
 
-    // return replaces component unmount
+    // return replaces component will unmount
+    // return disconnectUser();
     return () => {
       socket.emit("disconnect");
       socket.off();
     };
 
   }, []);
+
+  // const disconnectUser = () => {
+  //   if (name) {
+  //   socket.emit("disconnect");
+  //   console.log("emitted disconnect message");
+  //   socket.off();
+  //   console.log("turned socket off");
+  //   }
+  // }
 
   useEffect(() => {
     if (name) {
