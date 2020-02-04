@@ -54,6 +54,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
+    console.log("received disconnect message");
     const user = removeUser(socket.id);
 
     if (user) {
