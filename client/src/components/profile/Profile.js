@@ -25,7 +25,7 @@ const Profile = (props) => {
           <Col>
             <div className="text-center">
               <h3 className="mt-4 title">Profile</h3>
-              <div class="divider divider-center divider-linear-gradient w-50 mx-auto">
+              <div className="divider divider-center divider-linear-gradient w-50 mx-auto">
                 <GiDiamonds className="diamond-icon" />
               </div>
             </div>
@@ -51,14 +51,12 @@ const Profile = (props) => {
                 <Card.Header><h5 className="profile-caths">Profile</h5></Card.Header>
                 <div className="small-divider "></div>
                 <Card.Body>
-                  <Card.Text>
                     <ul className="list-unstyled">
                       <li>First name: <b>{user.given_name}</b></li>
                       <li>Last name: <b>{user.family_name}</b></li>
                       <li>Birthday: <b>October 30 1977</b></li>
                       <li>Gender: <b>Femle</b></li>
                     </ul>
-                  </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted"><button className="custom-btn btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
               </Card>
@@ -66,14 +64,12 @@ const Profile = (props) => {
                 <Card.Header><h5 className="profile-caths">Interests</h5></Card.Header>
                 <div className="small-divider "></div>
                 <Card.Body>
-                  <Card.Text>
                     <ul className="list-unstyled">
                       <li>Headbanging</li>
                       <li>Heavy Metal</li>
                       <li>Cats</li>
                       <li>Coding</li>
                     </ul>
-                  </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted"><button className="custom-btn  btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
               </Card>
@@ -81,11 +77,9 @@ const Profile = (props) => {
                 <Card.Header><h5 className="profile-caths">Some other cool shit</h5></Card.Header>
                 <div className="small-divider "></div>
                 <Card.Body>
-                  <Card.Text>
                     <ul className="list-unstyled">
                       <li>List of latest chant logs?</li>
                     </ul>
-                  </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted"><button className="custom-btn  btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
               </Card>
