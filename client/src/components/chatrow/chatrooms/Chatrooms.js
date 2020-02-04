@@ -7,7 +7,8 @@ import { Scrollbars } from 'react-custom-scrollbars';
 //@Cris this are the styles for your elements, apply them to real chat
 const ChatRoom = () => {
   return (
-    <Card>
+    <div className="rooms">
+      <Card className="rooms-card">
       <Card.Header>Rooms</Card.Header>
       <Scrollbars style={{ height: 275, backgroundColor: "#f1c876" }}>
       <Card.Body>
@@ -21,6 +22,8 @@ const ChatRoom = () => {
       </Card.Body>
       </Scrollbars>
     </Card>
+    </div>
+    
   );
 };
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import Settings from '../components/profile/Settings';
+import Ranking from '../components/profile/Ranking';
 
-const UserSettings = (props) => {
+const UserRanking = (props) => {
   return(
-    <Settings />
+    <Ranking />
   );
 }
 
-export default UserSettings;
+export default UserRanking;

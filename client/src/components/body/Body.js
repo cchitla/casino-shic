@@ -17,7 +17,7 @@ const Body = () => {
   return (
     <Container className="pt-3">
         <TopRow />
-        {isAuthenticated ? <LobbyChat />  /*<BottomRow />*/ : null}
+        {isAuthenticated ? <LobbyChat />  : null}
     </Container>
   );
 };

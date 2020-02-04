@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Image } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import ChatWindow from '../../chatrow/chat/Chatwindow';
 import ChatRoom from '../../chatrow/chatrooms/Chatrooms';
 import Friends from '../../chatrow/friends/Friends';

@@ -25,8 +25,8 @@ const LobbyChat = () => {
   
   //this useEffect only handles new connections
   useEffect(() => {
-    let ENDPOINT = "localhost:3001";
-
+    let ENDPOINT = "localhost:3001" || "https://casino-shic.herokuapp.com/";
+    let URL = window.location.hostname;
     socket = io(ENDPOINT);
 
     setName(user.name);
