@@ -61,6 +61,8 @@ const LobbyChat = () => {
   // this useEffect handles incoming messages
   useEffect(() => {
     socket.on("message", (message) => {
+      //socket is not receiving the message
+      console.log("received message from socket server:", message);
       setMessages([...messages, message]);
     });
 

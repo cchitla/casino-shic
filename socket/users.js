@@ -4,9 +4,17 @@ const addUser = ({ id, name, room}) => {
   name = name.trim().toLowerCase();
   room = room.trim().toLowerCase();
 
+  // this is here because chat component is not unmounting on page change
   const existingUser = users.find((user) => user.room === room && user.name === name);
 
-  if (existingUser) return { error: "Username is taken"};
+  if (existingUser) {
+    removeUser(existingUser.id)
+    console.log(existingUser, "removed")
+    updatedUser = { id, name, room };
+    users.push(updatedUser);
+    console.log(updatedUser, "added")
+    return { updatedUser }
+  };
 
   const user = { id, name, room};
   users.push(user);
@@ -17,10 +25,8 @@ const addUser = ({ id, name, room}) => {
 };
 
 const removeUser = (id) => {
-  // find user in users array
   const index = users.findIndex((user) => user.id === id);
-  // if user is found, remove from array at the index id was found at
-  console.log("removing user")
+  console.log("removing user");
   if (index !== -1) return users.splice(index, 1)[0];
 };
 
