@@ -79,7 +79,7 @@ const LobbyChat = () => {
 
   const { loading, user } = useAuth0();
 
-  if (loading) {
+  if (loading || !user) {
     return <div></div>;
   };
 

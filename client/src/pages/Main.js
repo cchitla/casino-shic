@@ -5,6 +5,6 @@ const Main = (props) => {
   return(
     <Body />
   );
-}
+};
 
 export default Main;

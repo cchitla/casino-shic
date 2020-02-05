@@ -21,6 +21,8 @@ const GamesContainer = (props) => {
         return <Slots />
       case "roulette":
         return <Roulette />
+      default:
+        return null;
     };
   };
 
