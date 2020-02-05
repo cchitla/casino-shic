@@ -12,7 +12,7 @@ const userSchema = new Schema({
     },
     earnings: {
         type: Number,
-        required: true
+        default: 100
     },
     birthday: {
         type: String
@@ -25,20 +25,44 @@ const userSchema = new Schema({
     },
     wins: {
         blackJack: {
-            wins: { type: Number },
-            totalGames: { type: Number }
+            wins: {
+                type: Number,
+                default: 0
+            },
+            totalGames: {
+                type: Number,
+                default: 0
+            }
         },
         craps: {
-            wins: { type: Number },
-            totalGames: { type: Number }
+            wins: {
+                type: Number,
+                default: 0
+            },
+            totalGames: {
+                type: Number,
+                default: 0
+            }
         },
         roulette: {
-            wins: { type: Number },
-            totalGames: { type: Number }
+            wins: {
+                type: Number,
+                default: 0
+            },
+            totalGames: {
+                type: Number,
+                default: 0
+            }
         },
         slots: {
-            wins: { type: Number },
-            totalGames: { type: Number }
+            wins: {
+                type: Number,
+                default: 0
+            },
+            totalGames: {
+                type: Number,
+                default: 0
+            }
         }
     },
     createdDate: {
