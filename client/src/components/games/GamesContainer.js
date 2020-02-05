@@ -5,8 +5,15 @@ import Craps from './craps/Craps';
 import Blackjack from './blackjack/Blackjack';
 import Slots from './slots/Slots';
 import Roulette from './roulette/Roulette';
+import { useAuth0 } from "../auth/auth0/Auth0";
 
 const GamesContainer = (props) => {
+  const { isAuthenticated, loading } = useAuth0();
+
+  if (loading) {
+    return <div></div>;
+  };
+
   let path = window.location.pathname.slice(7);
   console.log(path);
   
@@ -28,7 +35,7 @@ const GamesContainer = (props) => {
     <Container className="pt-3">
       <h3>GamesContainer component</h3>
       {renderGame(path)}
-      <LobbyChat />
+      {isAuthenticated ? <LobbyChat /> : ""}
     </Container>
 
   );
