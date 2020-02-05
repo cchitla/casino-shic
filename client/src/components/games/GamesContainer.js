@@ -8,22 +8,20 @@ import Roulette from './roulette/Roulette';
 import { useAuth0 } from "../auth/auth0/Auth0";
 
 const GamesContainer = (props) => {
-  const { isAuthenticated, loading } = useAuth0();
+  const { isAuthenticated, loading, user } = useAuth0();
 
   if (loading) {
     return <div></div>;
   };
 
-  let path = window.location.pathname.slice(7);
-  console.log(path);
-  
+  let path = window.location.pathname.slice(7);  
 
   const renderGame = (path) => {
     switch (path) {
       case "craps":
         return <Craps />
       case "blackjack":
-        return <Blackjack />
+        return <Blackjack user={user}/>
       case "slots":
         return <Slots />
       case "roulette":
