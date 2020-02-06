@@ -1,10 +1,9 @@
 const deck = require("./deck");
-const players = require("./players");
+const playersManager = require("./players");
 
 deck.createDealerDeck();
-// console.log(deck.dealerDeck);
 
-const { playersArray, createPlayer } = players;
+const { players, createPlayer } = playersManager;
 
 const testPlayer = {
     name: "Chris",
@@ -16,4 +15,4 @@ const testPlayer = {
 
 createPlayer(testPlayer);
 
-console.log(playersArray);
+console.log(players);

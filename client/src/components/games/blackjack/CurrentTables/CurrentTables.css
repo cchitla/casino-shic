@@ -1,0 +1,11 @@
+.availableBlackJackTables {
+  height: 200px;
+}
+
+.blackjackTablesList {
+  width: 25%;
+  background-color: black;
+  padding: 5px;
+  margin: 5px 0px;
+  border: 2px solid #f1c876;
+}

@@ -10,43 +10,34 @@ import OnlineUsers from './OnlineUsers/OnlineUsers';
 
 let socket;
 
-const LobbyChat = () => {
+// receiving table name in props, if tableName exists, then socket room = tableName
+const LobbyChat = (props) => {
   const [name, setName] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState("");
   
   let socketPath = window.location.pathname.slice(7);
-  let room = "Lobby";
-  if (socketPath !== ""){
+  let room = "lobby";
+  if (props.tableName) {
+    room = `${props.game} tableChat ${props.tableName}`
+  } else if (socketPath !== "") {
     room = socketPath;
   };
   
   //this useEffect only handles new connections
   useEffect(() => {
     let ENDPOINT = "localhost:3001" || "https://casino-shic.herokuapp.com/";
-    let URL = window.location.hostname;
     socket = io(ENDPOINT);
 
     setName(user.name);
 
-    // return replaces component will unmount
-    // return disconnectUser();
     return () => {
       socket.emit("disconnect");
       socket.off();
     };
 
   }, []);
-
-  // const disconnectUser = () => {
-  //   if (name) {
-  //   socket.emit("disconnect");
-  //   console.log("emitted disconnect message");
-  //   socket.off();
-  //   console.log("turned socket off");
-  //   }
-  // }
 
   useEffect(() => {
     if (name) {

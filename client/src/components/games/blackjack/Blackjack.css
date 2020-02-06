@@ -1,4 +1,7 @@
 .blackjack {
   color: white;
-  
+}
+
+.availableBlackjackTables {
+  height: 100px;
 }

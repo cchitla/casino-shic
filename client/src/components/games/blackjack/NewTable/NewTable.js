@@ -2,18 +2,23 @@ import React, { useState } from 'react';
 
 const NewTable = (props) => {
   const [input, setInput] = useState("");
-  //send new table info to parent component, then to socket
 
   const handleInputChange = (event) => {
     setInput(event.target.value);
   };
 
+  const handleClick = (event, input) => {
+    event.preventDefault();
+    console.log(input)
+    props.addNewTable(input);
+    setInput("");
+  };
 
   return (
     <div>
       Create new blackjack table
-      <input placeholder="Table name" type="text" onChange={e => handleInputChange(e)}/>
-      <button onClick={e => props.addNewTable(e, input)}>Create Table</button>
+      <input placeholder="Table name" type="text" onChange={e => handleInputChange(e)} value={input}/>
+      <button onClick={e => handleClick(e, input)} >Create Table</button>
     </div>
   );
 };
