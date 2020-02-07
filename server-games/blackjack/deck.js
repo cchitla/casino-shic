@@ -23,8 +23,10 @@ const createDeck = () => {
 };
 
 const createDealerDeck = () => {
+  dealerDeck = [];
   createDeck();
   createDeck();
+  return dealerDeck;
 };
 
 const shuffleDeck = (array) => {
@@ -32,6 +34,7 @@ const shuffleDeck = (array) => {
       let j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
   };
+  return array;
 };
 
 module.exports = {

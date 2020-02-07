@@ -33,7 +33,7 @@ const LobbyChat = (props) => {
     setName(user.name);
 
     return () => {
-      socket.emit("disconnect");
+      socket.emit("disconnect chat");
       socket.off();
     };
 
@@ -49,12 +49,13 @@ const LobbyChat = (props) => {
   // this useEffect handles incoming messages
   useEffect(() => {
     socket.on("message", (message) => {
+      console.log("received message", message)
       setMessages([...messages, message]);
     });
 
     socket.on('roomData', ({ users }) => {
       setConnectedUsers(users);
-    })
+    });
 
   }, [messages]);
 

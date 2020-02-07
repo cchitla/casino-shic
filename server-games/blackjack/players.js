@@ -1,30 +1,35 @@
-let  players = [];
+let players = [];
 
-
-const createPlayer = (user) =>  {
-  // player should come from socket user { (socket)id,  name, room }
+const setPlayer = (newPlayer) =>  {
+  
   let player = {
-    name: user.name,
-    tableName: user.room,
-    id: user.id,
+    name: newPlayer.name,
+    tableName: newPlayer.room,
+    tablePosition: newPlayer.tablePosition,
+    id: newPlayer.id,
     hand: [],
-    score: 0
+    score: 0,
+    bust: false
   };
 
   players.push(player);
 };
 
 const removePlayer = (id) => {
-  const index = players.findIndex((player) => user.id === id);
-  console.log("removing user");
-  if (index !== -1) return players.splice(index, 1)[0];
+  // console.log("before delete player", players);
+  const remainingPlayers = players.filter((player) => player.id !== id);
+  players = remainingPlayers;
+  // console.log("deleted a player:", players);
 };
 
-const getPlayer = (name) => players.find((player) => player.id === id);
+const getPlayer = (id) => players.find((player) => player.id === id);
 
-const getPlayersAtTable = (tableName) => players.filter((player) => player.room === tableName);
+const getPlayersAtTable = (tableName) => players.filter((player) => player.tableName === tableName);
 
 module.exports = {
   players,
-  createPlayer
+  setPlayer,
+  removePlayer,
+  getPlayer,
+  getPlayersAtTable,
 };

@@ -8,6 +8,7 @@ import Roulette from './roulette/Roulette';
 import { useAuth0 } from "../auth/auth0/Auth0";
 
 import BlackjackTable from './blackjack/BlackjackTable/BlackjackTable';
+import BlackjackTableClass from './blackjack/BlackjackTable/BlackjackTableClass';
 
 const GamesContainer = (props) => {
   const { isAuthenticated, loading, user } = useAuth0();
@@ -23,7 +24,7 @@ const GamesContainer = (props) => {
     let tableName = decodeURI(window.location.search).replace(/\?/, "")
     return (
       <Container className="p-0">
-        <BlackjackTable user={user} tableName={tableName} />
+        <BlackjackTableClass user={user} tableName={tableName} />
         <LobbyChat game={"blackjack"} tableName={tableName}/>
       </Container>
     )

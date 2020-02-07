@@ -4,7 +4,6 @@ import './CurrentTables.css';
 
 
 const CurrentTables = (props) => {
-  // retrieve current tables with socket.io in Blackjack.js
   const { tables } = props;
 
   
@@ -12,10 +11,10 @@ const CurrentTables = (props) => {
     <div>
       {tables
         ? tables.map((table) => (
-          <div className="blackjackTablesList" key={table}>
-            <Link to={`/games/blackjack/tables/?${table}`}>
+          <div className="blackjackTablesList" key={table.tableName}>
+            <Link to={`/games/blackjack/tables/?${table.tableName}`}>
               <img style={{ height: 20 }} src="/resources/blackjack_logo.png" alt="icon" />
-              {table}
+              {table.tableName} Players: {table.players}
             </Link>
           </div>
         ))

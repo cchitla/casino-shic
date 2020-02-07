@@ -8,33 +8,39 @@ import io from 'socket.io-client';
 
 let socket;
 
-let openTables = ["Big table", "Small table"];
-
 //props: user(from auth0), 
 const BlackjackLobby = (props) => {
   const [tables, setTables] = useState(null);
   const [newTableName, setNewTableName] = useState(null);
 
   useEffect(() => {
-    // get this from... socket
-    setTables(openTables);
+    let ENDPOINT = "localhost:3001";
+    socket = io(ENDPOINT);
+    socket.emit("retrieve blackjack tables"); 
+
+    return () => {
+      socket.emit("disconnect");
+      socket.off();
+    };
   }, [])
 
   useEffect(() => {
     if (newTableName) {
-      //run functions to add table
+      socket.emit("new blackjack table", newTableName)
       console.log("user has submitted a new table", newTableName)
-    }
+      socket.emit("retrieve blackjack tables"); 
+    };
 
   }, [newTableName]);
 
+  useEffect(() => {
+    socket.on("send blackjack tables", (tables) => {
+      setTables(tables);
+    });
+  });
 
   const addNewTable = (newTableName) => {
     setNewTableName(newTableName);
-    //push just for develop - until socket is setup
-    tables.push(newTableName);
-
-    // send table info to server with socket.io
   };
 
   return (

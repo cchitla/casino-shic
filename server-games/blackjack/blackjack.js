@@ -1,18 +1,37 @@
-const deck = require("./deck");
-const playersManager = require("./players");
+const { createDealerDeck, shuffleDeck } = require("./deck");
+const { players, setPlayer, getPlayersAtTable, removePlayer, getPlayer } = require("./players");
+const { addTable } = require("./tables");
 
-deck.createDealerDeck();
 
-const { players, createPlayer } = playersManager;
+const createNewTable = (tableName, playerCount) => {
+    let dealerDeck = shuffleDeck(createDealerDeck())
+    let newTable =  { tableName, players: playerCount || 0, deck: dealerDeck};
+    addTable(newTable);
+}; 
 
-const testPlayer = {
-    name: "Chris",
-    room: "Blackjack 1",
-    id: "some socket id",
-    hand: ["5", "Q"],
-    score: 15
+//create a default table
+createNewTable("House Table 1", 1);
+createNewTable("House Table 2", 4);
+
+let table = "my new table"
+// createNewTable(table)
+// console.log(blackjackTables);
+
+const dealTable = () => {
+    // run getPlayersAtTable
+    // forEach, pop one card
 };
 
-createPlayer(testPlayer);
+const addCards = (hand) => {
+    //add up cards
+    // if sum > 21 then update player.bust = true
+};
 
-console.log(players);
+module.exports = {
+    players,
+    setPlayer,
+    getPlayersAtTable,
+    createNewTable,
+    removePlayer,
+    getPlayer
+};
