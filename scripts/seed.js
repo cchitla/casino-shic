@@ -12,6 +12,7 @@ const userSeed = [
         earnings: 100,
         birthday: "1994-06-03",
         gender: "female",
+        avatar: "",
         wins: {
             blackJack: {
                 wins: 12,
@@ -38,7 +39,8 @@ const userSeed = [
         earnings: 145,
         birthday: "1989-03-21",
         gender: "female",
-        winsLosses: {
+        avatar:"",
+        wins: {
             blackJack: {
                 wins: 45,
                 totalGames: 98
@@ -64,7 +66,8 @@ const userSeed = [
         earnings: 145,
         birthday: "1992-04-24",
         gender: "male",
-        winsLosses: {
+        avatar: "",
+        wins: {
             blackJack: {
                 wins: 23,
                 totalGames: 45

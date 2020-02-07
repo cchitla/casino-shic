@@ -5,6 +5,18 @@ export default {
     getAllPlayers: function () {
         return axios.get('/api/users');
     },
+    getTopBlackJack: function () {
+        return axios.get('/api/rankings/blackjack');
+    },
+    getTopCraps: function () {
+        return axios.get('/api/rankings/craps');
+    },
+    getTopRoulette: function () {
+        return axios.get('/api/rankings/roulette');
+    },
+    getTopSlots: function () {
+        return axios.get('/api/rankings/slots');
+    },
     getOnePlayer: function () {
         return axios.get('/api/users/:id');
     },
