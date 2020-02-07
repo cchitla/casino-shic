@@ -7,7 +7,6 @@ router
 
 router
     .route("/craps")
-
     .get(usersController.findTopRankedCraps);
 
 router

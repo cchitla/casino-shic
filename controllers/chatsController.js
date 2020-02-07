@@ -16,7 +16,7 @@ module.exports = {
     },
     remove: function (req, res) {
         db.Chat
-            .findById({ email: req.params.id })
+            .findById({ _id: req.params.id })
             .then(dbChat => dbChat.remove())
             .then(dbChat => res.json(dbChat))
             .catch(err => res.status(422).json(err));
