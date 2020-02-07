@@ -13,7 +13,8 @@ export default class BlackjackTableClass extends Component {
       players: [],
     };
 
-    this.ENDPOINT = "localhost:3001"
+    // this.ENDPOINT = "localhost:3001"
+    this.ENDPOINT = "https://casino-shic.herokuapp.com/";
   };
 
   componentDidMount() {
