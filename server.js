@@ -25,53 +25,95 @@ const server = app.listen(PORT, () => {
 
 const io = socketio(server);
 
-const {addUser, removeUser, getUser, getUsersInRoom } = require("./socket/users");
+//chat imports
+const { addUser, removeUser, getUser, getUsersInRoom } = require("./socket/users");
 
+//blackjack imports
+const { players, setPlayer, getPlayersAtTable, createNewTable, removePlayer, getPlayer } = require('./server-games/blackjack/blackjack');
+const { getTables } = require('./server-games/blackjack/tables');
+
+
+// SOCKET COMMS
 io.on("connection", (socket) => {
-  socket.on("join", ({name, room}, callback) => {
-    const { user, updatedUser } = addUser( { id: socket.id, name, room });
-
-    if (updatedUser) {
-      socket.emit("message", { user: 'admin', text: `${updatedUser.name} welcome to room ${updatedUser.room}.`});
-      socket.broadcast.to(updatedUser.room).emit('message', { user: "admin", text: `${updatedUser.name} has joined.`});
-
-      io.to(updatedUser.room).emit("roomData", { room: updatedUser.room , users: getUsersInRoom(updatedUser.room) });
-    };
-
-    if (user) {
+  socket.on("join", ({ name, room }, callback) => {
+    const { user } = addUser({ id: socket.id, name, room });
     socket.join(user.room);
-
-    socket.emit("message", { user: 'admin', text: `${user.name} welcome to room ${user.room}.`});
-    socket.broadcast.to(user.room).emit('message', { user: "admin", text: `${user.name} has joined.`});
-
-    io.to(user.room).emit("roomData", { room: user.room , users: getUsersInRoom(user.room) });
-    };
-    
+    socket.emit("message", { user: 'admin', text: `${user.name} welcome to room ${user.room}.` });
+    socket.broadcast.to(user.room).emit('message', { user: "admin", text: `${user.name} has joined.` });
+    io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) });
     callback();
   });
 
+  socket.on("disconnect chat", () => {
+    // console.log("disconnecting a chat user");
+    let user = getUser(socket.id);
+    // console.log("this user disconnected from chat:", user);
+    removeUser(socket.id);
+    user ? io.to(user.room).emit('message', { user: "admin", text: `${user.name} has left.` }) : null;
+    user ? io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) }) : null;
+  });
+
+  // CHAT
   socket.on("sendMessage", (message, callback) => {
-    // need to change this to search by name and room, if user rejoins, it's a new socket id!!!
-    // but... socket.id matches the updated user that has been pushed to the users array???
     const user = getUser(socket.id);
-    console.log("message sent from", user)
-
-    // io.to(user.room).emit("message", { user: user.name, text: message });
-    io.to(socket.id).emit("message", { user: user.name, text: message });
-    console.log("message  emitted??");
-
-    // io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room)})
-    io.to(socket.id).emit("roomData", { room: user.room, users: getUsersInRoom(user.room)})
-
+    // console.log("message sent from", user, message);
+    io.to(user.room).emit("message", { user: user.name, text: message });
+    io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) })
     callback();
   });
 
-  socket.on("disconnect", () => {
-    console.log("received disconnect message");
-    const user = removeUser(socket.id);
-
-    if (user) {
-      io.to(user.room).emit('message', { user: "admin", text: `${user.name} has left.`})
-    }
+  //BLACKJACK
+  socket.on("retrieve blackjack tables", () => {
+    let currentTables = getTables()
+    socket.emit("send blackjack tables", currentTables);
   });
+
+  socket.on("new blackjack table", (tableName) => {
+    createNewTable(tableName);
+  });
+
+  socket.on("join table", ({ name, tableName }, callback) => {
+    name = name.trim().toLowerCase();
+
+    const newPlayer = {
+      name: name,
+      room: tableName,
+      tablePosition: 1,
+      id: socket.id,
+      // hand starts empty, gets updated after deal
+      hand: null,
+      // score updated after deal, then each time player hits
+      // score: 15,
+      // updates to true if score calc is over  21
+      bust: false
+    };
+
+    setPlayer(newPlayer);
+
+    let presentPlayers = getPlayersAtTable(tableName)
+    io.to(socket.id).emit("player joined", { name, tableName, presentPlayers });
+    callback();
+  });
+
+  socket.on("blackjack hit", ({ name, tableName, hand }) => {
+    // run blackjack dealSingleCard
+    // calculate score
+    // send card to client and display it on table
+    // send whether user has busted or not
+  });
+
+  socket.on("blackjack stay", ({ name, tableName }) => {
+    // get tablePosition of player
+    // switch active turn to player at tablePosition + 1
+  });
+
+  socket.on("leave blackjack table", (player) => {
+    // console.log("disconnecting a player");
+    let user = getPlayer(socket.id);
+    // console.log("disconnected this player:", user)
+    removePlayer(socket.id);
+    user ? io.to(user.room).emit('message', { user: "admin", text: `${user.name} has left.` }) : null;
+    user ? io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) }) : null;
+  });
+
 });

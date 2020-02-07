@@ -39,9 +39,7 @@ state = {
             <Route exact path="/settings">
               <UserSettings />
             </Route>
-            <Route path="/games">
-              <GamesContainer />
-            </Route>
+            <Route path="/games" component={GamesContainer} />
             <Route exact path="/">
               <Main />
             </Route>
