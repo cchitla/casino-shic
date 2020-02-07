@@ -3,8 +3,40 @@ const db = require('../models');
 module.exports = {
     findAll: function (req, res) {
         db.User
-            .find(req.query)
-            .sort({ username: -1 })
+            .find({})
+            .sort({ username: 1 })
+            .then(dbUser => res.json(dbUser))
+            .catch(err => res.status(422).json(err));
+    },
+    findTopRankedBlackJack: function (req, res) {
+        db.User
+            .find({})
+            .sort({ 'wins.blackJack.wins': -1 })
+            .limit(2)
+            .then(dbUser => res.json(dbUser))
+            .catch(err => res.status(422).json(err));
+    },
+    findTopRankedCraps: function (req, res) {
+        db.User
+            .find({})
+            .sort({ 'wins.craps.wins': -1 })
+            .limit(2)
+            .then(dbUser => res.json(dbUser))
+            .catch(err => res.status(422).json(err));
+    },
+    findTopRankedSlots: function (req, res) {
+        db.User
+            .find({})
+            .sort({ 'wins.slots.wins': -1 })
+            .limit(2)
+            .then(dbUser => res.json(dbUser))
+            .catch(err => res.status(422).json(err));
+    },
+    findTopRankedRoulette: function (req, res) {
+        db.User
+            .find({})
+            .sort({ 'wins.roulette.wins': -1 })
+            .limit(2)
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     },
@@ -29,8 +61,8 @@ module.exports = {
     remove: function (req, res) {
         db.User
             .findById({ email: req.params.id })
-            .then(dbModel => dbModel.remove())
-            .then(dbModel => res.json(dbModel))
+            .then(dbUser => dbUser.remove())
+            .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     }
 };

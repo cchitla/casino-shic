@@ -74,3 +74,8 @@ const userSchema = new Schema({
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
+
+// max win, and then 
+// returning top scores
+// db.user.find().sort(game.wins -1 (descending)).limit(however many I want to return)
+
