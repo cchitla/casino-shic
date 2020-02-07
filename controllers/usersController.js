@@ -12,7 +12,7 @@ module.exports = {
         db.User
             .find({})
             .sort({ 'wins.blackJack.wins': -1 })
-            .limit(2)
+            .limit(5)
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     },
@@ -20,7 +20,7 @@ module.exports = {
         db.User
             .find({})
             .sort({ 'wins.craps.wins': -1 })
-            .limit(2)
+            .limit(5)
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     },
@@ -28,7 +28,7 @@ module.exports = {
         db.User
             .find({})
             .sort({ 'wins.slots.wins': -1 })
-            .limit(2)
+            .limit(5)
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     },
@@ -36,13 +36,13 @@ module.exports = {
         db.User
             .find({})
             .sort({ 'wins.roulette.wins': -1 })
-            .limit(2)
+            .limit(5)
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     },
-    findById: function (req, res) {
+    findOne: function (req, res) {
         db.User
-            .findById(req.params.id)
+            .findOne({ email: req.params.id })
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     },
@@ -60,7 +60,7 @@ module.exports = {
     },
     remove: function (req, res) {
         db.User
-            .findById({ email: req.params.id })
+            .findOne({ email: req.params.id })
             .then(dbUser => dbUser.remove())
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
