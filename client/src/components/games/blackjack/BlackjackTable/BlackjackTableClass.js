@@ -23,7 +23,7 @@ export default class BlackjackTableClass extends Component {
     let player = {
       name: this.props.user.name,
       tableName: this.props.tableName
-    }
+    };
 
     socket.emit("join table", player, () => { });
   };
@@ -32,7 +32,7 @@ export default class BlackjackTableClass extends Component {
     let player = {
       name: this.props.user.name,
       tableName: this.props.tableName
-    }
+    };
     socket.emit("leave blackjack table", player);
     socket.off();
   };
