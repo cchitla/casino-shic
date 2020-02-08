@@ -54,7 +54,7 @@ module.exports = {
     },
     update: function (req, res) {
         db.User
-            .findOneAndUpdate({ email: req.params.id }, req.body)
+            .findOneAndUpdate({ email: req.params.id }, req.body, {upsert: true})
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     },
