@@ -25,7 +25,7 @@ const GamesContainer = (props) => {
     return (
       <Container className="p-0">
         <BlackjackTableClass user={user} tableName={tableName} />
-        <LobbyChat game={"blackjack"} tableName={tableName}/>
+        <LobbyChat game={"blackjack"} tableName={tableName} user={user}/>
       </Container>
     )
   };

@@ -22,19 +22,22 @@ const Body = () => {
 
   if (isAuthenticated) {
     API.getOnePlayer(user.email)
-      .then(function(returnedUser) {
-        if (!returnedUser.data) {
+      .then(function (dbUser) {
+        if (!dbUser.data) {
           console.log("no user returned, creating user in db");
           createDbPlayer();
         };
-        console.log("existing DB user found: ", returnedUser.data);
-      });
+        if (dbUser) {
+          console.log("user from db:", dbUser.data);
+          window.sessionStorage.setItem("user", dbUser.data)
+        };
+      })
   };
 
   return (
     <Container className="pt-3">
       <TopRow />
-      { isAuthenticated ? <LobbyChat /> : null }
+      {isAuthenticated ? <LobbyChat /> : null}
     </Container>
   );
 };
