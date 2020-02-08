@@ -12,7 +12,7 @@ import BlackjackTableClass from './blackjack/BlackjackTable/BlackjackTableClass'
 
 const GamesContainer = (props) => {
   const { isAuthenticated, loading, user } = useAuth0();
-
+  console.log("user: ", user);
   // pull user DB info (money/chips) and send to game as prop
 
   if (loading) {
@@ -25,7 +25,7 @@ const GamesContainer = (props) => {
     return (
       <Container className="p-0">
         <BlackjackTableClass user={user} tableName={tableName} />
-        <LobbyChat game={"blackjack"} tableName={tableName}/>
+        <LobbyChat game={"blackjack"} tableName={tableName} />
       </Container>
     )
   };

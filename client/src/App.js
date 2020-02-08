@@ -12,41 +12,57 @@ import UserLogin from './pages/Login';
 import UserLogout from './pages/Logout';
 import UserSettings from './pages/Settings';
 import GamesContainer from './components/games/GamesContainer';
+import API from './utils/API';
 
 
 class App extends Component {
-state = {
-  autoHeight: true
-}
+  state = {
+    autoHeight: true,
+    player: "",
+    earnings: 0
+  }
+
+  getPlayerInfo = id => {
+    API
+      .getOnePlayer(id)
+      .then(res => this.setState({ player: res.data.email, earnings: res.data.earnings }, () => { console.log(this.state.earnings, this.state.player) }))
+      .catch(err => console.log(err));
+  }
+
+  // this should be user.email from auth0 in the gamecontainer... not sure how to connect without changing to a class component from a functional one...
+  componentDidMount() {
+    this.getPlayerInfo("hannah.melton63@gmail.com");
+  }
+
   render() {
     return (
-  
-        <Router history={history}>
-          <NavBar />
-          <Switch>
-            <Route exact path="/profile">
-              <UserProfile />
-            </Route>
-            <Route exact path="/ranking">
-              <UserRanking />
-            </Route>
-            <Route exact path="/login">
-              <UserLogin />
-            </Route>
-            <Route exact path="/logout">
-              <UserLogout />
-            </Route>
-            <Route exact path="/settings">
-              <UserSettings />
-            </Route>
-            <Route path="/games" component={GamesContainer} />
-            <Route exact path="/">
-              <Main />
-            </Route>
-          </Switch>
-          <Footer />
-        </Router>
-     
+
+      <Router history={history}>
+        <NavBar />
+        <Switch>
+          <Route exact path="/profile">
+            <UserProfile />
+          </Route>
+          <Route exact path="/ranking">
+            <UserRanking />
+          </Route>
+          <Route exact path="/login">
+            <UserLogin />
+          </Route>
+          <Route exact path="/logout">
+            <UserLogout />
+          </Route>
+          <Route exact path="/settings">
+            <UserSettings />
+          </Route>
+          <Route path="/games" component={GamesContainer} />
+          <Route exact path="/">
+            <Main />
+          </Route>
+        </Switch>
+        <Footer />
+      </Router>
+
     );
   }
 }
