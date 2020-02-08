@@ -71,7 +71,7 @@ const LobbyChat = (props) => {
   if (loading || !user) {
     return <div></div>;
   };
-
+  
   return (
     <Row className="chat-wrapper pt-5">
       <Col className="p-0 pr-1" style={{ minHeight: "200px" }} sm={8}>
