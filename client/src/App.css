@@ -5,7 +5,8 @@ body {
     #220100,
     #400102, 
     #220100)!important; */
-    background: #000 url("/resources/bg1.jpg") no-repeat top center;
+    background: #000 url("https://raw.githubusercontent.com/cchitla/casino-shic/master/client/public/resources/bg1.jpg") no-repeat top center;
+    /* background: #000 url("/resources/bg1.jpg") no-repeat top center; */
     background-size: cover;
     color: #f1c876;
   
