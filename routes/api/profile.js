@@ -13,7 +13,7 @@ const s3 = new aws.S3({
 	secretAccessKey: process.env.AWSSecretKey,
 	Bucket: "casino-shic"
 });
-console.log(s3);
+// console.log(s3);
 
 //Upload
 
