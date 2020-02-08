@@ -8,7 +8,16 @@ const userSchema = new Schema({
         required: true
     },
     username: {
-        type: String
+        type: String,
+        required: true
+    },
+    isOnline: {
+        type: Boolean,
+        default: true,
+        required: true
+    },
+    friends: {
+        type: [String]
     },
     earnings: {
         type: Number,

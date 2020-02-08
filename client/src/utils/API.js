@@ -20,11 +20,11 @@ export default {
     getOnePlayer: function (id) {
         return axios.get(`/api/users/${id}`);
     },
-    createPlayer: function () {
-        return axios.post('/api/users');
+    createPlayer: function (email) {
+        return axios.post(`/api/users/`, email);
     },
     updatePlayer: function (id) {
-        return axios.put(`/api/users/${id}`);
+        return axios.put(`/api/users/${id.email}`, id);
     },
     deletePlayer: function (id) {
         return axios.delete(`/api/users/${id}`);
