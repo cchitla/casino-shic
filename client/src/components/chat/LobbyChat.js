@@ -27,8 +27,8 @@ const LobbyChat = (props) => {
   
   //this useEffect only handles new connections
   useEffect(() => {
-    // let ENDPOINT = "https://casino-shic.herokuapp.com/";
-    let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
+    let ENDPOINT = "https://casino-shic.herokuapp.com/";
+    // let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
     socket = io(ENDPOINT);
 
     setName(user.name);
