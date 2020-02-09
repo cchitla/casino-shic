@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require('mongoose');
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/casinoShickDB";
-console.log(MONGODB_URI);
 const routes = require('./routes');
 const socketio = require('socket.io');
 
@@ -30,18 +29,31 @@ const io = socketio(server);
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./socket/users");
 
 //blackjack imports
-const { players, setPlayer, getPlayersAtTable, createNewTable, removePlayer, getPlayer } = require('./server-games/blackjack/blackjack');
+const { players, setPlayer, getPlayersAtTable,
+  createNewTable, removePlayer, getPlayer } = require('./server-games/blackjack/blackjack');
 const { getTables } = require('./server-games/blackjack/tables');
 
 
 // SOCKET COMMS
 io.on("connection", (socket) => {
   socket.on("join", ({ name, room }, callback) => {
-    const { user } = addUser({ id: socket.id, name, room });
-    socket.join(user.room);
-    socket.emit("message", { user: 'admin', text: `${user.name} welcome to room ${user.room}.` });
-    socket.broadcast.to(user.room).emit('message', { user: "admin", text: `${user.name} has joined.` });
-    io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) });
+    const { user, updatedUser } = addUser({ id: socket.id, name, room });
+
+    if (updatedUser) {
+      console.log("recieved updated user")
+      socket.emit("message", { user: 'admin', text: `${updatedUser.name} welcome to room ${updatedUser.room}.` });
+      socket.broadcast.to(updatedUser.room).emit('message', { user: "admin", text: `${updatedUser.name} has joined.` });
+      io.to(updatedUser.room).emit("roomData", { room: updatedUser.room, users: getUsersInRoom(updatedUser.room) });
+    };
+
+    if (user) {
+      console.log("received user")
+      socket.join(user.room);
+      socket.emit("message", { user: 'admin', text: `${user.name} welcome to room ${user.room}.` });
+      socket.broadcast.to(user.room).emit('message', { user: "admin", text: `${user.name} has joined.` });
+      io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) });
+    };
+
     callback();
   });
 
@@ -57,7 +69,7 @@ io.on("connection", (socket) => {
   // CHAT
   socket.on("sendMessage", (message, callback) => {
     const user = getUser(socket.id);
-    // console.log("message sent from", user, message);
+    console.log("message sent from", user, message);
     io.to(user.room).emit("message", { user: user.name, text: message });
     io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) })
     callback();

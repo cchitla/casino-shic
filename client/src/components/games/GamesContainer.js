@@ -11,7 +11,7 @@ import BlackjackTable from './blackjack/BlackjackTable/BlackjackTable';
 import BlackjackTableClass from './blackjack/BlackjackTable/BlackjackTableClass';
 
 const GamesContainer = (props) => {
-  const { isAuthenticated, loading, user } = useAuth0();
+  const { isAuthenticated, loading, user, profile } = useAuth0();
 
   // pull user DB info (money/chips) and send to game as prop
 
@@ -51,7 +51,7 @@ const GamesContainer = (props) => {
     <Container className="p-0">
       <h3>GamesContainer component</h3>
       {renderGameSelect(path)}
-      {isAuthenticated ? <LobbyChat /> : ""}
+      {(isAuthenticated && profile) ? <LobbyChat profile={profile} /> : ""}
     </Container>
 
   );
