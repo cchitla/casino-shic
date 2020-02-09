@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
+import API from '../../../utils/API';
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
@@ -23,7 +24,7 @@ export const Auth0Provider = ({
       setAuth0(auth0FromHook);
 
       if (window.location.search.includes("code=") &&
-          window.location.search.includes("state=")) {
+        window.location.search.includes("state=")) {
         const { appState } = await auth0FromHook.handleRedirectCallback();
         onRedirectCallback(appState);
       }
@@ -34,6 +35,8 @@ export const Auth0Provider = ({
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
+        setUserFromDb(user)
+        window.sessionStorage.setItem("user", JSON.stringify(user));
         setUser(user);
       }
 
@@ -65,6 +68,27 @@ export const Auth0Provider = ({
     setIsAuthenticated(true);
     setUser(user);
   };
+
+  const setUserFromDb = (user) => {
+    API.getOnePlayer(user.email)
+      .then(function (dbUser) {
+        if (!dbUser.data) {
+          API.createPlayer({
+            email: user.email,
+            username: user.nickname,
+            isOnline: true
+          }).then(newUser => {
+            let profile = JSON.stringify(newUser.data);
+            window.localStorage.setItem("profile", profile);
+          });
+        };
+        if (dbUser.data) {
+          let profile = JSON.stringify(dbUser.data);
+          window.localStorage.setItem("profile", profile);
+        };
+      });
+  };
+
   return (
     <Auth0Context.Provider
       value={{
