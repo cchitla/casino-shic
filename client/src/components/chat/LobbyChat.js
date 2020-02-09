@@ -25,8 +25,8 @@ const LobbyChat = (props) => {
 
   //this useEffect only handles new connections
   useEffect(() => {
-    // let ENDPOINT = "localhost:3001";
-    let ENDPOINT = "https://casino-shic.herokuapp.com/";
+    let ENDPOINT = "localhost:3001";
+    // let ENDPOINT = "https://casino-shic.herokuapp.com/";
     // let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
     socket = io(ENDPOINT);
     setName(props.profile.username);
@@ -47,14 +47,15 @@ const LobbyChat = (props) => {
   useEffect(() => {
     socket.on("message", (message) => {
       // console.log("received message", message)
-      setMessages([...messages, message])
+      setMessages([...messages, message]);
       });
     socket.on('roomData', ({ users }) => setConnectedUsers(users));
   }, [messages, connectedUsers]);
 
   const sendMessage = (event) => {
     event.preventDefault();
-    if (message) socket.emit("sendMessage", message, () => setMessage(""));
+    if (message) socket.emit("sendMessage", {message, length: messages.length}, () => setMessage(""));
+    // if (message) socket.emit("sendMessage", message, () => setMessage(""));
   };
 
   return (

@@ -6,7 +6,7 @@ const Messages = (props) => {
   return (
     <ScrollToBottom className="chat-messages">
       {props.messages.map((message, index) => 
-        <div key={props.profile._id + message } message={message}>
+        <div key={message.message} message={message}>
           <Message message={message} name={props.name} />
         </div>
       )}

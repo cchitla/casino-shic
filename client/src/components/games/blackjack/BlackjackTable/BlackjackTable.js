@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import './BlackjackTable.css';
-
 import io from 'socket.io-client';
-
+import Table from './Table/Table';
 
 let socket;
 
 const BlackjackTable = (props) => {
-  const [name, setName] = useState(props.profile.username);
+  const [name, setName] = useState(null);
   const [tableName, setTableName] = useState(null);
-  const [players, setPlayers] = useState([]);
+  const [gameIsActive, setGameIsActive] = useState(true);
+  const [joinedPlayers, setJoinedPlayers] = useState([]);
+
   const socketRoom = `blackjackTable ${tableName}`
 
   useEffect(() => {
-    // let ENDPOINT = "localhost:3001";
-    let ENDPOINT = "https://casino-shic.herokuapp.com/";
+    let ENDPOINT = "localhost:3001";
+    // let ENDPOINT = "https://casino-shic.herokuapp.com/";
     // let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
     socket = io(ENDPOINT);
+    setName(props.profile.username);
     setTableName(props.tableName);
 
     return () => {
@@ -24,7 +26,7 @@ const BlackjackTable = (props) => {
       socket.off();
     };
 
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (tableName) {
@@ -36,15 +38,24 @@ const BlackjackTable = (props) => {
   useEffect(() => {
     //this should retrieve blackjack players at this table from server
     socket.on("player joined", ({ name, tableName, presentPlayers }) => {
-      console.log(name + "has joined" + tableName);
+      setJoinedPlayers(presentPlayers);
       console.log("players present:", presentPlayers);
-      
     });
   }, []);
 
 
   return (
-    <div className="blackjackTable">Welcome to blackjack at table: {tableName}, player {name}</div>
+    <>
+      <div className="blackjackTable">Welcome to blackjack at table: {tableName}, player {name}</div>
+      {joinedPlayers.map((player) => <span>{player.name} ,</span>)}
+      <Table
+        profile={props.profile}
+        tableName={tableName}
+        gameIsActive={gameIsActive}
+        setGameIsActive={setGameIsActive}
+        joinedPlayers={joinedPlayers}
+        setJoinedPlayers={setJoinedPlayers} />
+    </>
   );
 };
 

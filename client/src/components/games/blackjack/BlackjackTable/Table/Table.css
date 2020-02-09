@@ -1,0 +1,13 @@
+#blackjackTable {
+  background-color: rgb(16, 82, 16);
+  margin: auto;
+  width: 1000px;
+  height: 500px;
+  border: 15px solid rgb(75, 48, 27);
+  border-radius: 60px;
+}
+
+#blackjackButtons {
+  position: relative;
+  bottom: 60px;
+}

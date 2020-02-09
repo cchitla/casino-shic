@@ -29,15 +29,22 @@ const io = socketio(server);
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./socket/users");
 
 //blackjack imports
-const { players, setPlayer, getPlayersAtTable,
-  createNewTable, removePlayer, getPlayer } = require('./server-games/blackjack/blackjack');
+const { 
+  players,
+  setPlayer,
+  getPlayersAtTable,
+  createNewTable,
+  removePlayer,
+  getPlayer,
+  dealTable,
+  addPlayerHand } = require('./server-games/blackjack/blackjack');
+
 const { getTables } = require('./server-games/blackjack/tables');
 
 
 // SOCKET COMMS
 io.on("connection", (socket) => {
   socket.on("join", ({ name, room }, callback) => {
-    console.log(room, "created on refresh")
     const { user, updatedUser } = addUser({ id: socket.id, name, room });
     handleUserConnection(socket, user, updatedUser, room);
     io.to(room).emit("roomData", { room: room, users: getUsersInRoom(room) });
@@ -55,10 +62,10 @@ io.on("connection", (socket) => {
   });
 
   // CHAT
-  socket.on("sendMessage", (message, callback) => {
+  // socket.on("sendMessage", (message, callback) => {
+  socket.on("sendMessage", ({message, length}, callback) => {
     const user = getUser(socket.id);
-    console.log("message sent from", user, message);
-    io.to(user.room).emit("message", { user: user.name, text: message });
+    io.to(user.room).emit("message", { user: user.name, text: message, length });
     io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) })
     callback();
   });
@@ -76,23 +83,15 @@ io.on("connection", (socket) => {
   socket.on("join table", ({ name, tableName }, callback) => {
     name = name.trim().toLowerCase();
 
-    const newPlayer = {
-      name: name,
-      room: tableName,
-      tablePosition: 1,
-      id: socket.id,
-      // hand starts empty, gets updated after deal
-      hand: null,
-      // score updated after deal, then each time player hits
-      // score: 15,
-      // updates to true if score calc is over  21
-      bust: false
-    };
-
-    setPlayer(newPlayer);
+    const {player } = setPlayer(socket, name, tableName);
+    
 
     let presentPlayers = getPlayersAtTable(tableName)
+
+    dealTable(tableName);
+
     io.to(socket.id).emit("player joined", { name, tableName, presentPlayers });
+    socket.broadcast.to(player.tableName).emit("player joined", {name, tableName, presentPlayers})
     callback();
   });
 
@@ -102,6 +101,10 @@ io.on("connection", (socket) => {
     // send card to client and display it on table
     // send whether user has busted or not
   });
+
+  socket.on("deal blackjack", (tableName) => {
+
+  })
 
   socket.on("blackjack stay", ({ name, tableName }) => {
     // get tablePosition of player
