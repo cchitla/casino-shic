@@ -15,7 +15,7 @@ const GamesContainer = (props) => {
 
   // pull user DB info (money/chips) and send to game as prop
 
-  if (loading) {
+  if (loading && !profile) {
     return <div></div>;
   };
 
@@ -24,8 +24,8 @@ const GamesContainer = (props) => {
     let tableName = decodeURI(window.location.search).replace(/\?/, "")
     return (
       <Container className="p-0">
-        <BlackjackTableClass user={user} tableName={tableName} />
-        <LobbyChat game={"blackjack"} tableName={tableName} user={user}/>
+        <BlackjackTable profile={profile} tableName={tableName} />
+        <LobbyChat game={"blackjack"} tableName={tableName} profile={profile}/>
       </Container>
     )
   };

@@ -37,22 +37,10 @@ const { getTables } = require('./server-games/blackjack/tables');
 // SOCKET COMMS
 io.on("connection", (socket) => {
   socket.on("join", ({ name, room }, callback) => {
+    console.log(room, "created on refresh")
     const { user, updatedUser } = addUser({ id: socket.id, name, room });
-
-    if (updatedUser) {
-      console.log("recieved updated user")
-      socket.emit("message", { user: 'admin', text: `${updatedUser.name} welcome to room ${updatedUser.room}.` });
-      socket.broadcast.to(updatedUser.room).emit('message', { user: "admin", text: `${updatedUser.name} has joined.` });
-      io.to(updatedUser.room).emit("roomData", { room: updatedUser.room, users: getUsersInRoom(updatedUser.room) });
-    };
-
-    if (user) {
-      console.log("received user")
-      socket.join(user.room);
-      socket.emit("message", { user: 'admin', text: `${user.name} welcome to room ${user.room}.` });
-      socket.broadcast.to(user.room).emit('message', { user: "admin", text: `${user.name} has joined.` });
-      io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) });
-    };
+    handleUserConnection(socket, user, updatedUser, room);
+    io.to(room).emit("roomData", { room: room, users: getUsersInRoom(room) });
 
     callback();
   });
@@ -130,3 +118,17 @@ io.on("connection", (socket) => {
   });
 
 });
+
+
+const handleUserConnection = (socket, user, updatedUser, room) => {
+  if (updatedUser) {
+    socket.emit("message", { user: 'admin', text: `${updatedUser.name} welcome to room ${updatedUser.room}.` });
+    socket.broadcast.to(room).emit('message', { user: "admin", text: `${updatedUser.name} has joined.` });
+    // io.to(updatedUser.room).emit("roomData", { room: room, users: getUsersInRoom(room) });
+  } else if (user) {
+    socket.join(user.room);
+    socket.emit("message", { user: 'admin', text: `${user.name} welcome to room ${user.room}.` });
+    socket.broadcast.to(room).emit('message', { user: "admin", text: `${user.name} has joined.` });
+    // io.to(room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) });
+  };
+}; 

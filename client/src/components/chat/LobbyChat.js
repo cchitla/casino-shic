@@ -26,8 +26,8 @@ const LobbyChat = (props) => {
   //this useEffect only handles new connections
   useEffect(() => {
     // let ENDPOINT = "localhost:3001";
-    // let ENDPOINT = "https://casino-shic.herokuapp.com/";
-    let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
+    let ENDPOINT = "https://casino-shic.herokuapp.com/";
+    // let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
     socket = io(ENDPOINT);
     setName(props.profile.username);
 
@@ -45,9 +45,12 @@ const LobbyChat = (props) => {
   }, [name]);
 
   useEffect(() => {
-    socket.on("message", (message) => setMessages([...messages, message]));
+    socket.on("message", (message) => {
+      // console.log("received message", message)
+      setMessages([...messages, message])
+      });
     socket.on('roomData', ({ users }) => setConnectedUsers(users));
-  }, [messages]);
+  }, [messages, connectedUsers]);
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -57,11 +60,11 @@ const LobbyChat = (props) => {
   return (
     <Row className="chat-wrapper pt-5">
       <Col className="p-0 pr-1" style={{ minHeight: "200px" }} sm={8}>
-        <Messages messages={messages} name={name} />
+        <Messages messages={messages} name={name} profile={props.profile}/>
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </Col>
       <Col className="p-0 pl-1" style={{ minHeight: "200px" }} sm={4}>
-        <OnlineUsers connectedUsers={connectedUsers} />
+        <OnlineUsers connectedUsers={connectedUsers} profile={props.profile}/>
       </Col>
     </Row>
   );

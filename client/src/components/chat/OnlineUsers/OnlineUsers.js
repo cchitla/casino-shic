@@ -15,9 +15,8 @@ const OnlineUsers = (props) => (
                   <div className="">
                   
                       {props.connectedUsers.map(({ name }) => (
-                        <p key={name} className="">
+                        <p key={props.profile._id} className="">
                           {name}
-                          {/* <img alt="Online Icon" src={onlineIcon}/> */}
                         </p>
                       ))}
                    
