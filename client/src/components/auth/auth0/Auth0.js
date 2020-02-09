@@ -17,6 +17,7 @@ export const Auth0Provider = ({
   const [auth0Client, setAuth0] = useState();
   const [loading, setLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
+  const [profile, setProfile] = useState();
 
   useEffect(() => {
     const initAuth0 = async () => {
@@ -78,13 +79,13 @@ export const Auth0Provider = ({
             username: user.nickname,
             isOnline: true
           }).then(newUser => {
-            let profile = JSON.stringify(newUser.data);
-            window.localStorage.setItem("profile", profile);
+            let profile = newUser.data;
+            setProfile(profile);
           });
         };
         if (dbUser.data) {
-          let profile = JSON.stringify(dbUser.data);
-          window.localStorage.setItem("profile", profile);
+          let profile = dbUser.data;
+          setProfile(profile);
         };
       });
   };
@@ -92,6 +93,7 @@ export const Auth0Provider = ({
   return (
     <Auth0Context.Provider
       value={{
+        profile,
         isAuthenticated,
         user,
         loading,

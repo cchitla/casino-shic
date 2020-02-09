@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { useAuth0 } from "../auth/auth0/Auth0";
 import io from 'socket.io-client';
 import './Chat.css';
 
@@ -10,13 +9,12 @@ import OnlineUsers from './OnlineUsers/OnlineUsers';
 
 let socket;
 
-// receiving table name in props, if tableName exists, then socket room = tableName
 const LobbyChat = (props) => {
   const [name, setName] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState("");
-  
+
   let socketPath = window.location.pathname.slice(7);
   let room = "lobby";
   if (props.tableName) {
@@ -24,23 +22,19 @@ const LobbyChat = (props) => {
   } else if (socketPath !== "") {
     room = socketPath;
   };
-  
+
   //this useEffect only handles new connections
   useEffect(() => {
-    let ENDPOINT = "localhost:3001";
+    // let ENDPOINT = "localhost:3001";
     // let ENDPOINT = "https://casino-shic.herokuapp.com/";
-    // let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
+    let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
     socket = io(ENDPOINT);
-
-    let storedUser = JSON.parse(window.localStorage.getItem("profile"));
-    console.log("session store:", storedUser);
-    setName(user.name);
+    setName(props.profile.username);
 
     return () => {
       socket.emit("disconnect chat");
       socket.off();
     };
-
   }, []);
 
   useEffect(() => {
@@ -50,7 +44,6 @@ const LobbyChat = (props) => {
     };
   }, [name]);
 
-  // this useEffect handles incoming messages
   useEffect(() => {
     socket.on("message", (message) => setMessages([...messages, message]));
     socket.on('roomData', ({ users }) => setConnectedUsers(users));
@@ -61,12 +54,6 @@ const LobbyChat = (props) => {
     if (message) socket.emit("sendMessage", message, () => setMessage(""));
   };
 
-  const { loading, user } = useAuth0();
-
-  if (loading || !user) {
-    return <div></div>;
-  };
-  
   return (
     <Row className="chat-wrapper pt-5">
       <Col className="p-0 pr-1" style={{ minHeight: "200px" }} sm={8}>
