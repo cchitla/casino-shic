@@ -42,6 +42,11 @@ const userSchema = new Schema({
                 type: Number,
                 default: 0
             }
+            ,
+            coins: {
+                type: Number,
+                default: 0
+            }
         },
         craps: {
             wins: {

@@ -1,0 +1,13 @@
+[
+  {"n": "1 to 18", "className": "blues cella-fifth chip-container-cella-fifth" },
+  {"n": "", "className": "space-fourth" },
+  {"n": "Even", "className": "blues cella-fifth chip-container-cella-fifth" },
+  {"n": "", "className": "space-fourth" },
+  {"n": "Red", "className": "reds cella-fifth chip-container-cella-fifth" },
+  {"n": "", "className": "space-fourth" },
+  {"n": "Black", "className": "blacks cella-fifth chip-container-cella-fifth" },
+  {"n": "", "className": "space-fourth" },
+  {"n": "Odd", "className": "blues cella-fifth chip-container-cella-fifth" },
+  {"n": "", "className": "space-fourth" },
+  {"n": "19 to 36", "className": "blues cella-fifth chip-container-cella-fifth" }
+]
