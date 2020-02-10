@@ -13,15 +13,15 @@ export default class BlackjackTableClass extends Component {
       players: [],
     };
 
-    // this.ENDPOINT = "localhost:3001"
-    this.ENDPOINT = "https://casino-shic.herokuapp.com/";
+    this.ENDPOINT = "localhost:3001"
+    // this.ENDPOINT = "https://casino-shic.herokuapp.com/";
     // this.ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
   };
 
   componentDidMount() {
     socket = io(this.ENDPOINT);
     let player = {
-      name: this.props.user.name,
+      name: this.props.profile.username,
       tableName: this.props.tableName
     };
 
@@ -47,7 +47,9 @@ export default class BlackjackTableClass extends Component {
 
   render() {
     return (
+      <>
       <div className="blackjackTable">Welcome to blackjack at table: {this.props.tableName}, player {this.props.name}</div>
+      </>
     );
   };
 };

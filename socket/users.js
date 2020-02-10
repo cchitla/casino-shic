@@ -4,10 +4,19 @@ const addUser = ({ id, name, room}) => {
   name = name.trim().toLowerCase();
   room = room.trim().toLowerCase();
 
+  const existingUser = users.find((user) => user.room === room && user.name === name);
+
+  if (existingUser) {
+    removeUser(existingUser.id)
+    console.log(existingUser, "removed")
+    updatedUser = { id, name, room };
+    users.push(updatedUser);
+    console.log(updatedUser, "added")
+    return { updatedUser }
+  };
+
   const user = { id, name, room};
   users.push(user);
-  // console.log("connected chat users", users);
-
   return { user };
 };
 

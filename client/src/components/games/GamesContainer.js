@@ -11,11 +11,11 @@ import BlackjackTable from './blackjack/BlackjackTable/BlackjackTable';
 import BlackjackTableClass from './blackjack/BlackjackTable/BlackjackTableClass';
 
 const GamesContainer = (props) => {
-  const { isAuthenticated, loading, user } = useAuth0();
+  const { isAuthenticated, loading, user, profile } = useAuth0();
 
   // pull user DB info (money/chips) and send to game as prop
 
-  if (loading) {
+  if (loading && !profile) {
     return <div></div>;
   };
 
@@ -24,8 +24,8 @@ const GamesContainer = (props) => {
     let tableName = decodeURI(window.location.search).replace(/\?/, "")
     return (
       <Container className="p-0">
-        <BlackjackTableClass user={user} tableName={tableName} />
-        <LobbyChat game={"blackjack"} tableName={tableName} user={user}/>
+        <BlackjackTable profile={profile} tableName={tableName} />
+        <LobbyChat game={"blackjack"} tableName={tableName} profile={profile}/>
       </Container>
     )
   };
@@ -51,7 +51,7 @@ const GamesContainer = (props) => {
     <Container className="p-0">
      {/*  <h3>GamesContainer component</h3> */}
       {renderGameSelect(path)}
-      {isAuthenticated ? <LobbyChat /> : ""}
+      {(isAuthenticated && profile) ? <LobbyChat profile={profile} /> : ""}
     </Container>
 
   );

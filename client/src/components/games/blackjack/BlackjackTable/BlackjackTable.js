@@ -7,13 +7,15 @@ import io from 'socket.io-client';
 let socket;
 
 const BlackjackTable = (props) => {
-  const [name, setName] = useState(props.user.name)
+  const [name, setName] = useState(props.profile.username);
   const [tableName, setTableName] = useState(null);
   const [players, setPlayers] = useState([]);
   const socketRoom = `blackjackTable ${tableName}`
 
   useEffect(() => {
-    let ENDPOINT = "localhost:3001";
+    // let ENDPOINT = "localhost:3001";
+    let ENDPOINT = "https://casino-shic.herokuapp.com/";
+    // let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
     socket = io(ENDPOINT);
     setTableName(props.tableName);
 
