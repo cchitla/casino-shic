@@ -23,8 +23,8 @@ export default {
     createPlayer: function (email) {
         return axios.post(`/api/users/`, email);
     },
-    updatePlayer: function (email) {
-        return axios.put(`/api/users/${email}`);
+    updatePlayer: function (email, obj) {
+        return axios.put(`/api/users/${email}`, obj);
     },
     deletePlayer: function (email) {
         return axios.delete(`/api/users/${email}`);
