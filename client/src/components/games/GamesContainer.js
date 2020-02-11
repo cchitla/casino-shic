@@ -20,12 +20,12 @@ const GamesContainer = (props) => {
   };
 
   let URL = window.location.pathname;
-  if (URL.includes("blackjack/tables")) {
+  if (URL.includes("blackjack/tables") && profile) {
     let tableName = decodeURI(window.location.search).replace(/\?/, "")
     return (
       <Container className="p-0">
-        <BlackjackTable profile={profile} tableName={tableName} />
-        <LobbyChat game={"blackjack"} tableName={tableName} profile={profile}/>
+        <BlackjackTable user={user} profile={profile} tableName={tableName} />
+        <LobbyChat game={"blackjack"} tableName={tableName} profile={profile} user={user}/>
       </Container>
     )
   };

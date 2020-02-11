@@ -25,7 +25,7 @@ const createDeck = () => {
 const createDealerDeck = () => {
   dealerDeck = [];
   createDeck();
-  createDeck();
+  // createDeck();
   return dealerDeck;
 };
 
