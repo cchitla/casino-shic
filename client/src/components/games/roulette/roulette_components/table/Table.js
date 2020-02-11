@@ -1,61 +1,78 @@
 import React from 'react';
 import './Table.css';
 import Chip from '../chips/Chips';
-import firstRow from './rows/FirstRow.json';
-import firstBorder from './rows/FirstBorder.json';
-import secondRow from './rows/SecondRow.json';
-import secondBorder from './rows/SecondBorder.json';
-import thirdRow from './rows/ThirdRow.json';
-import thirdBorder from './rows/ThirdBorder.json';
-import fourthRow from './rows/FourthRow.json';
-import fifthRow from './rows/FifthRow.json';
-import columnLeft from './rows/ColumnLeft.json';
-import columnRight from './rows/ColumnRight.json';
+
 
 class RouletteTable extends React.Component {
 
   state = {
     nums: [],
-    numChildren: 0,
+    //numChildren: 0,
     currentNumber: 0,
     coins: this.props.coins,
     chip: this.props.chip,
     message: "",
     /* JSONS ROWS */
-    firstRow: firstRow,
-    firstBorder: firstBorder,
-    secondRow: secondRow,
-    secondBorder: secondBorder,
-    thirdRow: thirdRow,
-    thirdBorder: thirdBorder,
-    fourthRow: fourthRow,
-    fifthRow: fifthRow,
-    columnLeft: columnLeft,
-    columnRight: columnRight
+    firstRow: this.props.firstRow,
+    firstBorder: this.props.firstBorder,
+    secondRow: this.props.secondRow,
+    secondBorder: this.props.secondBorder,
+    thirdRow: this.props.thirdRow,
+    thirdBorder: this.props.thirdBorder,
+    fourthRow: this.props.fourthRow,
+    fifthRow: this.props.fifthRow,
+    columnLeft: this.props.columnLeft,
+    columnRight: this.props.columnRight
     /* END JSONS ROWS */
   }
 
-
+  
 
   componentDidMount() {
 
-    this.numsSelectionHandler = (num) => { //selecting bets
+    this.numsSelectionHandler = (num, whichRow) => { //selecting bets
+
+      
+      if (this.props.arr === []) {
+        this.setState({nums: []})
+      }
+      
 
       let nums = [...this.state.nums]; //spreading array of bets for furter use
+      let row = [...this.state[whichRow]]
+      let coins;
 
       if (nums.indexOf(num) >= 0) { //if number is present in array, deselect it
 
         nums.splice(nums.indexOf(num), 1); // if deselect take it out of aray
-
+        //calcolate coins
+        coins = this.state.coins + this.state.chip;
         /* CHIPS HANDLING */
+        let updatedRow = row.map(chip => {
+          if (chip.n == num) {
+            chip.visible = false
+          }
+          return chip
+        })
+        this.props.updateRow(whichRow, updatedRow)
 
-        this.setState({ numChildren: this.state.numChildren - 1 }); //take the chip out of number
+        this.setState({ [whichRow]: updatedRow }); //take the chip out of number
 
         /* END CHIPS HANDLING */
 
       } else if (nums.indexOf(num) === -1) {
+        //calcolate coins
+        coins = this.state.coins - this.state.chip;
         nums.push(num);
-        this.setState({ numChildren: this.state.numChildren + 1 });
+        let updatedRow = row.map(chip => {
+          if (chip.n == num) {
+            chip.visible = true
+          }
+          return chip
+        })
+
+        this.setState({ [whichRow]: updatedRow });
+        //this.setState({ numChildren: this.state.numChildren + 1, [whichRow]: updatedRow });
       }
 
       /* ARRAY OF BETS HANDLING */
@@ -65,13 +82,12 @@ class RouletteTable extends React.Component {
 
       /* COINS HANDLING */
 
-      //calcolate coins
-      let coins = this.state.coins - this.state.chip;
-
       //update coins in rulette
       this.setState({ coins: coins }, () => { this.props.updateCoins(coins) })
 
       /* END COINS HANDLING */
+
+      
     }
   }
 
@@ -79,13 +95,18 @@ class RouletteTable extends React.Component {
     this.setState({ message: "No bet on zeros!" })
   }
 
+
   render() {
+
 
     return (
       <React.Fragment>
+
+
         <div className="d-flex flex-row align-items-start roulette-table">
           <div className="align-self-start">
             <ul className="list-unstyled pt-6">
+
               {
                 this.state.columnLeft.map((num, index, arr) =>
                   <li
@@ -109,13 +130,10 @@ class RouletteTable extends React.Component {
                     key={num.n + index + arr}
                     className={num.className}
                     value={num.n}
-                    onClick={() => this.numsSelectionHandler(num.n)}>
-                    {<Chip
+                    onClick={() => this.numsSelectionHandler(num.n, "firstRow")}>
+                    <Chip
                       id={num.n}
-                      active={this.state.nums.includes(num.n) ? true : false}
-                      selArr={this.props.removeChips ? [] : this.state.nums}
-                      numChildren={this.state.numChildren}
-                      removeChips={this.props.removeChips} />}
+                      active={num.visible} />
                   </button>)
               }
             </ul>
@@ -127,13 +145,10 @@ class RouletteTable extends React.Component {
                     key={num.n + index + arr}
                     className={num.className}
                     value={num.n}
-                    onClick={() => this.numsSelectionHandler(num.n)}>
-                    {<Chip
+                    onClick={() => this.numsSelectionHandler(num.n, "firstBorder")}>
+                    <Chip
                       id={num.n}
-                      active={this.state.nums.includes(num.n) ? true : false}
-                      selArr={this.props.removeChips ? [] : this.state.nums}
-                      numChildren={this.state.numChildren}
-                      removeChips={this.props.removeChips} />}
+                      active={num.visible} />
                   </button>)
               }
             </ul>
@@ -145,13 +160,10 @@ class RouletteTable extends React.Component {
                     key={num.n + index + arr}
                     className={num.className}
                     value={num.n}
-                    onClick={() => this.numsSelectionHandler(num.n)}>
-                    {<Chip
+                    onClick={() => this.numsSelectionHandler(num.n, "secondRow")}>
+                    <Chip
                       id={num.n}
-                      active={this.state.nums.includes(num.n) ? true : false}
-                      selArr={this.props.removeChips ? [] : this.state.nums}
-                      numChildren={this.state.numChildren}
-                      removeChips={this.props.removeChips} />}
+                      active={num.visible} />
                   </button>)
               }
             </ul>
@@ -163,13 +175,10 @@ class RouletteTable extends React.Component {
                     key={num.n + index + arr}
                     className={num.className}
                     value={num.n}
-                    onClick={() => this.numsSelectionHandler(num.n)}>
-                    {<Chip
+                    onClick={() => this.numsSelectionHandler(num.n, "secondBorder")}>
+                    <Chip
                       id={num.n}
-                      active={this.state.nums.includes(num.n) ? true : false}
-                      selArr={this.props.removeChips ? [] : this.state.nums}
-                      numChildren={this.state.numChildren}
-                      removeChips={this.props.removeChips} />}
+                      active={num.visible} />
                   </button>)
               }
             </ul>
@@ -181,13 +190,10 @@ class RouletteTable extends React.Component {
                     key={num.n + index + arr}
                     className={num.className}
                     value={num.n}
-                    onClick={() => this.numsSelectionHandler(num.n)}>
-                    {<Chip
+                    onClick={() => this.numsSelectionHandler(num.n, "thirdRow")}>
+                    <Chip
                       id={num.n}
-                      active={this.state.nums.includes(num.n) ? true : false}
-                      selArr={this.props.removeChips ? [] : this.state.nums}
-                      numChildren={this.state.numChildren}
-                      removeChips={this.props.removeChips} />}
+                      active={num.visible} />
                   </button>)
               }
             </ul>
@@ -199,13 +205,10 @@ class RouletteTable extends React.Component {
                     key={num.n + index + arr}
                     className={num.className}
                     value={num.n}
-                    onClick={() => this.numsSelectionHandler(num.n)}>
-                    {<Chip
+                    onClick={() => this.numsSelectionHandler(num.n, "thirdBorder")}>
+                    <Chip
                       id={num.n}
-                      active={this.state.nums.includes(num.n) ? true : false}
-                      selArr={this.props.removeChips ? [] : this.state.nums}
-                      numChildren={this.state.numChildren}
-                      removeChips={this.props.removeChips} />}
+                      active={num.visible} />
                   </button>)
               }
             </ul>
@@ -217,15 +220,12 @@ class RouletteTable extends React.Component {
                     key={num.n + index + arr}
                     className={num.className}
                     value={num.n}
-                    onClick={() => this.numsSelectionHandler(num.n)}
+                    onClick={() => this.numsSelectionHandler(num.n, "fourthRow")}
                     disabled={num.disabled}
                   >
-                    {<Chip
+                    <Chip
                       id={num.n}
-                      active={this.state.nums.includes(num.n) ? true : false}
-                      selArr={this.props.removeChips ? [] : this.state.nums}
-                      numChildren={this.state.numChildren}
-                      removeChips={this.props.removeChips} />}
+                      active={num.visible} />
                   </button>)
               }
             </ul>
@@ -238,13 +238,10 @@ class RouletteTable extends React.Component {
                     key={num.n + index + arr}
                     className={num.className}
                     value={num.n}
-                    onClick={() => this.numsSelectionHandler(num.n)}>
-                    {<Chip
+                    onClick={() => this.numsSelectionHandler(num.n, "fifthRow")}>
+                   <Chip
                       id={num.n}
-                      active={this.state.nums.includes(num.n) ? true : false}
-                      selArr={this.props.removeChips ? [] : this.state.nums}
-                      numChildren={this.state.numChildren}
-                      removeChips={this.props.removeChips} />}
+                      active={num.visible} />
                   </button>)
               }
             </ul>
@@ -260,13 +257,10 @@ class RouletteTable extends React.Component {
                     <button
                       className="blues"
                       value={num.n}
-                      onClick={() => this.numsSelectionHandler(num.n)}>
-                      {<Chip
-                        id={num.n}
-                        active={this.state.nums.includes(num.n) ? true : false}
-                        selArr={this.props.removeChips ? [] : this.state.nums}
-                        numChildren={this.state.numChildren}
-                        removeChips={this.props.removeChips} />}
+                      onClick={() => this.numsSelectionHandler(num.n, "columnRight")}>
+                      <Chip
+                      id={num.n}
+                      active={num.visible} />
                     </button>
                   </li>
                 )

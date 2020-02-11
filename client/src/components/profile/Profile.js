@@ -7,13 +7,32 @@ import AvatarUpload from '../imgupload/Imageupload';
 import API from '../../utils/API'
 import EditProfile from './EditProfile';
 import ProfileInfo from './ProfileInfo';
-import EditButton from './EditButton'
+import EditButton from './EditButton';
 
 
 class Profile extends React.Component {
 
   state = {
-    dontWantToEdit: true
+    dontWantToEdit: true,
+    firstName: "",
+    lastName: "",
+    sign: "",
+    gender: "",
+    avatar: ""
+  }
+
+  componentDidMount() {
+    API.getOnePlayer(this.props.user.email)
+      .then(res => {
+        console.log(res.data);
+        this.setState({ 
+        firstName: res.data.firstName,  
+        lastName: res.data.lastName,  
+        sign: res.data.sign,  
+        gender: res.data.gender,  
+        avatar: res.data.avatar
+      })})
+      .catch(err => console.log(err));
   }
 
   editTrigger = () => {
@@ -44,10 +63,10 @@ class Profile extends React.Component {
                   <div className="small-divider "></div>
                   <Card.Body>
                     <Card.Text>
-                      <Image thumbnail src={this.props.user.picture} alt={this.props.user.given_name} />
+                      <Image thumbnail src={this.state.avatar || this.props.user.picture} alt={this.props.user.given_name} />
                     </Card.Text>
                   </Card.Body>
-                  <AvatarUpload />
+                  <AvatarUpload user={this.props.user} />
 
                 </Card>
                 <Card className="profile-cols">
@@ -58,7 +77,8 @@ class Profile extends React.Component {
                     <EditProfile dontWantToEdit={this.state.dontWantToEdit} user={this.props.user} />
                   </Card.Body>
                   <Card.Footer className="text-muted">
-                    {this.state.dontWantToEdit && <EditButton addTrip={this.editTrigger} />}
+                   {/*  {this.state.dontWantToEdit && <EditButton edit={this.editTrigger} />} */}
+                   <EditButton edit={this.editTrigger} />
                   </Card.Footer>
                 </Card>
                 <Card className="profile-cols">

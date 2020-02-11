@@ -105,10 +105,10 @@ class Weel extends React.Component {
     const arcd = arc * 180 / Math.PI;
     const index = Math.floor((360 - degrees % 360) / arcd);
     ctx.save();
-    ctx.font = 'bold 50px Helvetica, Arial';
+    //ctx.font = 'bold 50px Helvetica, Arial';
     const text = options[index].number;
     this.setState({ text })
-    ctx.fillText(text, baseSize - ctx.measureText(text).width / 2, baseSize);
+    //ctx.fillText(text, baseSize - ctx.measureText(text).width / 2, baseSize);
     ctx.restore();
     this.props.updateNum(this.state.text);
   }

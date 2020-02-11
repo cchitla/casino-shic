@@ -7,9 +7,16 @@ import { GiDiamonds } from 'react-icons/gi';
 import axios from 'axios';
 import API from "../../../utils/API";
 import { useAuth0 } from "../../auth/auth0/Auth0";
-
-
-//const {user, isAuthenticated} = useAuth0;
+import firstRow from './roulette_components/table/rows/FirstRow.json';
+import firstBorder from './roulette_components/table/rows/FirstBorder.json';
+import secondRow from './roulette_components/table/rows/SecondRow.json';
+import secondBorder from './roulette_components/table/rows/SecondBorder.json';
+import thirdRow from './roulette_components/table/rows/ThirdRow.json';
+import thirdBorder from './roulette_components/table/rows/ThirdBorder.json';
+import fourthRow from './roulette_components/table/rows/FourthRow.json';
+import fifthRow from './roulette_components/table/rows/FifthRow.json';
+import columnLeft from './roulette_components/table/rows/ColumnLeft.json';
+import columnRight from './roulette_components/table/rows/ColumnRight.json';
 
 
 class Roulette extends React.Component {
@@ -19,11 +26,14 @@ class Roulette extends React.Component {
     count: 0,
     wins: 0,
     chip: 10,
-    coins: 300,
+    coins: 0,
     losses: 0,
     message: "Spin the weel!",
     extArr: [],
-    removeChips: false
+    removeChips: false,
+    reset: false,
+    firstRow, firstBorder, secondRow, secondBorder, thirdRow, thirdBorder, fourthRow, fifthRow, columnLeft, columnRight
+
   }
 
   twoByOneFirst = ["3", "6", "2", "12", "15", "18", "21", "24", "27", "30", "33", "36"];
@@ -40,52 +50,42 @@ class Roulette extends React.Component {
   odd = ['1', '3', '5', '7', '9', '11', '13', '15', '17', '19', '21', '23', '25', '27', '29', '31', '33', '35'];
 
 
-  getPlayerData = () => {
+  componentDidMount() {
     API.getOnePlayer(this.props.user.email)
       .then(res => {
-        this.setState({ count: res.data.wins.roulette.totalGames, wins: res.data.wins.roulette.wins });
-        console.log(this.state.wins, this.state.count);
-      }
-      )
+        this.setState({
+          count: res.data.wins.roulette.totalGames,
+          wins: res.data.wins.roulette.wins,
+          coins: res.data.earnings,
+          losses: (res.data.wins.roulette.totalGames - res.data.wins.roulette.wins)
+        });
+        console.log(this.state.wins, this.state.count, this.props.user.email, res.data.wins.roulette.wins, res.data.earnings);
+        console.log(res);
+
+      })
       .catch(err => console.log(err));
   }
 
-
-  componentDidMount() {
-
-    this.getPlayerData()
-
-  }
-
-  componentDidUpdate() {
-    //this.getPlayerData()
-  }
-  addToDb() {
-
-
-    //adding user info to db here
-    // + wins
-    // + spins
-    // + coins
-    // + game name
-  }
 
   userLost = () => {
     console.log("============ LOOSING ===============");
     console.log("looser");
     this.setState({
       message: `You loose :(`,
-      losses: this.state.losses + 1
+      losses: this.state.losses + 1,
+      reset: true
     });
     console.log("========== END LOOSING =============");
 
-    /* API.updatePlayer(this.props.user.email)
-    .then(res => {
-      this.setState ({ losses: res.data.wins.roulette.totalGames - res.data.wins.roulette.wins});
-      console.log(res.data);}
-      )
-    .catch(err => console.log(err)); */
 
+    let data = {
+      "wins.roulette.totalGames": this.state.count + 1,
+      earnings: this.state.coins
+    }
+
+    API.updatePlayer(this.props.user.email, data)
+      .then(res => { console.log(res.data) })
+      .catch(err => console.log(err));
 
     this.resetGame();
   }
@@ -97,33 +97,67 @@ class Roulette extends React.Component {
       message: `You win! :)`,
       wins: this.state.wins + 1,
       coins: this.state.coins + (multi * parseInt(this.state.chip)),
+      reset: true
     });
+
+
     console.log("========== END WINNING =============");
 
-    /* const setUserFromDb = (user) => {
-    API.getOnePlayer(user.email)
-      .then(function (dbUser) {
-        if (!dbUser.data) {
-          API.createPlayer({ email: user.email, username: user.nickname, isOnline: true })
-            .then(newUser => setProfile(newUser.data));
-        };
-        if (dbUser.data) setProfile(dbUser.data);
-      });
-  }; */
 
-    API.updatePlayer(this.props.user.email)
-      .then(res => {
-        this.setState({ count: res.data.wins.roulette.totalGames + 1, wins: res.data.wins.roulette.wins + 1 });
-        console.log(res.data);
-      })
+    let data = {
+      "wins.roulette.totalGames": this.state.count + 1,
+      "wins.roulette.wins": this.state.count + 1,
+      earnings: this.state.coins
+    }
+
+    API.updatePlayer(this.props.user.email, data)
+      .then(res => { console.log(res.data) })
       .catch(err => console.log(err));
-    console.log(this.props.user);
 
     this.resetGame();
   }
 
   resetGame = () => {
-    this.setState({ arr: [], num: "", removeChips: false });
+    this.setState({
+      arr: [],
+      num: "",
+      firstRow: firstRow.map(num => {
+        num.visible = false
+        return num;
+      }),
+      firstBorder: firstBorder.map(num => {
+        num.visible = false
+        return num;
+      }),
+      secondRow: secondRow.map(num => {
+        num.visible = false
+        return num;
+      }),
+      secondBorder: secondBorder.map(num => {
+        num.visible = false
+        return num;
+      }),
+      thirdRow: thirdRow.map(num => {
+        num.visible = false
+        return num;
+      }),
+      thirdBorder: thirdBorder.map(num => {
+        num.visible = false
+        return num;
+      }),
+      fourthRow: fourthRow.map(num => {
+        num.visible = false
+        return num;
+      }),
+      columnLeft: columnLeft.map(num => {
+        num.visible = false
+        return num;
+      }),
+      columnRight: columnRight.map(num => {
+        num.visible = false
+        return num;
+      })
+    });
   }
 
 
@@ -207,19 +241,30 @@ class Roulette extends React.Component {
     this.setState({ coins })
   }
 
-  updateRemove = (bool) => {
-    this.setState({ bool })
+  updateRow = (row, val) => {
+    this.setState({ [row]: val })
   }
 
   render() {
     return (
       <React.Fragment>
         <Row>
-
           <Container fluid className="table">
             <Row className="align-items-center">
               <Col className="mx-5">
                 <RouletteTable
+                  firstRow={this.state.firstRow}
+                  firstBorder={this.state.firstBorder}
+                  secondRow={this.state.secondRow}
+                  secondBorder={this.state.secondBorder}
+                  thirdRow={this.state.thirdRow}
+                  thirdBorder={this.state.thirdBorder}
+                  fourthRow={this.state.fourthRow}
+                  fifthRow={this.state.fifthRow}
+                  columnLeft={this.state.columnLeft}
+                  columnRight={this.state.columnRight}
+                  updateRow={this.updateRow}
+                  reset={this.state.reset}
                   updateArr={this.updateArr}
                   updateCoins={this.updateCoins}
                   updateRemove={this.updateRemove}
@@ -240,7 +285,7 @@ class Roulette extends React.Component {
                       <h4 className="text-uppercase">{this.state.message}</h4>
                     </div>
                     <div className="text-center mt-2">
-                      
+
                       <h6>Your bets: <span>{this.state.arr.join(", ")}</span></h6>
 
                       <div className="divider-line divider-line-center divider-line-linear-gradient w-100 mx-auto mt-2">
@@ -261,14 +306,12 @@ class Roulette extends React.Component {
                   num={this.state.num}
                   arr={this.state.arr}
                   count={this.state.count}
+                  updateRemove={this.updateRemove}
                 />
               </Col>
             </Row>
           </Container>
-
         </Row>
-
-
       </React.Fragment>
     )
   }
