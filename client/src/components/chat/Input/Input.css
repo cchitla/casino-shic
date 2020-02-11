@@ -1,0 +1,24 @@
+
+.chat-input {
+  padding: 4px;
+  background-color: #212121;
+  border-image-source: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
+  border-image-slice: 1;
+  width: 75%;
+  color: white;
+}
+.chat-submit {
+  padding: 4px;
+  background: linear-gradient(to bottom , #b0762b, #dcb44a);
+  border-image-source: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
+  border-image-slice: 1;
+  width: 25%;
+}
+.chat-submit:hover {
+  padding: 4px;
+  background: linear-gradient(to bottom , #dcb44a, #b0762b);
+  border-image-source: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
+  border-image-slice: 1;
+  width: 25%;
+}
+

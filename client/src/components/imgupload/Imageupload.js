@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Card } from 'react-bootstrap';
 import './Imageupload.css';
+import API from '../../utils/API';
+
 
 class AvatarUpload extends Component {
 
@@ -22,7 +24,7 @@ class AvatarUpload extends Component {
     // If file selected
     if (this.state.selectedFile) {
       data.append("profileImage", this.state.selectedFile);
-      axios.post("/api/profile/profile-img-upload", data/* , {
+      axios.post(`/api/profile/img-upload`, data/* , {
         headers: {
           "accept": "application/json",
           "Accept-Language": "en-US,en;q=0.8",
@@ -44,7 +46,16 @@ class AvatarUpload extends Component {
             } else {
               // Success
               let fileName = response.data;
+              console.log(response.data.location);
+              
+              let data = { avatar: response.data.location }
+
+              API.updatePlayer(this.props.user.email, data)
+              .then(res => {console.log(res.data)})
+              .catch(err => console.log(err));
+
               console.log("File Uploaded", fileName);
+              
               this.setState({ messageText: "File Uploaded" });
               this.setState({ messageClass: "bg-blackish text-light-gold border-gold p-1 my-1 text-center" });
               window.location.reload(); //need this in order to show new image from db

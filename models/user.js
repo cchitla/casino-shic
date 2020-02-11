@@ -23,10 +23,16 @@ const userSchema = new Schema({
         type: Number,
         default: 100
     },
-    birthday: {
+    firstName: {
+        type: String
+    },
+    lastName: {
         type: String
     },
     gender: {
+        type: String
+    },
+    sign: {
         type: String
     },
     avatar: {
