@@ -66,6 +66,10 @@ const userSchema = new Schema({
             totalGames: {
                 type: Number,
                 default: 0
+            },
+            coins: {
+                type: Number,
+                default: 0
             }
         },
         slots: {

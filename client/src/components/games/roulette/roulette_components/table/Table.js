@@ -83,7 +83,7 @@ class RouletteTable extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="d-flex flex-row align-items-start">
+        <div className="d-flex flex-row align-items-start roulette-table">
           <div className="align-self-start">
             <ul className="list-unstyled pt-6">
               {
@@ -100,7 +100,7 @@ class RouletteTable extends React.Component {
             </ul>
           </div>
           <div className="align-self-start">
-            <div className="divider"></div>
+            <div className="table-divider"></div>
             {/* First row */}
             <ul className="d-flex list-unstyled">
               {
@@ -229,7 +229,7 @@ class RouletteTable extends React.Component {
                   </button>)
               }
             </ul>
-            <div className="divider"></div>
+            <div className="table-divider"></div>
             {/* Fifth row */}
             <ul className="d-flex list-unstyled">
               {
@@ -248,10 +248,10 @@ class RouletteTable extends React.Component {
                   </button>)
               }
             </ul>
-            <div className="divider"></div>
+            <div className="table-divider"></div>
           </div>
           <div className="align-self-start">
-            <div className="divider"></div>
+            <div className="table-divider"></div>
             <ul className="list-unstyled">
               {
                 this.state.columnRight.map((num, index, arr) =>

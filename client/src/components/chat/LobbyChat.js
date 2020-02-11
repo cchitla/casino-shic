@@ -58,7 +58,7 @@ const LobbyChat = (props) => {
   };
 
   return (
-    <Row className="chat-wrapper pt-5">
+    <Row className="chat-wrapper rounded pt-1">
       <Col className="p-0 pr-1" style={{ minHeight: "200px" }} sm={8}>
         <Messages messages={messages} name={name} profile={props.profile}/>
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />

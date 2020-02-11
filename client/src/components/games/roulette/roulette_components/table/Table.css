@@ -187,7 +187,7 @@
   padding: 0;
 }
 
-.divider {
+.table-divider {
   height: 6px!important;
   width: 100%!important;
   background-color: #F2F098;
@@ -222,7 +222,7 @@ ul {
   cursor: not-allowed;
 }
 
-button {
+.roulette-table button {
   border: none!important;
   outline: none!important;
   margin: 0!important;

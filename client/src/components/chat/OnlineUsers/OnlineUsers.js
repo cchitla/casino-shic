@@ -5,7 +5,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 const OnlineUsers = (props) => (
   <Card>
     <Card.Header>Online Users</Card.Header>
-    <Scrollbars style={{ height: 275, backgroundColor: "#f1c876" }}>
+    <Scrollbars style={{ height: 175, backgroundColor: "#f1c876" }}>
       <Card.Body className="p-1">
         <div className="textContainer">
           {

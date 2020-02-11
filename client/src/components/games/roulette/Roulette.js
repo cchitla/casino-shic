@@ -21,7 +21,7 @@ class Roulette extends React.Component {
     chip: 10,
     coins: 300,
     losses: 0,
-    message: "Nothing to say",
+    message: "Spin the weel!",
     extArr: [],
     removeChips: false
   }
@@ -39,29 +39,30 @@ class Roulette extends React.Component {
   even = ["2", "4", "6", "8", "10", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30", "32", "34", "36"];
   odd = ['1', '3', '5', '7', '9', '11', '13', '15', '17', '19', '21', '23', '25', '27', '29', '31', '33', '35'];
 
-  
+
+  getPlayerData = () => {
+    API.getOnePlayer(this.props.user.email)
+      .then(res => {
+        this.setState({ count: res.data.wins.roulette.totalGames, wins: res.data.wins.roulette.wins });
+        console.log(this.state.wins, this.state.count);
+      }
+      )
+      .catch(err => console.log(err));
+  }
+
 
   componentDidMount() {
 
-    API.getOnePlayer(this.props.user.email)
-    .then(res => {
-      this.setState ({ count: res.data.wins.roulette.totalGames, wins: res.data.wins.roulette.wins });
-      console.log(res.data);}
-      )
-    .catch(err => console.log(err));
-    console.log(this.props.user.email);
-    
+    this.getPlayerData()
+
   }
 
-  componentWillUpdate() {
-   /*  console.log(this.state.wins, this.state.coins, "roulette");
-    API.updatePlayer()
-    .then(res => ({ totalGames: this.state.count }))
-    .catch(err => console.log(err)); */
+  componentDidUpdate() {
+    //this.getPlayerData()
   }
   addToDb() {
-    
-    
+
+
     //adding user info to db here
     // + wins
     // + spins
@@ -72,18 +73,18 @@ class Roulette extends React.Component {
   userLost = () => {
     console.log("============ LOOSING ===============");
     console.log("looser");
-    this.setState({ 
-      message: `You loose :(`, 
-      losses: this.state.losses + 1  
+    this.setState({
+      message: `You loose :(`,
+      losses: this.state.losses + 1
     });
     console.log("========== END LOOSING =============");
 
-    API.updatePlayer(this.props.user.email)
+    /* API.updatePlayer(this.props.user.email)
     .then(res => {
       this.setState ({ losses: res.data.wins.roulette.totalGames - res.data.wins.roulette.wins});
       console.log(res.data);}
       )
-    .catch(err => console.log(err));
+    .catch(err => console.log(err)); */
 
 
     this.resetGame();
@@ -92,23 +93,31 @@ class Roulette extends React.Component {
   userWin = (multi) => {
     console.log("============ WINNING ===============");
     console.log("winner");
-    this.setState({ 
-      message: `You win! :)`, 
-      wins: this.state.wins + 1, 
-      coins: this.state.coins + (multi * parseInt(this.state.chip)) ,
+    this.setState({
+      message: `You win! :)`,
+      wins: this.state.wins + 1,
+      coins: this.state.coins + (multi * parseInt(this.state.chip)),
     });
     console.log("========== END WINNING =============");
 
-    API.updatePlayer(this.props.user._id)
-    .then(res => {
-      
-      this.setState ({ count: res.data.wins.roulette.totalGames + 1, wins: res.data.wins.roulette.wins + 1 });
-      console.log(res.data);
-    }
+    /* const setUserFromDb = (user) => {
+    API.getOnePlayer(user.email)
+      .then(function (dbUser) {
+        if (!dbUser.data) {
+          API.createPlayer({ email: user.email, username: user.nickname, isOnline: true })
+            .then(newUser => setProfile(newUser.data));
+        };
+        if (dbUser.data) setProfile(dbUser.data);
+      });
+  }; */
 
-      )
-    .catch(err => console.log(err));
-    console.log(this.props.user.email);
+    API.updatePlayer(this.props.user.email)
+      .then(res => {
+        this.setState({ count: res.data.wins.roulette.totalGames + 1, wins: res.data.wins.roulette.wins + 1 });
+        console.log(res.data);
+      })
+      .catch(err => console.log(err));
+    console.log(this.props.user);
 
     this.resetGame();
   }
@@ -116,7 +125,7 @@ class Roulette extends React.Component {
   resetGame = () => {
     this.setState({ arr: [], num: "", removeChips: false });
   }
-  
+
 
   determineValidBets = (length, element, num, multiplier) => {
     let extArr = [...this.state.extArr];
@@ -205,63 +214,62 @@ class Roulette extends React.Component {
   render() {
     return (
       <React.Fragment>
-      <Container fluid className="table">
-        <Row className="align-items-center">
-          <Col className="mx-5">
-            <RouletteTable
-              updateArr={this.updateArr}
-              updateCoins={this.updateCoins}
-              updateRemove={this.updateRemove}
-              num={this.state.num}
-              arr={this.state.arr}
-              count={this.state.count}
-              coins={this.state.coins}
-              chip={this.state.chip}
-              removeChips={this.state.removeChips}
-            />
-            <Row className="bg-red bg-verdict">
-                <Col md={3} className="d-flex align-items-center">
-                  <Image src="/resources/roulette_logo.png" alt="Casino S.C.I.C" className="img-fluid" />
-                </Col>
-                <Col md={8}>
-                  <div className="text-center mt-2">
+        <Row>
+
+          <Container fluid className="table">
+            <Row className="align-items-center">
+              <Col className="mx-5">
+                <RouletteTable
+                  updateArr={this.updateArr}
+                  updateCoins={this.updateCoins}
+                  updateRemove={this.updateRemove}
+                  num={this.state.num}
+                  arr={this.state.arr}
+                  count={this.state.count}
+                  coins={this.state.coins}
+                  chip={this.state.chip}
+                  removeChips={this.state.removeChips}
+                />
+                <Row className="bg-red bg-verdict">
+                  <Col md={3} className="d-flex align-items-center flex-column">
+                    <Image src="/resources/roulette_logo.png" alt="Casino S.C.I.C" className="img-fluid" />
                     <h6>Your coins: <span>{this.state.coins}</span></h6>
-                    <h6>Your bets: <span>{this.state.arr.join(", ")}</span></h6>
-
-                    <div className="divider-line divider-line-center divider-line-linear-gradient w-100 mx-auto mt-2">
-                      <GiDiamonds className="diamond-line-icon" />
+                  </Col>
+                  <Col md={8}>
+                    <div className="text-center mt-2">
+                      <h4 className="text-uppercase">{this.state.message}</h4>
                     </div>
-                    <ul className="list-inline">
-                      <li className="list-inline-item">Spins: {this.state.count}</li>
-                      <li className="list-inline-item">Wins: {this.state.wins}</li>
-                      <li className="list-inline-item">Losses: {this.state.losses}</li>
-                    </ul>
-                  </div>
-                </Col>
-              </Row>
-          </Col>
-          <Col className="align-self-center">
-            <Weel
-              updateNum={this.updateNum}
-              num={this.state.num}
-              arr={this.state.arr}
-              count={this.state.count}
-            />
-          </Col>
-        </Row>
-      </Container>
-      <Container>
-              <Row className="bg-red bg-verdict">
-                <Col md={12}>
-                  <div className="text-center mt-2">
-                    <p>{this.state.message}</p>
-                  </div>
+                    <div className="text-center mt-2">
+                      
+                      <h6>Your bets: <span>{this.state.arr.join(", ")}</span></h6>
 
-                </Col>
-              </Row>
-              
-            </Container>
-            </React.Fragment>
+                      <div className="divider-line divider-line-center divider-line-linear-gradient w-100 mx-auto mt-2">
+                        <GiDiamonds className="diamond-line-icon" />
+                      </div>
+                      <ul className="list-inline">
+                        <li className="list-inline-item">Spins: {this.state.count}</li>
+                        <li className="list-inline-item">Wins: {this.state.wins}</li>
+                        <li className="list-inline-item">Losses: {this.state.losses}</li>
+                      </ul>
+                    </div>
+                  </Col>
+                </Row>
+              </Col>
+              <Col className="align-self-center">
+                <Weel
+                  updateNum={this.updateNum}
+                  num={this.state.num}
+                  arr={this.state.arr}
+                  count={this.state.count}
+                />
+              </Col>
+            </Row>
+          </Container>
+
+        </Row>
+
+
+      </React.Fragment>
     )
   }
 }

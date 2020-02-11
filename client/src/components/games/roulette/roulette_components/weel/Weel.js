@@ -139,7 +139,7 @@ class Weel extends React.Component {
 
   renderNumber = () => {
     return (
-      <h1>{this.state.text}</h1>
+      <h2 className="m-0">{this.state.text}</h2>
     )
   }
   renderBtnText = () => {
@@ -147,18 +147,18 @@ class Weel extends React.Component {
       return (
         <div>
           {this.renderNumber()}
-          <p>Click to Spin!</p>
+          <h6>Bet and Spin!</h6>
         </div>
 
       )
     } else {
-      return (<h5>Click to Spin!</h5>)
+      return (<h6>Bet and Spin!</h6>)
     }
   }
 
   render() {
 
-    console.log(this.props.arr)
+   // console.log(this.props.arr)
     return (
       <React.Fragment>
         {/* <Image src="/resources/shic_logo2.png" alt="Casino S.C.I.C" className="mx-auto d-block w-50 mb-4"/> */}
@@ -179,7 +179,7 @@ class Weel extends React.Component {
               size="lg"
               block variant="danger">
               {this.renderNumber()}
-              Please make your bets before spinning
+              <h6>Bet and Spin!</h6>
             </Button>
 
           }

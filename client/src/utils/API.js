@@ -24,7 +24,7 @@ export default {
         return axios.post(`/api/users/`, email);
     },
     updatePlayer: function (id) {
-        return axios.put(`/api/users/${id.email}`, id);
+        return axios.put(`/api/users/${id}`);
     },
     deletePlayer: function (id) {
         return axios.delete(`/api/users/${id}`);
