@@ -18,7 +18,7 @@ export default {
         return axios.get('/api/rankings/slots');
     },
     getOnePlayer: function (email) {
-        return axios.get(`/api/users/${iemaild}`);
+        return axios.get(`/api/users/${email}`);
     },
     createPlayer: function (email) {
         return axios.post(`/api/users/`, email);
