@@ -49,7 +49,6 @@ const GamesContainer = (props) => {
 
   return (
     <Container className="p-0">
-      <h3>GamesContainer component</h3>
       {renderGameSelect(path)}
       {(isAuthenticated && profile) ? <LobbyChat profile={profile} /> : ""}
     </Container>
