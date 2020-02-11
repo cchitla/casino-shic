@@ -17,17 +17,17 @@ export default {
     getTopSlots: function () {
         return axios.get('/api/rankings/slots');
     },
-    getOnePlayer: function (id) {
-        return axios.get(`/api/users/${id}`);
+    getOnePlayer: function (email) {
+        return axios.get(`/api/users/${email}`);
     },
     createPlayer: function (email) {
         return axios.post(`/api/users/`, email);
     },
-    updatePlayer: function (id) {
-        return axios.put(`/api/users/${id}`);
+    updatePlayer: function (email) {
+        return axios.put(`/api/users/${email}`);
     },
-    deletePlayer: function (id) {
-        return axios.delete(`/api/users/${id}`);
+    deletePlayer: function (email) {
+        return axios.delete(`/api/users/${email}`);
     },
     getChatMessages: function () {
         return axios.get('/api/chats');
