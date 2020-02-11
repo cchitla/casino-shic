@@ -16,6 +16,8 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+mongoose.set('useFindAndModify', false);
+
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 app.use(routes);
 
