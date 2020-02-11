@@ -1,0 +1,9 @@
+#playerContainer {
+  width: 360px;
+  height: 180px;
+  border: 2px solid rgb(216, 215, 215);
+  border-radius: 10px;
+  position: relative;
+  top: 110px;
+  margin: auto;
+}
