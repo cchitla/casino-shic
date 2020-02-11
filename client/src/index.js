@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
+import { unregister } from './registerServiceWorker';
 
 import { Auth0Provider } from "./components/auth/auth0/Auth0"
 import config from "./auth_config.json";

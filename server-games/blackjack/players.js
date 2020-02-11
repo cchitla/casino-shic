@@ -1,6 +1,6 @@
 let players = [];
 
-const setPlayer = (socket, name, tableName) =>  {
+const setPlayer = (socket, name, tableName, bet = 0, hand = [], score = 0, bust = false) =>  {
 
   const existingPlayer = getPlayer(name, tableName);
   if (existingPlayer) {
@@ -10,11 +10,12 @@ const setPlayer = (socket, name, tableName) =>  {
   let player = {
     name,
     tableName,
-    tablePosition: 0,
     id: socket.id,
-    hand: [],
-    score: 0,
-    bust: false
+    bet,
+    hand,
+    currentTurn: false,
+    score,
+    bust
   };
 
   players.push(player);
@@ -22,16 +23,16 @@ const setPlayer = (socket, name, tableName) =>  {
 };
 
 const removePlayer = (id) => {
-  // console.log("before delete player", players);
+  console.log("before delete player", players);
   const remainingPlayers = players.filter((player) => player.id !== id);
   players = remainingPlayers;
-  // console.log("deleted a player:", players);
 };
 
 const getPlayer = (name, tableName) => {
-  let foundPlayer = players.find((player) => player.name === name && player.tableName === tableName);
-  return foundPlayer;
-}
+  players.find((player) => player.name === name && player.tableName === tableName)
+};
+
+const getPlayerById = (id) => players.find((player) => player.id === id );
 
 const getPlayersAtTable = (tableName) => players.filter((player) => player.tableName === tableName);
 
@@ -41,4 +42,5 @@ module.exports = {
   removePlayer,
   getPlayer,
   getPlayersAtTable,
+  getPlayerById,
 };

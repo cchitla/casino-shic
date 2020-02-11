@@ -29,17 +29,22 @@ const io = socketio(server);
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./socket/users");
 
 //blackjack imports
-const { 
+const {
   players,
   setPlayer,
   getPlayersAtTable,
+  getPlayerById,
   createNewTable,
   removePlayer,
   getPlayer,
+  getTable,
   dealTable,
-  addPlayerHand } = require('./server-games/blackjack/blackjack');
+  addPlayerToTable,
+  getPlayerByName,
+  dealCard,
+  nextPlayerTurn } = require('./server-games/blackjack/blackjack');
 
-const { getTables } = require('./server-games/blackjack/tables');
+const { getTables, createDealer } = require('./server-games/blackjack/tables');
 
 
 // SOCKET COMMS
@@ -57,13 +62,15 @@ io.on("connection", (socket) => {
     let user = getUser(socket.id);
     // console.log("this user disconnected from chat:", user);
     removeUser(socket.id);
-    user ? io.to(user.room).emit('message', { user: "admin", text: `${user.name} has left.` }) : null;
-    user ? io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) }) : null;
+    if (user) {
+      io.to(user.room).emit('message', { user: "admin", text: `${user.name} has left.` });
+      io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) });
+    };
   });
 
   // CHAT
   // socket.on("sendMessage", (message, callback) => {
-  socket.on("sendMessage", ({message, length}, callback) => {
+  socket.on("sendMessage", ({ message, length }, callback) => {
     const user = getUser(socket.id);
     io.to(user.room).emit("message", { user: user.name, text: message, length });
     io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) })
@@ -71,6 +78,9 @@ io.on("connection", (socket) => {
   });
 
   //BLACKJACK
+
+  // setplayer
+  // setPlayer(socket, name, tableName, bet, hand, score, bust)
   socket.on("retrieve blackjack tables", () => {
     let currentTables = getTables()
     socket.emit("send blackjack tables", currentTables);
@@ -83,43 +93,79 @@ io.on("connection", (socket) => {
   socket.on("join table", ({ name, tableName }, callback) => {
     name = name.trim().toLowerCase();
 
-    const {player } = setPlayer(socket, name, tableName);
-    
-
-    let presentPlayers = getPlayersAtTable(tableName)
-
-    dealTable(tableName);
+    const { player } = setPlayer(socket, name, tableName);
+    let presentPlayers = getPlayersAtTable(tableName);
 
     io.to(socket.id).emit("player joined", { name, tableName, presentPlayers });
-    socket.broadcast.to(player.tableName).emit("player joined", {name, tableName, presentPlayers})
+    presentPlayers.map((player) => {
+      io.to(player.id).emit("player joined", { name, tableName, presentPlayers });
+    });
+    addPlayerToTable(player);
     callback();
   });
 
-  socket.on("blackjack hit", ({ name, tableName, hand }) => {
-    // run blackjack dealSingleCard
-    // calculate score
-    // send card to client and display it on table
-    // send whether user has busted or not
+  socket.on("start blackjack", (tableName) => {
+    let presentPlayers = getPlayersAtTable(tableName);
+    presentPlayers.map((player) => io.to(player.id).emit("set blackjack active", tableName));
   });
 
-  socket.on("deal blackjack", (tableName) => {
-
+  socket.on("betting active", (tableName) => {
+    let presentPlayers = getPlayersAtTable(tableName);
+    presentPlayers.map((player) => io.to(player.id).emit("set betting active", tableName));
   })
 
+  socket.on("send bet", ({ name, playerBet, tableName }) => {
+    console.log(`got bet of ${playerBet} from ${name} at ${tableName}`);
+    let player = getPlayerById(socket.id);
+    let table = getTable(player.tableName);
+    player.bet = playerBet;
+    table.betsReceived = table.betsReceived + 1;
+    
+    if (table.betsReceived === table.players.length) {
+      const { dealer } = createDealer(tableName);
+      addPlayerToTable(dealer);
+      dealTable(table);
+
+      let presentPlayers = getPlayersAtTable(tableName);
+      presentPlayers[0].currentTurn = true;
+      presentPlayers.map((player) => {
+        io.to(player.id).emit("deal table", { tableName, presentPlayers });
+      });
+    };
+  });
+
+  socket.on("blackjack hit", ({ name, tableName }) => {
+    let player = getPlayerById(socket.id);
+    let table = getTable(player.tableName);
+    console.log("scorebefore hit", player.score);
+    dealCard(player, table);
+    console.log("score after hit", player.score, player.bust);
+
+    //write nextPlayerTurn
+    if (player.bust) nextPlayerTurn(player, table, socket);
+
+    let presentPlayers = getPlayersAtTable(tableName);
+      presentPlayers.map((player) => {
+        io.to(player.id).emit("dealt hit", { presentPlayers, table });
+      });
+  });
+
   socket.on("blackjack stay", ({ name, tableName }) => {
+    console.log("player stay");
     // get tablePosition of player
     // switch active turn to player at tablePosition + 1
   });
 
-  socket.on("leave blackjack table", (player) => {
-    // console.log("disconnecting a player");
-    let user = getPlayer(socket.id);
-    // console.log("disconnected this player:", user)
-    removePlayer(socket.id);
-    user ? io.to(user.room).emit('message', { user: "admin", text: `${user.name} has left.` }) : null;
-    user ? io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) }) : null;
+  socket.on("leave blackjack table", ({ name, tableName }) => {
+    let user = getPlayerById(socket.id);
+    if (user) {
+      removePlayer(user.id);
+      let presentPlayers = getPlayersAtTable(user.tableName);
+      presentPlayers.map((player) => {
+        io.to(player.id).emit("player left", { name, tableName, presentPlayers });
+      });
+    };
   });
-
 });
 
 

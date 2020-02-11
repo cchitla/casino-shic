@@ -8,10 +8,10 @@ const addUser = ({ id, name, room}) => {
 
   if (existingUser) {
     removeUser(existingUser.id)
-    console.log(existingUser, "removed")
+    // console.log(existingUser, "removed")
     updatedUser = { id, name, room };
     users.push(updatedUser);
-    console.log(updatedUser, "added")
+    // console.log(updatedUser, "added")
     return { updatedUser }
   };
 

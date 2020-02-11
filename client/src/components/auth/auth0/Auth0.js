@@ -75,9 +75,15 @@ export const Auth0Provider = ({
       .then(function (dbUser) {
         if (!dbUser.data) {
           API.createPlayer({ email: user.email, username: user.nickname, isOnline: true })
-            .then(newUser => setProfile(newUser.data));
+            .then(newUser => {
+              setProfile(newUser.data)
+              window.sessionStorage.setItem("profile", JSON.stringify(newUser.data));
+            }); 
         };
-        if (dbUser.data) setProfile(dbUser.data);
+        if (dbUser.data) {
+          setProfile(dbUser.data)
+          window.sessionStorage.setItem("profile", JSON.stringify(dbUser.data));
+        };
       });
   };
 

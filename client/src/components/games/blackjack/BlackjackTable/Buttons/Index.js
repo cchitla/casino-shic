@@ -24,15 +24,3 @@ export const StartGame = () => {
     <button>Start</button>
   );
 };
-
-export const JoinGame = (props) => {
-  const handleClick = ({player, joinedPlayers, setJoinedPlayers}) => {
-    let updatedPlayers = [...joinedPlayers];
-    updatedPlayers.push(player);
-    setJoinedPlayers(updatedPlayers);
-  };
-
-  return (
-    <button onClick={e => handleClick(props)}>Join</button>
-  );
-};

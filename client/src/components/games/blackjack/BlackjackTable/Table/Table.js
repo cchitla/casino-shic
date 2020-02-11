@@ -2,33 +2,66 @@ import React, { useState } from 'react';
 import './Table.css'
 import Card from '../Card/Card';
 import PlayerContainer from '../PlayerContainer/PlayerContainer';
-import { JoinGame, StartGame, Bet, Hit, Stay } from '../Buttons/Index';
+// import Countdown from "react-countdown-now";
+
 
 const Table = (props) => {
+  // const [clickedBet, setClickedBet] = useState(false);
 
-  let player = props.profile.username;
+  const placeBet = (e) => {
+    e.preventDefault();
+    props.setPlayerBet(e.target.value);
+    // setClickedBet(true);
+  };
 
-  const handlePlayerJoin = () => {
-
-  }
-
-  const renderButtons = () => {
+  const renderBetButtons = () => {
     return (
       <span id="blackjackButtons">
-        <JoinGame player={props.player} joinedPlayers={props.joinedPlayers} setJoinedPlayers={props.setJoinedPlayers} />
-        <StartGame /><Bet amount={5} /><Hit /><Stay />
+        <button value="5" onClick={e => placeBet(e)}>Bet 5</button>
+        <button value="10" onClick={e => placeBet(e)}>Bet 10</button>
       </span>
     );
+  };
+
+  const renderGameButtons = () => {
+    return (
+      <span id="blackjackButtons">
+        <button onClick={props.hitCard}>Hit</button>
+        <button onClick={props.stayHand} >Stay</button>
+      </span>
+    );
+  };
+
+  const startGame = (e) => {
+    e.preventDefault();
+    props.setGameIsActive(true);
+    props.setBetting(true);
+  }
+
+  // const handleComplete = () => {
+  //   if (!storedBet) {
+  //     props.setPlayerBet(5);
+  //   }
+  //   props.setPlayerBet(storedBet)
+  //   props.setBetting(false);
+  //   props.setHandActive(true);
+  // };
+
+  const renderButtons = () => {
+    if (!props.gameIsActive) return <button onClick={startGame}>Start Game</button>;
+    if (props.betting && !props.playerBet) return renderBetButtons();
+    if (props.handActive) return renderGameButtons();
   };
 
   return (
     <>
       <div id="blackjackTable">
+        {props.joinedPlayers.map((player) => <span key={player.name}>{player.name}</span>)}
+        {/* {(props.betting && !props.handActive) ? <Countdown date={Date.now() + 10000} onComplete={handleComplete} /> : null} */}
         <Card />
         <PlayerContainer />
       </div>
-      {props.gameIsActive ? renderButtons() : null};
-
+        {renderButtons()}
     </>
   );
 };
