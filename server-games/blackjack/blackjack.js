@@ -41,7 +41,7 @@ const dealCard = (player, table) => {
     const { hand } = player;
     const { deck } = table;
     let nextCard = deck.shift();
-    console.log("next card", nextCard);
+    // console.log("next card", nextCard);
     hand.push(nextCard);
     countScoreOnHit(hand, player);
 };
@@ -71,18 +71,82 @@ const countScoreOnHit = (hand, player) => {
     if (score > 21) player.bust = true;
 };
 
-const addScore = () => {
-
-}
-
 const nextPlayerTurn = (player, table, socket) => {
+    console.log(('next player'));
+    
     const { players } = table;
     currentIndex = players.findIndex(player => player.id === socket.id);
     player.currentTurn = false;
     players[currentIndex + 1].currentTurn = true;
-    console.log(table);
-}
+    if (players[currentIndex + 1].name === "Dealer") {
+        dealerTurn(table);
+    };
+};
 
+const dealerTurn = (table) => {
+    let dealer = table.players[table.players.length -1];
+    console.log(dealer);
+    let winners;
+    if (dealer.score <= 16) {
+        dealCard(dealer, table);
+        dealerTurn(table);
+    } else if (dealer.score <= 21) {
+        console.log( "dealer turn is done, no bust");
+        winners = endHand(table, false);
+        // console.log(winners);
+        setWinners(winners);
+    } else if (dealer.score > 21) {
+        console.log("dealer turn is done, dealer busts");
+        winners = endHand(table, true);
+        // console.log(winners);
+        setWinners(winners, table);
+    };
+};
+
+const endHand = (table, dealerBust) => {
+    const { players } = table;
+    let highestScore = 0;
+    let winners = [];
+
+    if (dealerBust) {
+        players.forEach(player => {
+            if (!player.bust) {
+                winners.push(player);
+            };
+        });
+    };
+
+    if (!dealerBust) {
+        players.forEach(player => {
+            if (player.score <= 21 && player.score > highestScore) {
+                highestScore = player.score;
+                winners = [];
+                winners.push(player);
+            } else if (player.score <= 21 && player.score === highestScore) {
+                winners.push(player);
+            };
+        });
+    };
+
+    return winners;
+};
+
+const setWinners = (winners, table) => {
+    // console.log("setting winners at table", winners);
+    if (!table) return;
+    const { players } = table;
+    players.forEach(player => {
+        winners.forEach(winner => {
+            if (player.name === winner.name) {
+                player.won = true;
+            };
+        });
+    });
+    table.status = "completed"
+    console.log(table);
+};
+
+const getWinners = (table) => table.players.find(player => player.won === true);
 
 module.exports = {
     players,
@@ -97,5 +161,6 @@ module.exports = {
     addPlayerToTable,
     getPlayerByName,
     dealCard,
-    nextPlayerTurn
+    nextPlayerTurn,
+    getWinners
 };

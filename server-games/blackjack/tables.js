@@ -27,6 +27,7 @@ const createDealer = (tableName) => {
     name: "Dealer",
     tableName,
     hand: [],
+    currentTurn: false,
     score: 0,
     bust: false
   };

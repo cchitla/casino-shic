@@ -50,18 +50,36 @@ const Table = (props) => {
   const renderButtons = () => {
     if (!props.gameIsActive) return <button onClick={startGame}>Start Game</button>;
     if (props.betting && !props.playerBet) return renderBetButtons();
-    if (props.handActive) return renderGameButtons();
+    if (props.currentTurn && !props.winners) return renderGameButtons();
+  };
+
+  const renderWinners = (winners) => {
+    console.log(winners)
+    if (winners) {
+      return <p>Winner: {winners.name}</p>
+    } 
+    return <p>No one won this hand</p>
   };
 
   return (
     <>
       <div id="blackjackTable">
-        {props.joinedPlayers.map((player) => <span key={player.name}>{player.name}</span>)}
+        <div id="blackjackPlayerInfo">
+          {props.joinedPlayers.map((player) => <span key={player.name}>{player.name}</span>)}
+          <p>Your score: {props.playerScore}</p>
+          <p> {props.playerBust && <span>You lose!</span>} </p>
+          <p>{props.playerHand && <span>Your hand:</span>}</p>
+        </div>
+
+        <div>{props.playerHand
+          ? props.playerHand.map((hand) => (
+            <Card key={Math.random()} suit={hand.suit} cardName={hand.cardName} />)) : null}
+        </div>
+        <div>{props.winners ? renderWinners(props.winners) : null}</div>
+
         {/* {(props.betting && !props.handActive) ? <Countdown date={Date.now() + 10000} onComplete={handleComplete} /> : null} */}
-        <Card />
-        <PlayerContainer />
       </div>
-        {renderButtons()}
+      {renderButtons()}
     </>
   );
 };

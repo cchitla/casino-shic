@@ -42,7 +42,8 @@ const {
   addPlayerToTable,
   getPlayerByName,
   dealCard,
-  nextPlayerTurn } = require('./server-games/blackjack/blackjack');
+  nextPlayerTurn,
+  getWinners } = require('./server-games/blackjack/blackjack');
 
 const { getTables, createDealer } = require('./server-games/blackjack/tables');
 
@@ -53,7 +54,6 @@ io.on("connection", (socket) => {
     const { user, updatedUser } = addUser({ id: socket.id, name, room });
     handleUserConnection(socket, user, updatedUser, room);
     io.to(room).emit("roomData", { room: room, users: getUsersInRoom(room) });
-
     callback();
   });
 
@@ -72,8 +72,10 @@ io.on("connection", (socket) => {
   // socket.on("sendMessage", (message, callback) => {
   socket.on("sendMessage", ({ message, length }, callback) => {
     const user = getUser(socket.id);
-    io.to(user.room).emit("message", { user: user.name, text: message, length });
-    io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) })
+    if (user) {
+      io.to(user.room).emit("message", { user: user.name, text: message, length });
+      io.to(user.room).emit("roomData", { room: user.room, users: getUsersInRoom(user.room) })
+    }
     callback();
   });
 
@@ -120,7 +122,7 @@ io.on("connection", (socket) => {
     let table = getTable(player.tableName);
     player.bet = playerBet;
     table.betsReceived = table.betsReceived + 1;
-    
+
     if (table.betsReceived === table.players.length) {
       const { dealer } = createDealer(tableName);
       addPlayerToTable(dealer);
@@ -137,23 +139,36 @@ io.on("connection", (socket) => {
   socket.on("blackjack hit", ({ name, tableName }) => {
     let player = getPlayerById(socket.id);
     let table = getTable(player.tableName);
-    console.log("scorebefore hit", player.score);
+    // console.log("scorebefore hit", player.score);
     dealCard(player, table);
-    console.log("score after hit", player.score, player.bust);
+    // console.log("score after hit", player.score, player.bust);
 
-    //write nextPlayerTurn
-    if (player.bust) nextPlayerTurn(player, table, socket);
+
+    if (player.bust) {
+      nextPlayerTurn(player, table, socket)
+      if (table.status) {
+        let winners = getWinners(table);
+        console.log(winners)
+        socket.emit("hand completed", { table, winners })
+      };
+    }
 
     let presentPlayers = getPlayersAtTable(tableName);
-      presentPlayers.map((player) => {
-        io.to(player.id).emit("dealt hit", { presentPlayers, table });
-      });
+    presentPlayers.map((player) => {
+      io.to(player.id).emit("dealt hit", { presentPlayers, table, player });
+    });
   });
 
   socket.on("blackjack stay", ({ name, tableName }) => {
     console.log("player stay");
-    // get tablePosition of player
-    // switch active turn to player at tablePosition + 1
+    let player = getPlayerById(socket.id);
+    let table = getTable(player.tableName);
+    nextPlayerTurn(player, table, socket);
+    if (table.status) {
+      let winners = getWinners(table);
+      console.log((winners));
+      socket.emit("hand completed", { table, winners })
+    };
   });
 
   socket.on("leave blackjack table", ({ name, tableName }) => {
