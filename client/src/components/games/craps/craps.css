@@ -1,0 +1,229 @@
+#header {
+    padding-top: 15px;
+}
+
+#crapsContainer {
+    background-color: #111111;
+    border: 3px solid #D6AC45;
+    color: #f1c876;
+    font-family: 'Coda', cursive;
+    height: 600px;
+    padding: 5px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.crapsTable {
+    background-color: #410102;
+    border: 2px solid #000000;
+}
+
+.crapsTable:hover {
+    opacity: 50%;
+}
+
+#passLine {
+    height: 60px;
+    padding-top: 15px;
+}
+
+#dontPass {
+    height: 274px;
+    padding-top: 15px;
+}
+
+#passOdds {
+    height: 45px;
+    padding-top: 7px;
+}
+
+#dontPassOdds {
+    height: 274px;
+    padding-top: 15px;
+}
+
+#comeLine {
+    height: 60px;
+    padding-top: 15px;
+}
+
+#dontCome {
+    padding-top: 15px;
+}
+
+#big8 {
+    padding-top: 15px;
+    margin-bottom: 0px;
+}
+
+#big6 {
+    padding-top: 15px;
+    margin-bottom: 0px;
+}
+
+#buyNum4 {
+    padding-top: 15px;
+    font-size: 30px;
+}
+
+#buyNum4 p {
+    margin-bottom: 0px;
+}
+
+#buyNum5 {
+    padding-top: 15px;
+    font-size: 30px;
+}
+
+#buyNum5 p {
+    margin-bottom: 0px;
+}
+
+#buyNum6 {
+    padding-top: 15px;
+    font-size: 30px;
+}
+
+#buyNum6 p {
+    margin-bottom: 0px;
+}
+
+#buyNum8 {
+    padding-top: 15px;
+    font-size: 30px;
+}
+
+#buyNum8 p {
+    margin-bottom: 0px;
+}
+
+#buyNum9 {
+    padding-top: 15px;
+    font-size: 30px;
+}
+
+#buyNum9 p {
+    margin-bottom: 0px;
+}
+
+#buyNum10 {
+    padding-top: 15px;
+    font-size: 30px;
+}
+
+#buyNum10 p {
+    margin-bottom: 0px;
+}
+
+#field {
+    padding: 15px;
+}
+
+.fieldNums {
+    margin: 0px 10px;
+    display: inline;
+}
+
+.fieldNums2 {
+    font-size: 16pt;
+}
+
+.betLabel1 {
+    display: inline;
+    padding-right: 10px;
+}
+
+.puckVisible {
+    background-color: #fafafa;
+    height: 30px;
+    width: 30px;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.puckHidden {
+    background-color: #410102;
+    height: 30px;
+    width: 30px;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.puckText {
+    padding-top: 7.5px;
+    color: #000000;
+    font-size: 8pt;
+}
+
+.betPlaced {
+    background-color: #fafafa;
+    border: 3px dotted #082908;
+    color: #082908;
+    font-size: 10pt;
+    height: 30px;
+    width: 30px;
+    margin-left: auto;
+    margin-bottom: 15px;
+    display: inline;
+    
+}
+
+.noBetPlaced {
+    background-color: #410102;
+    color: #410102;
+    font-size: 10pt;
+    height: 30px;
+    width: 30px;
+    margin: auto;
+    margin-bottom: 15px;
+    display: inline;
+}
+
+.diceContainer {
+    background-color: #410102;
+    border: 2px solid #000000;
+    margin-left: 15px;
+}
+
+#diceArea {
+    background-color: #111111;
+    border: 3px solid #D6AC45;
+    height: 125px;
+    margin-left: -15px;
+    margin-top: 10px;
+}
+
+#rollBtn {
+    background-color: #D6AC45;
+    border-color: #D6AC45;
+    color: #111111;
+    margin-bottom: 15px;
+}
+
+#rollBtn:hover {
+    opacity: 60%;
+}
+
+.dice {
+    font-size: 30pt;
+    margin-top: 28px;
+    /* border: 1px solid #777777;
+    background-color: #999999;
+    color: #111111; */
+}
+
+#d1 {
+    padding-top: 2px;
+}
+
+#d2 {
+    padding-top: 2px;
+}
+
+#diceTotal {
+    padding-top: 14px;
+    font-size: 16pt;
+    margin-bottom: 10px;
+}
