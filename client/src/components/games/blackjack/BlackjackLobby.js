@@ -15,8 +15,8 @@ const BlackjackLobby = (props) => {
 
   useEffect(() => {
     // let ENDPOINT = "localhost:3001";
-    let ENDPOINT = "https://fast-temple-06709.herokuapp.com/";
-    // let ENDPOINT = "https://casino-shic.herokuapp.com/";
+    // let ENDPOINT = "https://fast-temple-06709.herokuapp.com/";
+    let ENDPOINT = "https://casino-shic.herokuapp.com/";
     // let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
     socket = io(ENDPOINT);
     socket.emit("retrieve blackjack tables"); 
