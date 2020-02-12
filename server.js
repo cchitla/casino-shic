@@ -148,9 +148,9 @@ io.on("connection", (socket) => {
 
     if (player.bust) {
       nextPlayerTurn(player, table, socket)
-      if (table.status) {
+      if (table.status === "completed") {
         let winners = getWinners(table);
-        console.log(winners)
+        console.log("winners", winners)
         socket.emit("hand completed", { table, winners })
       };
     }
@@ -166,10 +166,10 @@ io.on("connection", (socket) => {
     let player = getPlayerById(socket.id);
     let table = getTable(player.tableName);
     nextPlayerTurn(player, table, socket);
-    if (table.status) {
+    if (table.status === "completed") {
       let winners = getWinners(table);
-      console.log((winners));
-      socket.emit("hand completed", { table, winners })
+      console.log("winners", winners );
+      socket.emit("hand completed", { table, winners });
     };
   });
 

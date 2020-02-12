@@ -92,14 +92,10 @@ const dealerTurn = (table) => {
         dealerTurn(table);
     } else if (dealer.score <= 21) {
         console.log( "dealer turn is done, no bust");
-        winners = endHand(table, false);
-        // console.log(winners);
-        setWinners(winners);
+        endHand(table, false);
     } else if (dealer.score > 21) {
         console.log("dealer turn is done, dealer busts");
-        winners = endHand(table, true);
-        // console.log(winners);
-        setWinners(winners, table);
+        endHand(table, true);
     };
 };
 
@@ -128,11 +124,11 @@ const endHand = (table, dealerBust) => {
         });
     };
 
-    return winners;
+    setWinners(winners, table);
 };
 
 const setWinners = (winners, table) => {
-    // console.log("setting winners at table", winners);
+    console.log("setting winners at table", winners)
     if (!table) return;
     const { players } = table;
     players.forEach(player => {
