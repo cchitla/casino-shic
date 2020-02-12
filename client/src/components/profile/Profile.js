@@ -4,7 +4,7 @@ import './Profile.css';
 import { useAuth0 } from '../auth/auth0/Auth0';
 import { GiDiamonds } from 'react-icons/gi';
 import AvatarUpload from '../imgupload/Imageupload';
-import API from '../../utils/API'
+import API from '../../utils/API';
 import EditProfile from './EditProfile';
 import ProfileInfo from './ProfileInfo';
 import EditButton from './EditButton';
