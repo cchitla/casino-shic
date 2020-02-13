@@ -78,8 +78,9 @@
 .text-gold {
   color: #f1c876;
 }
-/* 
-body {
-  background: #290102 url("/resources/bg1.jpg") no-repeat top center!important;
-    background-size: contain!important;
-} */
+
+.coins-col {
+  background: url("images/button-bg.png") center center no-repeat;
+  background-size: contain;
+  min-height: 150px;
+}

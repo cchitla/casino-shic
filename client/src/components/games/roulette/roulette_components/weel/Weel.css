@@ -18,14 +18,36 @@
 
 .spin-button {
   border-radius: 50%;
-  border: 20px solid #fff294;
+  border: 5px solid #fff294;
   width: 200px;
   height: 200px;
   position: absolute;
   top: 92px;
   left: 92px;
   background: url("../../images/button-bg.png") center center no-repeat;
-  background-size: contain;
- /*  background: radial-gradient(#000000, #111111, #666666) */
+  background-size: cover;
+  color: #121212;
 }
 
+
+.text-black-ish {
+  color: #121212;
+}
+
+.blinky-number {
+  font-family: 'Anton', sans-serif;
+  font-weight: 500;
+  animation: blinky-number 1s ease infinite;
+  -moz-animation: blinky-number 1s ease infinite;
+  -webkit-animation: blinky-number 1s ease infinite;
+}
+
+@keyframes blinky-number {
+  0%,
+  100% {
+    color: #ff073a;
+  }
+  50% {
+    color: #fff294;
+  }
+}
