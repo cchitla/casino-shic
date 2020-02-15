@@ -32,6 +32,7 @@
     "multer-s3": "^2.9.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-icons": "^3.9.0",
+    "react-select": "^3.0.8",
     "socket.io": "^2.3.0"
   }
 }

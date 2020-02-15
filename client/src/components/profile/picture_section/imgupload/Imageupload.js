@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Card } from 'react-bootstrap';
 import './Imageupload.css';
-import API from '../../utils/API';
+import API from '../../../../utils/API';
 
 
 class AvatarUpload extends Component {
@@ -75,7 +75,7 @@ class AvatarUpload extends Component {
 
   render() {
 
-    console.log(this.state);
+    //console.log(this.state);
 
     return (
 
