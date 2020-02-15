@@ -43,7 +43,7 @@ class Settings extends React.Component {
           <Row>
             <Col>
               <div className="text-center">
-                <h3 className="mt-4 title">User ranking</h3>
+                <h3 className="mt-4 pages-title">User ranking</h3>
                 <div class="divider divider-center divider-linear-gradient w-50 mx-auto">
                   <GiDiamonds className="diamond-icon" />
                 </div>
@@ -78,7 +78,6 @@ class Settings extends React.Component {
                       </Table>
                     </Card.Text>
                   </Card.Body>
-                  <Card.Footer className="text-muted">Footer! do we need any more info here?</Card.Footer>
                 </Card>
                 <Card className="profile-cols">
                   <Card.Header><h5 className="profile-caths">Slots</h5></Card.Header>
@@ -103,7 +102,6 @@ class Settings extends React.Component {
                       </Table>
                     </Card.Text>
                   </Card.Body>
-                  <Card.Footer className="text-muted">Footer! do we need any more info here?</Card.Footer>
                 </Card>
                 <Card className="profile-cols">
                   <Card.Header><h5 className="profile-caths">Black Jack</h5></Card.Header>
@@ -128,7 +126,6 @@ class Settings extends React.Component {
                       </Table>
                     </Card.Text>
                   </Card.Body>
-                  <Card.Footer className="text-muted">Footer! do we need any more info here?</Card.Footer>
                 </Card>
                 <Card className="profile-cols">
                   <Card.Header><h5 className="profile-caths">Craps</h5></Card.Header>
@@ -153,7 +150,6 @@ class Settings extends React.Component {
                       </Table>
                     </Card.Text>
                   </Card.Body>
-                  <Card.Footer className="text-muted">Footer! do we need any more info here?</Card.Footer>
                 </Card>
               </CardGroup>
             </Col>

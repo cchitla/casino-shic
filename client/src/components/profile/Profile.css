@@ -2,7 +2,7 @@
   color: black!important;
 }
 
-.title {
+.pages-title {
   font-family: 'Coda', cursive;
   font-weight: bold;
   color: #f1c876;
@@ -13,12 +13,10 @@
 .divider {
   position: relative;
   border-top-width: 1px;
-
   margin: 0 0 20px 0;
   text-align: center;
   left: auto;
   right: auto;
-  
 }
 
 .divider-center {
@@ -130,10 +128,11 @@ padding-top:2px;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #dcb44a;
+  color: cornsilk;
   background-color: #121212;
   background-clip: padding-box;
   border: 1px solid #dcb44a;
   border-radius: .25rem;
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+

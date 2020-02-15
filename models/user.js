@@ -38,6 +38,9 @@ const userSchema = new Schema({
     avatar: {
         type: String
     },
+    interests: {
+        type: Array
+    },
     wins: {
         blackJack: {
             wins: {
