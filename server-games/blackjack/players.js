@@ -23,7 +23,6 @@ const setPlayer = (socket, name, tableName, bet = 0, hand = [], score = 0, bust 
 };
 
 const removePlayer = (id) => {
-  console.log("before delete player", players);
   const remainingPlayers = players.filter((player) => player.id !== id);
   players = remainingPlayers;
 };

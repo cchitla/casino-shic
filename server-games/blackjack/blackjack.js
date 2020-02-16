@@ -18,7 +18,7 @@ const dealTable = (table) => {
     const { players, deck } = table;
     for (let i = 0; i < players.length; i++) {
         players[i].hand = [deck[i], deck[i + players.length]];
-    }
+    };
     calculateScoreOnDeal(table);
     let cardsDealt = players.length * 2;
     deck.splice(0, cardsDealt);
