@@ -1,7 +1,14 @@
 .blackjack {
-  color: white;
+  padding-left: 15px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  color: #F1C876;
+  background-color: #111111;
+  border: solid 3px #D6AC45;
+  border-radius: 15px;
+  min-height: 380px;
 }
 
 .availableBlackjackTables {
-  height: 100px;
+  height: 200px;
 }

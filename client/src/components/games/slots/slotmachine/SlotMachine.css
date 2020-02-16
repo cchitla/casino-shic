@@ -1,0 +1,80 @@
+.title {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 35px;
+  margin: auto;
+}
+
+.prompt{
+  font-size: 25px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: #dcb44a;
+  margin: 15px auto;
+}
+
+.buttons {
+  margin: 10px auto;
+}
+
+.button {
+  font-size: 20px;
+  margin: 0 10px;
+  padding: 10px;
+  width: 75px;
+  background: #d8d8d8;
+  border: 3px solid;
+  border-color: #b0762b;
+  border-radius: 5px;
+}
+
+.spinButton {
+  font-size: 20px;
+  width: 150px;
+  margin: 0 10px;
+  margin-left: 55px;
+  padding: 10px;
+  border: 3px solid #b0762b;
+  border-radius: 5px;
+  background: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
+}
+
+.selected:active{
+  background-color: white
+}
+
+.selected {
+  color: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
+}
+
+.winner {
+  margin: 25px auto;
+  font-size: 25px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  padding: 5px;
+  width: 400px;
+  border: 3px solid #dcb44a;
+  border-radius: 5px;
+  color: #dcb44a;
+}
+.loser {
+  margin: 25px auto;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 25px;
+  padding: 5px;
+  width: 200px;
+  border: 3px solid #ad1818;
+  border-radius: 5px;
+  color: #ad1818;
+}
+
+.balance {
+  background: white;
+  border: 2px solid;
+  color: black;
+  width: 200px;
+  height: 30px;
+  margin: 15px 85px;
+  border-image-source: linear-gradient(45deg, #b0762b, #dcb44a, #b0762b);
+  border-image-slice: 1;
+  display: inline-block;
+  text-align: center;
+}

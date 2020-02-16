@@ -1,5 +1,6 @@
-const blackjackTables = [];
+const { createDealerDeck, shuffleDeck } = require("./deck");
 
+const blackjackTables = [];
 
 const addTable = (newTable) => {
   blackjackTables.push(newTable);
@@ -10,7 +11,6 @@ const getTables = () => {
 };
 
 const getTable = (tableName) => {
-  // console.log("am i here?")
   return blackjackTables.find((table) => tableName === table.tableName)
 }
 
@@ -34,11 +34,39 @@ const createDealer = (tableName) => {
   return { dealer };
 };
 
+const removePlayerFromTable = (id, tableName) => {
+  let table = getTable(tableName)
+  if (table) {
+    const remainingPlayers = table.players.filter((player) => player.id !== id);
+    table.players = remainingPlayers;
+    console.log("after removing player", blackjackTables);
+  }
+};
+
+const removeTable = (tableName) => {
+  let remainingTables = blackjackTables.filter((table) => table.tableName !== table);
+  blackjackTables = remainingTables;
+}
+
+const resetTable = (table) => {
+  if (table.players.length <= 1) {
+    blackjackTables.forEach(updateTable => {
+      if (updateTable.tableName === table.tableName) {
+        updateTable.players = [],
+        updateTable.betsReceived = 0,
+        updateTable.deck = shuffleDeck(createDealerDeck())
+      };
+    });
+  };
+};
+
 module.exports = {
   blackjackTables,
   addTable,
   getTables,
   getTable,
   addPlayerToTable,
-  createDealer
+  createDealer,
+  removePlayerFromTable,
+  resetTable
 };
