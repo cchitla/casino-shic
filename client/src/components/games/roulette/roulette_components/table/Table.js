@@ -1,17 +1,12 @@
 import React from 'react';
 import './Table.css';
 import Chip from '../chips/Chips';
+import { Overlay, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 
 
 class RouletteTable extends React.Component {
 
   state = {
-    nums: [],
-    //numChildren: 0,
-    currentNumber: 0,
-    coins: this.props.coins,
-    chip: this.props.chip,
-    message: "",
     /* JSONS ROWS */
     firstRow: this.props.firstRow,
     firstBorder: this.props.firstBorder,
@@ -26,96 +21,93 @@ class RouletteTable extends React.Component {
     /* END JSONS ROWS */
   }
 
-  
+  //SELECTING BETS
+  numsSelectionHandler = (num, whichRow) => {
 
-  componentDidMount() {
+    //checking if my props.arr is empty, if it is, leave empty, if it is not, spread it
+    let nums = this.props.arr.length === 0 ? [] : [...this.props.arr];
 
-    this.numsSelectionHandler = (num, whichRow) => { //selecting bets
+    //saving in a variable the row from state with that name
+    let row = [...this.state[whichRow]];
 
-      
-      if (this.props.arr === []) {
-        this.setState({nums: []})
-      }
-      
+    //variable for coins
+    let coins;
 
-      let nums = [...this.state.nums]; //spreading array of bets for furter use
-      let row = [...this.state[whichRow]]
-      let coins;
+    //checking if my winner number is presented in the array
 
-      if (nums.indexOf(num) >= 0) { //if number is present in array, deselect it
+    /* BETS DESELECT HANDLING STARTS */
 
-        nums.splice(nums.indexOf(num), 1); // if deselect take it out of aray
-        //calcolate coins
-        coins = this.state.coins + this.state.chip;
-        /* CHIPS HANDLING */
-        let updatedRow = row.map(chip => {
-          if (chip.n == num) {
-            chip.visible = false
-          }
-          return chip
-        })
-        this.props.updateRow(whichRow, updatedRow)
+    if (nums.indexOf(num) >= 0) { //if number is present in array, deselect and remove it from array
 
-        this.setState({ [whichRow]: updatedRow }); //take the chip out of number
+      nums.splice(nums.indexOf(num), 1);
 
-        /* END CHIPS HANDLING */
+      //giving back coins i bet on this number
+      coins = this.props.coins + this.props.chip;
 
-      } else if (nums.indexOf(num) === -1) {
-        //calcolate coins
-        coins = this.state.coins - this.state.chip;
-        nums.push(num);
-        let updatedRow = row.map(chip => {
-          if (chip.n == num) {
-            chip.visible = true
-          }
-          return chip
-        })
+      //tricky part: map each of the rows and check if chip is vivible, if it is, remove it
+      let updatedRow = row.map(chip => {
+        if (chip.n == num) {
+          chip.visible = false;
+        }
+        return chip;
+      });
 
-        this.setState({ [whichRow]: updatedRow });
-        //this.setState({ numChildren: this.state.numChildren + 1, [whichRow]: updatedRow });
-      }
+      this.props.updateRow(whichRow, updatedRow); //passing back to Roulette.js component updated props
 
-      /* ARRAY OF BETS HANDLING */
-      this.setState({ nums: nums }, () => { this.props.updateArr(nums) });
+      this.setState({ [whichRow]: updatedRow }); //seting the new state with removed chips from the rows
 
-      /* END ARRAY OF BETS HANDLING */
+      /* BETS DESELECT HANDLING ENDS */
 
-      /* COINS HANDLING */
+      /* BETS SELECT HANDLING START */
 
-      //update coins in rulette
-      this.setState({ coins: coins }, () => { this.props.updateCoins(coins) })
+    } else if (nums.indexOf(num) === -1) { //if number is NOT present in array, select it and put the chip on it
 
-      /* END COINS HANDLING */
+      //decrementing coins 
+      coins = this.props.coins - this.props.chip;
 
-      
+      nums.push(num); //adding selected number to the array of bets
+
+      //tricky part inverted: map each of the rows and check if chip is vivible, if it is NOT, add it
+      let updatedRow = row.map(chip => {
+        if (chip.n == num) {
+          chip.visible = true;
+        }
+        return chip;
+      });
+
+      this.setState({ [whichRow]: updatedRow }); //setting the new state with added chips to the rows
+
     }
-  }
 
-  noBetsOnZero() {
-    this.setState({ message: "No bet on zeros!" })
-  }
+    //passing back to Roulette.js the updated array
+    this.props.updateArr(nums)
 
+    //passing back to Roulette.js updated coins count
+    this.setState({ coins: coins }, () => { this.props.updateCoins(coins) })
+
+  }
 
   render() {
 
+    //designing the whole table in pure CSS mapping JSON objects with numbers, borders etc.
 
     return (
       <React.Fragment>
-
-
         <div className="d-flex flex-row align-items-start roulette-table">
           <div className="align-self-start">
             <ul className="list-unstyled pt-6">
-
               {
                 this.state.columnLeft.map((num, index, arr) =>
                   <li
                     key={num.n + index + arr}
                     className={num.className + " no-cursor"}
                     value={num.n}
-                    onClick={() => this.noBetsOnZero()}
                   >
-                    {num.n}
+                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">No bets on {num.n}!</Tooltip>}>
+                      <span className="d-inline-block">
+                        {num.n}
+                      </span>
+                    </OverlayTrigger>
                   </li>)
               }
             </ul>
@@ -124,7 +116,7 @@ class RouletteTable extends React.Component {
             <div className="table-divider"></div>
             {/* First row */}
             <ul className="d-flex list-unstyled">
-              {
+              { 
                 this.state.firstRow.map((num, index, arr) =>
                   <button
                     key={num.n + index + arr}
@@ -239,7 +231,7 @@ class RouletteTable extends React.Component {
                     className={num.className}
                     value={num.n}
                     onClick={() => this.numsSelectionHandler(num.n, "fifthRow")}>
-                   <Chip
+                    <Chip
                       id={num.n}
                       active={num.visible} />
                   </button>)
@@ -259,8 +251,8 @@ class RouletteTable extends React.Component {
                       value={num.n}
                       onClick={() => this.numsSelectionHandler(num.n, "columnRight")}>
                       <Chip
-                      id={num.n}
-                      active={num.visible} />
+                        id={num.n}
+                        active={num.visible} />
                     </button>
                   </li>
                 )
@@ -268,77 +260,11 @@ class RouletteTable extends React.Component {
             </ul>
           </div>
         </div >
-        <div className="text-gold text-center mt-3">{this.state.message}</div>
       </React.Fragment>
-
     )
   }
-
-
 }
 
 export default RouletteTable;
 
 
-
-// componentDidMount() {
-
-//   this.numsSelectionHandler = (num) => {
-
-//     let nums = [...this.state.nums];
-
-
-
-//     if (nums.indexOf(num) >= 0) {
-
-//       nums.splice(nums.indexOf(num), 1);
-
-
-//       /* CHIPS HANDLING */
-
-//       this.setState({ numChildren: 0 }); //no chip on number
-
-//       this.props.updateChipVisibility(false); //update in roulette.js
-
-//       if (nums.indexOf(num) === -1) {
-//         this.setState({ selected: false }); 
-//       }
-
-//       /* END CHIPS HANDLING */
-
-//     } else if (nums.indexOf(num) === -1)  {
-
-//       this.setState(prevState => ({ selected: !prevState.selected }));
-//       this.setState({ selected: true });
-
-//       this.setState({ selected: true });
-
-//       this.props.updateChipVisibility(true);
-
-//       nums.push(num);
-
-//       this.setState({
-//         numChildren: this.state.numChildren + 1
-//       });
-//     }
-
-//     /* ARRAY OF BETS HANDLING */
-//     this.setState({ nums: nums }, () => {
-//       this.props.updateArr(nums)
-//     })
-
-//     /* END ARRAY OF BETS HANDLING */
-
-//     /* COINS HANDLING */
-
-//     //calcolate coins
-//     let coins = this.state.coins - this.state.chip;
-
-//     //update coins in rulette
-//     this.setState({ coins: coins }, () => {
-//       this.props.updateCoins(coins)
-//     })
-
-//     /* END COINS HANDLING */
-//   }
-// }

@@ -38,6 +38,9 @@ const userSchema = new Schema({
     avatar: {
         type: String
     },
+    interests: {
+        type: Array
+    },
     wins: {
         blackJack: {
             wins: {
@@ -65,6 +68,10 @@ const userSchema = new Schema({
                 default: 0
             },
             totalGames: {
+                type: Number,
+                default: 0
+            },
+            losses: {
                 type: Number,
                 default: 0
             }
