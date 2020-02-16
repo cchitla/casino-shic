@@ -47,7 +47,10 @@ const {
   nextPlayerTurn,
   getWinners } = require('./server-games/blackjack/blackjack');
 
-const { getTables, createDealer } = require('./server-games/blackjack/tables');
+const { getTables,
+        createDealer,
+        removePlayerFromTable,
+        resetTable } = require('./server-games/blackjack/tables');
 
 
 // SOCKET COMMS
@@ -177,10 +180,18 @@ io.on("connection", (socket) => {
     let user = getPlayerById(socket.id);
     if (user) {
       removePlayer(user.id);
+      removePlayerFromTable(user.id, user.tableName);
       let presentPlayers = getPlayersAtTable(user.tableName);
       presentPlayers.map((player) => {
         io.to(player.id).emit("player left", { name, tableName, presentPlayers });
       });
+
+      removePlayerFromTable(user.tableName);
+      let table = getTable(user.tableName);
+      resetTable(table);
+      let allTables = getTables()
+      console.log("tables after reset", allTables);
+      
     };
   });
 });
