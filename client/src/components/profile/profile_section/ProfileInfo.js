@@ -6,7 +6,7 @@ const ProfileInfo = (props) => {
     <React.Fragment>
     <Row>
       <Col>
-        <Table className="bordered" style={{minHeight: 260}}>
+        <table className="bordered table" style={{minHeight: 260}}>
           <tbody>
             <tr>
               <td className="col-gold" width="40%">First name:</td>
@@ -29,7 +29,7 @@ const ProfileInfo = (props) => {
               <td className="col-black">{props.user.email}</td>
             </tr>
           </tbody>
-        </Table>
+        </table>
       </Col>
     </Row>
   </React.Fragment>

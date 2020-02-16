@@ -98,15 +98,15 @@ padding-top:2px;
   background-image: linear-gradient(to right, transparent, #b0762b, #dcb44a, transparent); 
 }
 
-.bordered, .bordered th, .bordered td {
+.bordered th, .bordered td {
   border: 1px solid #dcb44a!important;
   border-collapse: collapse;
   margin: 0;
-  padding: 3px 6px!important;
+  /* padding: 3px 6px!important; */
 }
 
 .thead-gold {
-  padding: 6px!important;
+  /* padding: 6px!important; */
   background: linear-gradient(to bottom , #b0762b, #dcb44a);
   color: #112211;
   font-family: 'Coda', cursive;
@@ -118,6 +118,12 @@ padding-top:2px;
 .bordered td {
   color: #f1c876;
   text-align: center;
+}
+
+.bordered li {
+  text-align: center;
+  text-transform: capitalize;
+  color: cornsilk;
 }
 
 .input-custom .form-control {
@@ -137,21 +143,18 @@ padding-top:2px;
 }
 
 .col-gold {
-  padding: 3px 6px;
   background: linear-gradient(to bottom , #b0762b, #dcb44a);
   color: #112211!important;
   font-family: 'Coda', cursive;
   font-weight: bold;
-  text-align: right;
+  text-align: right!important;
   vertical-align: middle!important;
 }
 
 .col-black {
-  padding: 3px 6px;
   background: #121212;
-  color: #f1c876;
+  color: cornsilk!important;
   font-family: 'Coda', cursive;
-  font-weight: bold;
-  text-align: left;
+  text-align: left!important;
   vertical-align: middle!important;
 }

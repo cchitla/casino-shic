@@ -119,10 +119,10 @@ class Weel extends React.Component {
 
   handleOnClick() {
     this.spin();
+    this.props.isSpinning(true)
   }
 
   SpinButton() {
-
     return (
       <div>
         <input type="button" value="spin" className="btn btn-primary p-2 m-2" id="spin" onClick={this.handleOnClick} />
