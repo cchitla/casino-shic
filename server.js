@@ -109,6 +109,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("start blackjack", (tableName) => {
+    let table = getTable(tableName);
+    table.active = true;
+    // then go to blackjack lobby and render tables only where active: false
     let presentPlayers = getPlayersAtTable(tableName);
     presentPlayers.map((player) => io.to(player.id).emit("set blackjack active", tableName));
   });

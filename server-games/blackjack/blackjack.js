@@ -5,7 +5,7 @@ const { addTable, getTable, addPlayerToTable } = require("./tables");
 
 const createNewTable = (tableName) => {
     let dealerDeck = shuffleDeck(createDealerDeck())
-    let newTable = { tableName, players: [], betsReceived: 0, deck: dealerDeck };
+    let newTable = { tableName, players: [], betsReceived: 0, deck: dealerDeck, active: false };
     addTable(newTable);
 };
 
