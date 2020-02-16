@@ -1,7 +1,7 @@
 import React from 'react';
 import API from '../../../utils/API';
 import '../Profile.css';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Table } from 'react-bootstrap';
 
 
 class InterestsInfo extends React.Component {
@@ -26,26 +26,39 @@ class InterestsInfo extends React.Component {
   render() {
     return (
       <React.Fragment>
-         <Row>
+        <Row>
           <Col>
-            <h5>Sports: </h5>
-            <ul className="list-unstyled">
-              {Object.keys(this.state.sports).map((item, i) => (
-                <li key={i}>
-                  {this.state.sports[item].value}
-                </li>
-              ))}
-            </ul>
-          </Col>
-          <Col>
-            <h5>Hobbies: </h5>
-            <ul className="list-unstyled">
-              {Object.keys(this.state.hobbies).map((item, i) => (
-                <li key={i}>
-                  {this.state.hobbies[item].value}
-                </li>
-              ))}
-            </ul>
+            <Table className="bordered" style={{minHeight: 260}}>
+              <thead className="thead-gold">
+                <tr>
+                  <th>Sports</th>
+                  <th>Hobbies</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <ul className="list-unstyled">
+                      {Object.keys(this.state.sports).map((item, i) => (
+                        <li key={i}>
+                          {this.state.sports[item].value}
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                  <td>
+                    <ul className="list-unstyled">
+                      {Object.keys(this.state.hobbies).map((item, i) => (
+                        <li key={i}>
+                          {this.state.hobbies[item].value}
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+
           </Col>
         </Row>
       </React.Fragment>
