@@ -39,7 +39,7 @@ const BlackjackTable = (props) => {
     API
       .getOnePlayer(props.user.email)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         name = res.data.username;
         setEarnings(parseInt(res.data.earnings));
         setTotalGames(res.data.wins.blackJack.totalGames);
@@ -99,13 +99,14 @@ const BlackjackTable = (props) => {
     });
 
     socket.on("hand completed", ({ table, winners }) => {
+      setDealer(table.players.filter(player => player.name === "Dealer"))
       setWinners(winners)
-      console.log(winners)
+      let updatedUser = {};
       if (typeof winners === "object") {
         if (winners.name === name) {
           setWins(wins + 1);
           setTotalGames(totalGames + 1);
-          let updatedUser = {
+          updatedUser = {
             "earnings": earnings + playerBet,
             "wins.blackJack.totalGames": totalGames + 1,
             "wins.blackJack.wins": wins + 1 }
@@ -114,7 +115,19 @@ const BlackjackTable = (props) => {
             .updatePlayer(props.user.email, updatedUser)
             .then()
             .catch(err => (console.log(err)))
-        };
+        } else {
+          setWins(wins - 1);
+          setTotalGames(totalGames + 1);
+          updatedUser = {
+            "earnings": earnings - playerBet,
+            "wins.blackJack.totalGames": totalGames - 1,
+            "wins.blackJack.wins": wins - 1}
+          }
+
+          API
+            .updatePlayer(props.user.email, updatedUser)
+            .then()
+            .catch(err => (console.log(err)));
       };
       });
   });
@@ -122,8 +135,6 @@ const BlackjackTable = (props) => {
   useEffect(() => {
     if (gameIsActive) {
       socket.emit("start blackjack", tableName);
-      console.log("emitted start blackjack");
-      
     }
   }, [gameIsActive]);
 
