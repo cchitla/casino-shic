@@ -48,8 +48,8 @@ const BlackjackTable = (props) => {
         setTableName(props.tableName);
       });
 
-    let ENDPOINT = "localhost:3001";
-    // let ENDPOINT = "https://casino-shic.herokuapp.com/";
+    // let ENDPOINT = "localhost:3001";
+    let ENDPOINT = "https://casino-shic.herokuapp.com/";
     // let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
     socket = io(ENDPOINT);
 
