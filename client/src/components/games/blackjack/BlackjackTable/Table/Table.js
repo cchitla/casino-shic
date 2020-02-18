@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Table.css'
 import Card from '../Card/Card';
-import PlayerContainer from '../PlayerContainer/PlayerContainer';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -58,9 +57,8 @@ const Table = (props) => {
       <Col>
         <div id="dealerInfo">
           <div>Dealer</div>
-          <div>Dealer Score: {props.dealer && props.dealer.score}</div>
+          <div>Dealer Score: {props.dealer ? props.dealer[0].score : ""}</div>
           <div>Dealer Hand<div>
-              {console.log(props.dealer)}
               {props.dealer
                 ?  props.dealer[0].hand.map((card) => (
                   <Card key={Math.random()} suit={card.suit} cardName={card.cardName} />)) : null}
