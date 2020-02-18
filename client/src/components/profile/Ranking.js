@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Row, Col, Card, CardGroup, Table } from 'react-bootstrap';
 import './Profile.css';
-import { GiDiamonds } from 'react-icons/gi';
-import API from '../../utils/API'
-import { useAuth0 } from '../auth/auth0/Auth0';
+import API from '../../utils/API';
+import PageTitle from '../page_titles/Title';
+
 
 class Settings extends React.Component {
 
@@ -39,18 +39,7 @@ class Settings extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Container>
-          <Row>
-            <Col>
-              <div className="text-center">
-                <h3 className="mt-4 pages-title">User ranking</h3>
-                <div class="divider divider-center divider-linear-gradient w-50 mx-auto">
-                  <GiDiamonds className="diamond-icon" />
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
+        <PageTitle title="User Ranking" />
         <Container className="pt-4">
           <Row className="text-light-gold">
             <Col md={12}>

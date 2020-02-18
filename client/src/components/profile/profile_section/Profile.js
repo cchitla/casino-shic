@@ -14,7 +14,7 @@ const Profile = props => {
         <ShowOrEditProfile {...props} />
       </Card.Body>
       <Card.Footer className="text-muted">
-        <EditButton edit={props.editProfileTrigger} />
+        <EditButton editBtn={props.editProfileTrigger} />
       </Card.Footer>
     </Card>
   )

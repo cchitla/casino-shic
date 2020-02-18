@@ -14,7 +14,8 @@ const Interests = props => {
         <EditInterests {...props} />
       </Card.Body>
       <Card.Footer className="text-muted">
-        <EditButton edit={props.editInterestsTrigger} /></Card.Footer>
+       <EditButton edit={props.editInterestsTrigger} />
+       </Card.Footer> 
     </Card>
   )
 }

@@ -1,13 +1,12 @@
-import React  from 'react';
+import React from 'react';
 
 import API from '../../../utils/API';
 import InterestsForm from './InterestsForm';
 import InterestsInfo from './InterestsInfo';
-import SubmitButton from './SubmitButton';
 
 
 const sports = [
-  { value: 'football', label: 'Foorball' },
+  { value: 'football', label: 'Football' },
   { value: 'basketball', label: 'Basketball' },
   { value: 'soccer', label: 'Soccer' },
   { value: 'baseball', label: 'Baseball' }
@@ -23,10 +22,8 @@ const hobbies = [
 
 class EditInterests extends React.Component {
   state = {
-    backToInterests: false,
     dontWantToEditInterests: true,
     selectedOptions: []
-
   };
 
   addSelectedOption = (name, options) => {
@@ -35,31 +32,23 @@ class EditInterests extends React.Component {
         ...selectedOptions,
         [name]: options
       }
-    }));
-  };
-
-
-  handleFormSubmit = (e) => {
-    e.preventDefault();
-    API.updatePlayer(this.props.user.email, { interests: this.state.selectedOptions })
+    }), () => {
+      API.updatePlayer(this.props.user.email, { interests: this.state.selectedOptions })
       .then(res => { console.log(res.data) })
       .catch(err => console.log(err));
+  });
 
-    this.setState(prevState => ({
-      dontWantToEditInterests: !prevState.dontWantToEditInterests,
-      backToInterests: !prevState.backToInterests
-    }));
-  }
+
+  };
 
   render() {
-    if (this.props.dontWantToEditInterests || this.state.backToInterests) {
+    if (this.props.dontWantToEditInterests) {
       return (
         <InterestsInfo user={this.props.user} />
       )
     } else {
       return (
         <form className="input-custom">
-
           <div>Sports</div>
           <InterestsForm
             name="sports"
@@ -70,7 +59,7 @@ class EditInterests extends React.Component {
             options={sports}
             {...this.state} />
 
-            <div>Hobbieas</div>
+          <div>Hobbieas</div>
           <InterestsForm
             name="hobbies"
             addSelectedOption={this.addSelectedOption}
@@ -79,8 +68,6 @@ class EditInterests extends React.Component {
             handleFormSubmit={this.handleFormSubmit}
             options={hobbies}
             {...this.state} />
-          <SubmitButton onClick={this.handleFormSubmit} />
-          
         </form>
       )
     }

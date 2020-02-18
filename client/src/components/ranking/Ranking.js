@@ -3,7 +3,9 @@ import { Container, Row, Col, Card, CardGroup, Table } from 'react-bootstrap';
 import './Ranking.css';
 import { useAuth0 } from '../auth/auth0/Auth0';
 import { GiDiamonds } from 'react-icons/gi';
-import API from '../../utils/API'
+import API from '../../utils/API';
+import PageTitle from '../page_titles/Title';
+
 
 class Ranking extends React.Component {
 
@@ -48,18 +50,7 @@ class Ranking extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Container>
-          <Row>
-            <Col>
-              <div className="text-center">
-                <h3 className="mt-4 title">Ranking</h3>
-                <div className="divider divider-center divider-linear-gradient w-50 mx-auto">
-                  <GiDiamonds className="diamond-icon" />
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
+        <PageTitle title="Ranking" />
         <Container className="pt-4">
           <Row className="text-light-gold">
             <Col md={12}>

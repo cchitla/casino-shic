@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import API from '../../../utils/API';
 
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: "#121212", borderColor: "#dcb44a" }),
@@ -22,11 +23,14 @@ const colourStyles = {
   }
 };
 
-
 class InterestsForm extends React.Component {
 
   handleChange = (...args) => {
     this.props.addSelectedOption(this.props.name, ...args)
+
+/*     API.updatePlayer(this.props.user.email, { interests: this.props.addSelectedOption(this.props.name, ...args) })
+      .then(res => { console.log(res.data) })
+      .catch(err => console.log(err)); */
   }
 
   render() {
@@ -37,7 +41,7 @@ class InterestsForm extends React.Component {
           className="my-2"
           isMulti
           closeMenuOnSelect={false}
-          value={this.props.selectedOption}
+          value={this.props.interests}
           options={this.props.options}
           onChange={this.handleChange}
           styles={colourStyles}

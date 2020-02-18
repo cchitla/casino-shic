@@ -1,5 +1,4 @@
 import React from 'react';
-import SubmitButton from './SubmitButton';
 
 const ProfileForm = (props) => {
   return (
@@ -61,7 +60,6 @@ const ProfileForm = (props) => {
 
 
       
-      <SubmitButton onClick={props.handleFormSubmit} />
     </form>
   );
 }

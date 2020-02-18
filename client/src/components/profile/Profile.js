@@ -33,7 +33,7 @@ class Profile extends React.Component {
       .catch(err => console.log(err));
   }
 
-  editProfileTrigger = () => {
+  editProfileTrigger = (e) => {
     this.setState(prevState => ({
       dontWantToEditProfile: !prevState.dontWantToEditProfile
     }));

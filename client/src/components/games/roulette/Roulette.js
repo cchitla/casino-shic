@@ -63,10 +63,6 @@ class Roulette extends React.Component {
       .catch(err => console.log(err));
   }
 
-  disableButtons = (bool) => {
-
-  }
-
   isSpinning = (isspinning) => {
       isspinning === true ? this.setState({spinning: true}) : this.setState({spinning: false})
   }
