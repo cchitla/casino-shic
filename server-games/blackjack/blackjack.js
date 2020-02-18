@@ -18,7 +18,7 @@ const dealTable = (table) => {
     const { players, deck } = table;
     for (let i = 0; i < players.length; i++) {
         players[i].hand = [deck[i], deck[i + players.length]];
-    }
+    };
     calculateScoreOnDeal(table);
     let cardsDealt = players.length * 2;
     deck.splice(0, cardsDealt);
@@ -91,15 +91,11 @@ const dealerTurn = (table) => {
         dealCard(dealer, table);
         dealerTurn(table);
     } else if (dealer.score <= 21) {
-        console.log("dealer turn is done, no bust");
-        winners = endHand(table, false);
-        console.log("we have ended hand")
-        setWinners(winners, table);
+        console.log( "dealer turn is done, no bust");
+        endHand(table, false);
     } else if (dealer.score > 21) {
         console.log("dealer turn is done, dealer busts");
-        winners = endHand(table, true);
-        console.log("we have ended hand")
-        setWinners(winners, table);
+        endHand(table, true);
     };
 };
 
@@ -130,15 +126,12 @@ const endHand = (table, dealerBust) => {
         });
     };
 
-    return winners;
+    setWinners(winners, table);
 };
 
 const setWinners = (winners, table) => {
-    console.log("setting winners at table", winners);
-    if (!table) {
-        console.log("not getting table for some reason")
-        return;
-    }
+    console.log("setting winners at table", winners)
+    if (!table) return;
     const { players } = table;
     players.forEach(player => {
         winners.forEach(winner => {

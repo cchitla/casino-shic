@@ -51,13 +51,12 @@ function checkFileType(file, cb) {
 		cb('Error: Images Only!');
 	}
 }
-
 /**
  * @route POST /api/profile/business-img-upload
  * @desc Upload post image
  * @access public
  */
-router.post('/profile-img-upload', (req, res) => {
+router.post('/img-upload', (req, res) => {
 	profileImgUpload(req, res, (error) => {
 		console.log('requestOkokok', req.file);
 		console.log('error', error);
@@ -82,6 +81,5 @@ router.post('/profile-img-upload', (req, res) => {
 		}
 	});
 });
-
 
 module.exports = router;

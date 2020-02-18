@@ -23,14 +23,23 @@ const userSchema = new Schema({
         type: Number,
         default: 100
     },
-    birthday: {
+    firstName: {
+        type: String
+    },
+    lastName: {
         type: String
     },
     gender: {
         type: String
     },
+    sign: {
+        type: String
+    },
     avatar: {
         type: String
+    },
+    interests: {
+        type: Array
     },
     wins: {
         blackJack: {
@@ -59,6 +68,10 @@ const userSchema = new Schema({
                 default: 0
             },
             totalGames: {
+                type: Number,
+                default: 0
+            },
+            losses: {
                 type: Number,
                 default: 0
             }

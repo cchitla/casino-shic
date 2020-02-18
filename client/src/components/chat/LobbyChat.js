@@ -25,8 +25,9 @@ const LobbyChat = (props) => {
 
   //this useEffect only handles new connections
   useEffect(() => {
-    // let ENDPOINT = "localhost:3001";
-    let ENDPOINT = "https://casino-shic.herokuapp.com/";
+     let ENDPOINT = "localhost:3001";
+    // let ENDPOINT = "https://fast-temple-06709.herokuapp.com/";
+    //let ENDPOINT = "https://casino-shic.herokuapp.com/";
     // let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
     socket = io(ENDPOINT);
     setName(props.profile.username);
@@ -59,7 +60,7 @@ const LobbyChat = (props) => {
   };
 
   return (
-    <Row className="chat-wrapper pt-5">
+    <Row className="chat-wrapper rounded pt-1">
       <Col className="p-0 pr-1" style={{ minHeight: "200px" }} sm={8}>
         <Messages messages={messages} name={name} profile={props.profile}/>
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />

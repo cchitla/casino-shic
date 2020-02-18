@@ -1,95 +1,62 @@
 import React from 'react';
-import { Container, Row, Col, Card, CardGroup, Image } from 'react-bootstrap';
 import './Profile.css';
-import { useAuth0 } from '../auth/auth0/Auth0';
-import { GiDiamonds } from 'react-icons/gi';
-import AvatarUpload from '../imgupload/Imageupload';
+import API from '../../utils/API';
+import PageTitle from '../page_titles/Title';
+import ProfileContainer from './container/ProfileContainer';
 
+class Profile extends React.Component {
 
-const Profile = (props) => {
-  const { loading, user, isAuthenticated, loginWithRedirect } = useAuth0();
-  if (loading) {
-    return <div></div>;
+  state = {
+    dontWantToEditProfile: true,
+    dontWantToEditInterests: true,
+    firstName: "",
+    lastName: "",
+    sign: "",
+    gender: "",
+    avatar: "",
+    interests: []
   }
-  if (!isAuthenticated) {
-    loginWithRedirect({})
-  };
 
-  if (loading || !user) {
-    return <div>Loading...</div>;
+  componentDidMount() {
+    API.getOnePlayer(this.props.user.email)
+      .then(res => {
+        //console.log(res.data);
+        this.setState({
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          sign: res.data.sign,
+          gender: res.data.gender,
+          avatar: res.data.avatar,
+          interests: res.data.interests
+        })
+      })
+      .catch(err => console.log(err));
   }
-  return (
-    <React.Fragment>
-      <Container>
-        <Row>
-          <Col>
-            <div className="text-center">
-              <h3 className="mt-4 title">Profile</h3>
-              <div className="divider divider-center divider-linear-gradient w-50 mx-auto">
-                <GiDiamonds className="diamond-icon" />
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-      <Container className="pt-4">
-        <Row className="text-light-gold">
-          <Col md={12}>
-            <CardGroup>
-              <Card className="profile-cols">
-                <Card.Header><h5 className="profile-caths">Avatar</h5></Card.Header>
-                <div className="small-divider "></div>
-                <Card.Body>
-                  <Card.Text>
-                    <Image thumbnail src={user.picture} alt={user.given_name} />
-                  </Card.Text>
-                </Card.Body>
-                <AvatarUpload />
-                
-              </Card>
-              <Card className="profile-cols">
-                <Card.Header><h5 className="profile-caths">Profile</h5></Card.Header>
-                <div className="small-divider "></div>
-                <Card.Body>
-                    <ul className="list-unstyled">
-                      <li>First name: <b>{user.given_name}</b></li>
-                      <li>Last name: <b>{user.family_name}</b></li>
-                      <li>Birthday: <b>October 30 1977</b></li>
-                      <li>Gender: <b>Femle</b></li>
-                    </ul>
-                </Card.Body>
-                <Card.Footer className="text-muted"><button className="custom-btn btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
-              </Card>
-              <Card className="profile-cols">
-                <Card.Header><h5 className="profile-caths">Interests</h5></Card.Header>
-                <div className="small-divider "></div>
-                <Card.Body>
-                    <ul className="list-unstyled">
-                      <li>Headbanging</li>
-                      <li>Heavy Metal</li>
-                      <li>Cats</li>
-                      <li>Coding</li>
-                    </ul>
-                </Card.Body>
-                <Card.Footer className="text-muted"><button className="custom-btn  btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
-              </Card>
-              <Card className="profile-cols">
-                <Card.Header><h5 className="profile-caths">Some other cool shit</h5></Card.Header>
-                <div className="small-divider "></div>
-                <Card.Body>
-                    <ul className="list-unstyled">
-                      <li>List of latest chant logs?</li>
-                    </ul>
-                </Card.Body>
-                <Card.Footer className="text-muted"><button className="custom-btn  btn btn-block rounded-0" type="submit">Edit</button></Card.Footer>
-              </Card>
-            </CardGroup>
-          </Col>
-        </Row>
-      </Container>
-    </React.Fragment>
 
-  );
+  editProfileTrigger = () => {
+    this.setState(prevState => ({
+      dontWantToEditProfile: !prevState.dontWantToEditProfile
+    }));
+  }
+
+  editInterestsTrigger = () => {
+    this.setState(prevState => ({
+      dontWantToEditInterests: !prevState.dontWantToEditInterests
+    }));
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <PageTitle title="Profile" />
+        <ProfileContainer
+          user={this.props.user}
+          {...this.state}
+          editProfileTrigger={this.editProfileTrigger}
+          editInterestsTrigger={this.editInterestsTrigger} />
+      </React.Fragment>
+    )
+  }
 }
 
 export default Profile;
