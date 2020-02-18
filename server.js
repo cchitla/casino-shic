@@ -112,6 +112,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("start blackjack", (tableName) => {
+    let table = getTable(tableName);
+    table.active = true;
+    // then go to blackjack lobby and render tables only where active: false
     let presentPlayers = getPlayersAtTable(tableName);
     presentPlayers.map((player) => io.to(player.id).emit("set blackjack active", tableName));
   });
@@ -132,11 +135,10 @@ io.on("connection", (socket) => {
       const { dealer } = createDealer(tableName);
       addPlayerToTable(dealer);
       dealTable(table);
-
       let presentPlayers = getPlayersAtTable(tableName);
       presentPlayers[0].currentTurn = true;
       presentPlayers.map((player) => {
-        io.to(player.id).emit("deal table", { tableName, presentPlayers });
+        io.to(player.id).emit("deal table", { tableName, presentPlayers, table });
       });
     };
   });

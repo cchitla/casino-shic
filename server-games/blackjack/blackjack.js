@@ -5,7 +5,7 @@ const { addTable, getTable, addPlayerToTable } = require("./tables");
 
 const createNewTable = (tableName) => {
     let dealerDeck = shuffleDeck(createDealerDeck())
-    let newTable = { tableName, players: [], betsReceived: 0, deck: dealerDeck };
+    let newTable = { tableName, players: [], betsReceived: 0, deck: dealerDeck, active: false };
     addTable(newTable);
 };
 
@@ -73,7 +73,7 @@ const countScoreOnHit = (hand, player) => {
 
 const nextPlayerTurn = (player, table, socket) => {
     console.log(('next player'));
-    
+
     const { players } = table;
     currentIndex = players.findIndex(player => player.id === socket.id);
     player.currentTurn = false;
@@ -84,7 +84,7 @@ const nextPlayerTurn = (player, table, socket) => {
 };
 
 const dealerTurn = (table) => {
-    let dealer = table.players[table.players.length -1];
+    let dealer = table.players[table.players.length - 1];
     console.log(dealer);
     let winners;
     if (dealer.score <= 16) {
@@ -100,6 +100,8 @@ const dealerTurn = (table) => {
 };
 
 const endHand = (table, dealerBust) => {
+    console.log("end hand function")
+    if (!table) console.log("endHand is not getting table")
     const { players } = table;
     let highestScore = 0;
     let winners = [];
