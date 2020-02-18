@@ -132,11 +132,10 @@ io.on("connection", (socket) => {
       const { dealer } = createDealer(tableName);
       addPlayerToTable(dealer);
       dealTable(table);
-
       let presentPlayers = getPlayersAtTable(tableName);
       presentPlayers[0].currentTurn = true;
       presentPlayers.map((player) => {
-        io.to(player.id).emit("deal table", { tableName, presentPlayers });
+        io.to(player.id).emit("deal table", { tableName, presentPlayers, table });
       });
     };
   });

@@ -73,7 +73,7 @@ const countScoreOnHit = (hand, player) => {
 
 const nextPlayerTurn = (player, table, socket) => {
     console.log(('next player'));
-    
+
     const { players } = table;
     currentIndex = players.findIndex(player => player.id === socket.id);
     player.currentTurn = false;
@@ -84,26 +84,28 @@ const nextPlayerTurn = (player, table, socket) => {
 };
 
 const dealerTurn = (table) => {
-    let dealer = table.players[table.players.length -1];
+    let dealer = table.players[table.players.length - 1];
     console.log(dealer);
     let winners;
     if (dealer.score <= 16) {
         dealCard(dealer, table);
         dealerTurn(table);
     } else if (dealer.score <= 21) {
-        console.log( "dealer turn is done, no bust");
+        console.log("dealer turn is done, no bust");
         winners = endHand(table, false);
-        // console.log(winners);
-        setWinners(winners);
+        console.log("we have ended hand")
+        setWinners(winners, table);
     } else if (dealer.score > 21) {
         console.log("dealer turn is done, dealer busts");
         winners = endHand(table, true);
-        // console.log(winners);
+        console.log("we have ended hand")
         setWinners(winners, table);
     };
 };
 
 const endHand = (table, dealerBust) => {
+    console.log("end hand function")
+    if (!table) console.log("endHand is not getting table")
     const { players } = table;
     let highestScore = 0;
     let winners = [];
@@ -132,8 +134,11 @@ const endHand = (table, dealerBust) => {
 };
 
 const setWinners = (winners, table) => {
-    // console.log("setting winners at table", winners);
-    if (!table) return;
+    console.log("setting winners at table", winners);
+    if (!table) {
+        console.log("not getting table for some reason")
+        return;
+    }
     const { players } = table;
     players.forEach(player => {
         winners.forEach(winner => {
