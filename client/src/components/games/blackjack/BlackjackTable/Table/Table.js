@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
 import './Table.css'
 import Card from '../Card/Card';
-import PlayerContainer from '../PlayerContainer/PlayerContainer';
-// import Countdown from "react-countdown-now";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 const Table = (props) => {
-  // const [clickedBet, setClickedBet] = useState(false);
 
   const placeBet = (e) => {
     e.preventDefault();
-    props.setPlayerBet(e.target.value);
-    // setClickedBet(true);
+    let bet = parseInt(e.target.value)
+    props.setPlayerBet(bet);
   };
 
   const renderBetButtons = () => {
     return (
       <span id="blackjackButtons">
-        <button value="5" onClick={e => placeBet(e)}>Bet 5</button>
-        <button value="10" onClick={e => placeBet(e)}>Bet 10</button>
+        <button value={5} onClick={e => placeBet(e)}>Bet 5</button>
+        <button value={10} onClick={e => placeBet(e)}>Bet 10</button>
       </span>
     );
   };
@@ -36,16 +35,7 @@ const Table = (props) => {
     e.preventDefault();
     props.setGameIsActive(true);
     props.setBetting(true);
-  }
-
-  // const handleComplete = () => {
-  //   if (!storedBet) {
-  //     props.setPlayerBet(5);
-  //   }
-  //   props.setPlayerBet(storedBet)
-  //   props.setBetting(false);
-  //   props.setHandActive(true);
-  // };
+  };
 
   const renderButtons = () => {
     if (!props.gameIsActive) return <button onClick={startGame}>Start Game</button>;
@@ -54,21 +44,35 @@ const Table = (props) => {
   };
 
   const renderWinners = (winners) => {
-    console.log(winners)
     if (winners) {
       return <p>Winner: {winners.name}</p>
-    } 
+    };
     return <p>No one won this hand</p>
   };
 
   return (
     <>
-      <div id="blackjackTable">
+    <div id="blackjackTable">
+    <Row>
+      <Col>
+        <div id="dealerInfo">
+          <div>Dealer</div>
+          <div>Dealer Score: {props.dealer ? props.dealer[0].score : ""}</div>
+          <div>Dealer Hand<div>
+              {props.dealer
+                ?  props.dealer[0].hand.map((card) => (
+                  <Card key={Math.random()} suit={card.suit} cardName={card.cardName} />)) : null}
+            </div>
+          </div>
+        </div>
+      </Col>
+
+      <Col>
         <div id="blackjackPlayerInfo">
-          {props.joinedPlayers.map((player) => <span key={player.name}>{player.name}</span>)}
-          <p>Your score: {props.playerScore}</p>
-          <p> {props.playerBust && <span>You lose!</span>} </p>
-          <p>{props.playerHand && <span>Your hand:</span>}</p>
+          <div>{props.joinedPlayers.map((player) => <span key={player.name}>{player.name}</span>)}</div> 
+          <div>Your score: {props.playerScore}</div>
+          <div> {props.playerBust && <span>You lose!</span>} </div>
+          <div>{props.playerHand && <span>Your hand:</span>}</div>
         </div>
 
         <div>{props.playerHand
@@ -76,10 +80,12 @@ const Table = (props) => {
             <Card key={Math.random()} suit={hand.suit} cardName={hand.cardName} />)) : null}
         </div>
         <div>{props.winners ? renderWinners(props.winners) : null}</div>
-
-        {/* {(props.betting && !props.handActive) ? <Countdown date={Date.now() + 10000} onComplete={handleComplete} /> : null} */}
-      </div>
-      {renderButtons()}
+        </Col>
+      
+    
+    </Row>
+    </div>
+    {renderButtons()}
     </>
   );
 };

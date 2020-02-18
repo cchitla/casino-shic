@@ -28,7 +28,7 @@ const BlackjackLobby = (props) => {
       socket.emit("disconnect");
       socket.off();
     };
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (newTableName) {
