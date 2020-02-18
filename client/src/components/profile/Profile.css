@@ -155,6 +155,10 @@ padding-top:2px;
   background: #121212;
   color: cornsilk!important;
   font-family: 'Coda', cursive;
-  text-align: left!important;
+  text-align: center!important;
   vertical-align: middle!important;
+}
+
+.table {
+  margin: 0!important;
 }
