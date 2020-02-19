@@ -15,7 +15,7 @@ const Table = (props) => {
 
   const renderBetButtons = () => {
     return (
-      <div id="blackjackButtons">
+      <div id="">
         <button className="custom-btn" value={5} onClick={e => placeBet(e)}>Bet 5</button>
         <button className="custom-btn" value={10} onClick={e => placeBet(e)}>Bet 10</button>
       </div>
@@ -24,7 +24,7 @@ const Table = (props) => {
 
   const renderGameButtons = () => {
     return (
-      <div id="blackjackButtons">
+      <div id="">
         <button className="custom-btn" onClick={props.hitCard}>Hit</button>
         <button className="custom-btn" onClick={props.stayHand} >Stay</button>
       </div>
@@ -60,7 +60,7 @@ const Table = (props) => {
           <div>Dealer hand<div>
               {props.dealer
                 ?  props.dealer[0].hand.map((card) => (
-                  <Card key={Math.random()} suit={card.suit} cardName={card.cardName} />)) : null}
+                  <Card key={Math.random()} suit={card.suit} cardName={card.cardName}/>)) : null}
             </div>
           </div>
         </div>
@@ -85,9 +85,15 @@ const Table = (props) => {
       <div className="winner-text text-center">{props.winners ? renderWinners(props.winners) : null}</div>
       </Col>
     </Row>
-  
+            
+    <Row className="btn-row-bottom">
+      <Col>
+        <div className="game-buttons text-center">{renderButtons()}</div>
+      </Col>
+    </Row>
+
     </div>
-    <div className="game-buttons text-center">{renderButtons()}</div>
+   
    
     </>
   );
