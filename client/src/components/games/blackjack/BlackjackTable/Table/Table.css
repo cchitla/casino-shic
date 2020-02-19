@@ -1,9 +1,9 @@
 #blackjackTable {
-  background-color: rgb(16, 82, 16);
+  background-color: rgb(11, 48, 11);
   margin: auto;
   width: 1000px;
   height: 500px;
-  border: 15px solid rgb(75, 48, 27);
+  border: 15px solid #0c0c0c;
   border-radius: 60px;
 }
 
@@ -22,4 +22,13 @@
   color: black;
   margin-left: 15px;
   margin-top: 10px;
+}
+
+#game-row {
+  height: 300px;
+}
+
+.winner-text {
+  font-size: 1.5rem;
+  color: #F1C876;
 }
