@@ -160,7 +160,7 @@ class Ranking extends React.Component {
                           <td><ul className="list-unstyled">
                             {this.state.dataBJ.map(item =>
                               <li>
-                                {item.wins.roulette.wins}
+                                {item.wins.blackJack.wins}
                                 <div className="small-divider my-2"></div>
                               </li>)}
                           </ul>
@@ -199,7 +199,7 @@ class Ranking extends React.Component {
                           <td><ul className="list-unstyled">
                             {this.state.dataCraps.map(item =>
                               <li>
-                                {item.wins.roulette.wins}
+                                {item.wins.craps.wins}
                                 <div className="small-divider my-2"></div>
                               </li>)}
                           </ul>
