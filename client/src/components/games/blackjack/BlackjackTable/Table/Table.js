@@ -15,10 +15,11 @@ const Table = (props) => {
 
   const renderBetButtons = () => {
     return (
-      <div id="">
+      <span>
         <button className="custom-btn" value={5} onClick={e => placeBet(e)}>Bet 5</button>
+    <span className="player-money" >You have $ {props.earnings}</span>
         <button className="custom-btn" value={10} onClick={e => placeBet(e)}>Bet 10</button>
-      </div>
+      </span>
     );
   };
 
@@ -93,8 +94,6 @@ const Table = (props) => {
     </Row>
 
     </div>
-   
-   
     </>
   );
 };
