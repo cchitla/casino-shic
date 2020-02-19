@@ -54,11 +54,16 @@ const resetTable = (table) => {
       if (updateTable.tableName === table.tableName) {
         updateTable.players = [],
         updateTable.betsReceived = 0,
+        updateTable.active = false,
         updateTable.deck = shuffleDeck(createDealerDeck())
       };
     });
   };
 };
+
+const newHand = (table) =>  {
+  
+}
 
 module.exports = {
   blackjackTables,
