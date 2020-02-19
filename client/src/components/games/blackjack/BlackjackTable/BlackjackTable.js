@@ -104,32 +104,36 @@ const BlackjackTable = (props) => {
       let updatedUser = {};
       if (typeof winners === "object") {
         if (winners.name === name) {
-          setWins(wins + 1);
-          setTotalGames(totalGames + 1);
           updatedUser = {
             "earnings": earnings + playerBet,
             "wins.blackJack.totalGames": totalGames + 1,
-            "wins.blackJack.wins": wins + 1 }
-          
+            "wins.blackJack.wins": wins + 1
+          }
+
           API
             .updatePlayer(props.user.email, updatedUser)
             .then()
             .catch(err => (console.log(err)))
-        } else {
-          setWins(wins - 1);
+
+          setWins(wins + 1);
           setTotalGames(totalGames + 1);
+        } else {
           updatedUser = {
             "earnings": earnings - playerBet,
             "wins.blackJack.totalGames": totalGames + 1,
-            "wins.blackJack.wins": wins}
+            "wins.blackJack.wins": wins
           }
 
           API
             .updatePlayer(props.user.email, updatedUser)
             .then()
             .catch(err => (console.log(err)));
+
+          setWins(wins - 1);
+          setTotalGames(totalGames + 1);
+        };
       };
-      });
+    });
   });
 
   useEffect(() => {
@@ -156,30 +160,31 @@ const BlackjackTable = (props) => {
 
   return (
     <>
-      <div className="blackjackTable">Welcome to blackjack at table: {tableName}, player {name}</div>
-      <Table
-        currentTurn={currentTurn}
-        playerHand={playerHand}
-        playerScore={playerScore}
-        playerBust={playerBust}
-        winners={winners}
-        user={props.user}
-        profile={props.profile}
-        earnings={earnings}
-        tableName={tableName}
-        gameIsActive={gameIsActive}
-        setGameIsActive={setGameIsActive}
-        betting={betting}
-        setBetting={setBetting}
-        playerBet={playerBet}
-        setPlayerBet={setPlayerBet}
-        handActive={handActive}
-        setHandActive={setHandActive}
-        joinedPlayers={joinedPlayers}
-        setJoinedPlayers={setJoinedPlayers}
-        hitCard={hitCard}
-        stayHand={stayHand}
-        dealer={dealer} />
+      {/* <div className="blackjackTable">Welcome to blackjack at table: {tableName}, player {name}</div> */}
+        <Table className="my-3"
+          currentTurn={currentTurn}
+          playerHand={playerHand}
+          playerScore={playerScore}
+          playerBust={playerBust}
+          winners={winners}
+          user={props.user}
+          profile={props.profile}
+          earnings={earnings}
+          tableName={tableName}
+          gameIsActive={gameIsActive}
+          setGameIsActive={setGameIsActive}
+          betting={betting}
+          setBetting={setBetting}
+          playerBet={playerBet}
+          setPlayerBet={setPlayerBet}
+          handActive={handActive}
+          setHandActive={setHandActive}
+          joinedPlayers={joinedPlayers}
+          setJoinedPlayers={setJoinedPlayers}
+          hitCard={hitCard}
+          stayHand={stayHand}
+          dealer={dealer} />
+
     </>
   );
 };

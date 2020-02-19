@@ -94,8 +94,6 @@ const Table = (props) => {
     </Row>
 
     </div>
-   
-   
     </>
   );
 };
