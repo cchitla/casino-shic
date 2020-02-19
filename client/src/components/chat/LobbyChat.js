@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import io from 'socket.io-client';
 import './Chat.css';
+import API from '../../utils/API';
 
 import Messages from './Messages/Messages';
 import Input from './Input/Input';
@@ -25,12 +26,15 @@ const LobbyChat = (props) => {
 
   //this useEffect only handles new connections
   useEffect(() => {
-     let ENDPOINT = "localhost:3001";
+    API
+      .getOnePlayer(props.profile.email)
+      .then(res => setName(res.data.username));
+
+    //  let ENDPOINT = "localhost:3001";
     // let ENDPOINT = "https://fast-temple-06709.herokuapp.com/";
-    //let ENDPOINT = "https://casino-shic.herokuapp.com/";
+    let ENDPOINT = "https://casino-shic.herokuapp.com/";
     // let ENDPOINT = "https://gentle-forest-68567.herokuapp.com/";
     socket = io(ENDPOINT);
-    setName(props.profile.username);
 
     return () => {
       socket.emit("disconnect chat");
