@@ -32,3 +32,8 @@
   font-size: 1.5rem;
   color: #F1C876;
 }
+
+.btn-row-bottom {
+  position: relative;
+  top: 100px;
+}
