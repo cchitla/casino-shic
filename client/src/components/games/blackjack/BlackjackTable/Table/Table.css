@@ -37,3 +37,8 @@
   position: relative;
   top: 100px;
 }
+
+.player-money {
+  padding: 0px 10px;
+  color: #F1C876;
+}

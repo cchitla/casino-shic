@@ -120,8 +120,8 @@ const BlackjackTable = (props) => {
           setTotalGames(totalGames + 1);
           updatedUser = {
             "earnings": earnings - playerBet,
-            "wins.blackJack.totalGames": totalGames - 1,
-            "wins.blackJack.wins": wins - 1}
+            "wins.blackJack.totalGames": totalGames + 1,
+            "wins.blackJack.wins": wins}
           }
 
           API
@@ -165,6 +165,7 @@ const BlackjackTable = (props) => {
         winners={winners}
         user={props.user}
         profile={props.profile}
+        earnings={earnings}
         tableName={tableName}
         gameIsActive={gameIsActive}
         setGameIsActive={setGameIsActive}
